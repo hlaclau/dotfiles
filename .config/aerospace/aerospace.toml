@@ -1,7 +1,7 @@
 # -*- aerospace config -*-
 # Docs: https://nikitabobko.github.io/AeroSpace/
 
-after-login-command = ['exec-and-forget sketchybar']
+after-startup-command = ['exec-and-forget /opt/homebrew/bin/sketchybar']
 
 start-at-login = true
 enable-normalization-flatten-containers = true
