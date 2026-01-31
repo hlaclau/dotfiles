@@ -83,6 +83,8 @@ cask "font-maple-mono-nf"
 cask "ghostty"
 # Better Discord client
 cask "legcord"
+# Customizable macOS status bar replacement
+brew "FelixKratz/formulae/sketchybar"
 # Tiling window manager for macOS
 cask "nikitabobko/tap/aerospace"
 # Markdown-based note-taking and knowledge management
