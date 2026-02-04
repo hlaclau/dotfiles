@@ -85,6 +85,8 @@ cask "ghostty"
 cask "legcord"
 # Customizable macOS status bar replacement
 brew "FelixKratz/formulae/sketchybar"
+# Window border highlighting for tiling window managers
+brew "FelixKratz/formulae/borders"
 # Tiling window manager for macOS
 cask "nikitabobko/tap/aerospace"
 # Markdown-based note-taking and knowledge management
