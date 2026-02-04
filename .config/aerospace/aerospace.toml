@@ -6,6 +6,10 @@ after-startup-command = [
   'exec-and-forget borders active_color=0xffcba6f7 inactive_color=0xff313244 width=5.0'
 ]
 
+exec-on-workspace-change = ['/bin/bash', '-c',
+  'sketchybar --trigger aerospace_workspace_change'
+]
+
 start-at-login = true
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true

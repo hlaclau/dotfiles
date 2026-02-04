@@ -1,32 +1,13 @@
 #!/bin/bash
 
+# Simple Black Theme
+export WHITE=0xFFFFFFFF
+export GREY=0xFFAAAAAA
+export DARK_GREY=0xFF666666
 
-export ROSEWATER=0xFFf5e0dc #f5e0dc
-export FLAMINGO=0xFFf2cdcd #f2cdcd
-export PINK=0xFFf5c2e7 #f5c2e7
-export MAUVE=0xFFcba6f7 #cba6f7
-export RED=0xFFf38ba8 #f38ba8
-export MAROON=0xFFeba0ac #eba0ac
-export PEACH=0xFFfab387 #fab387
-export YELLOW=0xFFf9e2af #f9e2af
-export GREEN=0xFFa6e3a1 #a6e3a1
-export TEAL=0xFF94e2d5 #94e2d5
-export SKY=0xFF89dceb #89dceb
-export SAPPHIRE=0xFF74c7ec #74c7ec
-export BLUE=0xFF89b4fa #89b4fa
-export LAVENDER=0xFFb4befe #b4befe
-
-export WHITE=0xFFcdd6f4 #cdd6f4 
-export DARK_WHITE=0xFF9399b2  #9399b2
-
-export BG_PRI_COLR=0xEE1e1e2e #1e1e2e
-export BG_SEC_COLR=0xFF313244 #313244
+export BLACK=0xFF000000
+export BAR_COLOR=0xEE000000
+export ITEM_BG_COLOR=0xFF1a1a1a
+export ACCENT=0xFFFFFFFF
 
 export TRANSPARENT=0x00000000
-export BAR_COLOR=0xCC1e1e2e
-export ITEM_BG_COLOR=0xFF313244
-export POPUP_BACKGROUND_COLOR=0xFF313244
-export POPUP_BORDER_COLOR=0xFF7f849c
-export SHADOW_COLOR=0xFF000000
-
-

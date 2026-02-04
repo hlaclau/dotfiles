@@ -2,17 +2,14 @@
 
 source "$CONFIG_DIR/colors.sh"
 
-SELECTED="false"
-BG_COLOR=$TRANSPARENT
-ICON_COLOR=$DARK_WHITE
+FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)
 
 if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
-    SELECTED="true"
-    BG_COLOR=$MAUVE
-    ICON_COLOR=$WHITE
+    sketchybar --animate sin 10 --set $NAME \
+               icon.highlight=true \
+               icon.color=$WHITE
+else
+    sketchybar --animate sin 10 --set $NAME \
+               icon.highlight=false \
+               icon.color=$DARK_GREY
 fi
-
-sketchybar --animate sin 20 --set $NAME \
-           icon.highlight=$SELECTED \
-           icon.color=$ICON_COLOR \
-           background.color=$BG_COLOR

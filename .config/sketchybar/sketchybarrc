@@ -4,71 +4,46 @@ DIR="$HOME/.config/sketchybar/"
 ITEM_DIR="$DIR/items"
 PLUGIN_DIR="$DIR/plugins"
 
-FONT="JetBrainsMono Nerd Font"
-ICON_FONT="SF Pro"
-
-PADDING=6
+FONT="SF Pro"
 
 source "$DIR/colors.sh"
 source "$DIR/icons.sh"
 
-BAR_PROPS=(
-  height=36
-  color=$BAR_COLOR
-  shadow=on
-  position=top
-  sticky=on
-  padding_right=15
-  padding_left=15
-  corner_radius=12
-  y_offset=2
-  margin=8
-  blur_radius=50
+# -- Bar --
+sketchybar --bar \
+  height=32 \
+  color=$BAR_COLOR \
+  position=top \
+  sticky=on \
+  padding_right=12 \
+  padding_left=12 \
+  corner_radius=0 \
+  y_offset=0 \
+  margin=0 \
+  blur_radius=30 \
   notch_width=0
-)
 
-DEF_PROPS=(
-  updates=when_shown
-  icon.font="$ICON_FONT:Regular:16.0"
-  icon.color=$WHITE
-  icon.padding_left=12
-  icon.padding_right=4
-  label.font="$FONT:Medium:13.0"
-  label.color=$WHITE
-  label.padding_left=$PADDING
-  label.padding_right=12
-  background.color=$ITEM_BG_COLOR
-  background.padding_right=$PADDING
-  background.padding_left=$PADDING
-  background.height=26
-  background.corner_radius=10
-  background.shadow.drawing=on
-  background.shadow.color=$SHADOW_COLOR
-  background.shadow.angle=90
-  background.shadow.distance=2
-)
+# -- Defaults --
+sketchybar --default \
+  icon.font="$FONT:Medium:14.0" \
+  icon.color=$WHITE \
+  icon.padding_left=8 \
+  icon.padding_right=4 \
+  label.font="$FONT:Medium:13.0" \
+  label.color=$WHITE \
+  label.padding_left=4 \
+  label.padding_right=8 \
+  background.color=$TRANSPARENT \
+  background.padding_right=4 \
+  background.padding_left=4
 
-sketchybar --bar "${BAR_PROPS[@]}"
-sketchybar --default "${DEF_PROPS[@]}"
-
-# -- LEFT Side Items --
-source "$ITEM_DIR/apple.sh"
+# -- LEFT --
 source "$ITEM_DIR/spaces.sh"
 source "$ITEM_DIR/front_app.sh"
 
-# -- RIGHT Side Items -- 
+# -- RIGHT --
 source "$ITEM_DIR/time.sh"
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/sound.sh"
-source "$ITEM_DIR/music.sh"
-
-sketchybar --add item cat right \
-           --set cat icon="≽^•⩊•^≼"\
-                     icon.font="$ICON_FONT:Regular:16.0" \
-                     icon.color=$PINK\
-                     background.drawing=off\
-                     label.draw=off
-
 
 sketchybar --update
-
