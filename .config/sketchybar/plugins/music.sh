@@ -51,5 +51,5 @@ else
     sketchybar --set music drawing=on \
                     label="$MUSIC_INFO" \
                     icon=$MUSIC_PLAY_ICON \
-                    icon.color=$GREEN
+                    icon.color=$WHITE
 fi

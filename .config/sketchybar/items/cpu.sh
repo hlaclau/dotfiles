@@ -1,14 +1,12 @@
 #!/bin/bash
 
-CPU=(
-  update_freq=2
-  icon.font="$ICON_FONT:Regular:16.0"
-  icon=$CPU_ICON
-  icon.color=$PEACH
-  background.color=$ITEM_BG_COLOR
-  background.corner_radius=10
-  script="$PLUGIN_DIR/cpu.sh"
-)
-
 sketchybar --add item cpu right \
-           --set cpu "${CPU[@]}" 
+           --set cpu \
+                update_freq=2 \
+                icon=$CPU_ICON \
+                icon.font="SF Pro:Regular:14.0" \
+                icon.color=$WHITE \
+                label.color=$GREY \
+                label.font="$FONT:Medium:12.0" \
+                background.drawing=off \
+                script="$PLUGIN_DIR/cpu.sh"
