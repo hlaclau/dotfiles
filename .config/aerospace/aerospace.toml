@@ -3,7 +3,7 @@
 
 after-startup-command = [
   'exec-and-forget /opt/homebrew/bin/sketchybar',
-  'exec-and-forget borders active_color=0xffcba6f7 inactive_color=0xff313244 width=5.0'
+  'exec-and-forget borders active_color=0xffffffff inactive_color=0x00000000 width=5.0'
 ]
 
 exec-on-workspace-change = ['/bin/bash', '-c',
@@ -24,7 +24,7 @@ inner.horizontal = 10
 inner.vertical =   10
 outer.left =       10
 outer.bottom =     10
-outer.top =        [{monitor."built-in" = 10}, 36]
+outer.top =        [{monitor."built-in" = 44}, 52]
 outer.right =      10
 
 [mode.main.binding]
