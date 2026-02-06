@@ -84,16 +84,16 @@ export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git "
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 
-# Configure fzf with catppuccin colors
+# Configure fzf with vesper colors
 export FZF_DEFAULT_OPTS=" \
 --height 50% \
 --layout=default \
 --border \
---color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
---color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
---color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
---color=selected-bg:#45475A \
---color=border:#6C7086,label:#CDD6F4"
+--color=bg+:#232323,bg:#101010,spinner:#FFC799,hl:#FF8080 \
+--color=fg:#ffffff,header:#FF8080,info:#8B8B8B,pointer:#FFC799 \
+--color=marker:#99FFE4,fg+:#ffffff,prompt:#FFC799,hl+:#FF8080 \
+--color=selected-bg:#353535 \
+--color=border:#505050,label:#ffffff"
 
 # Configure fzf previews
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}'"
