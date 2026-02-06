@@ -3,7 +3,7 @@
 
 # Sets user-defined palette
 # Palettes must be defined _after_ this line
-palette = "catppuccin_mocha"
+palette = "vesper"
 
 # Starship modules
 
@@ -11,21 +11,21 @@ palette = "catppuccin_mocha"
 # First param ─┌
 [username]
 format = " [╭─$user]($style)@"
-style_user = "bold lavender"
-style_root = "bold lavender"
+style_user = "bold accent"
+style_root = "bold accent"
 show_always = true
 
 # Second param
 [hostname]
 format = "[$hostname]($style) in "
-style = "bold dimmed lavender"
+style = "bold dimmed subtle"
 trim_at = "-"
 ssh_only = false
 disabled = false
 
 # Third param
 [directory]
-style = "mauve"
+style = "accent"
 truncation_length = 0
 truncate_to_repo = true
 truncation_symbol = "repo: "
@@ -36,7 +36,7 @@ truncation_symbol = "repo: "
 
 # Before all the version info (python, nodejs, php, etc.)
 [git_status]
-style = "text"
+style = "subtle"
 ahead = "⇡${count}"
 diverged = "⇕⇡${ahead_count}⇣${behind_count}"
 behind = "⇣${count}"
@@ -59,30 +59,30 @@ disabled = true
 
 [[battery.display]]  # "bold red" style when capacity is between 0% and 10%
 threshold = 15
-style = "bold red" # Kept red as it's an alert color
+style = "bold error"
 disabled = true
 
 [[battery.display]]  # "bold yellow" style when capacity is between 10% and 30%
 threshold = 50
-style = "bold yellow" # Kept yellow as it's an alert color
+style = "bold accent"
 disabled = true
 
 [[battery.display]]  # "bold green" style when capacity is between 10% and 30%
 threshold = 80
-style = "bold green" # Kept green as it's an alert color
+style = "bold mint"
 disabled = true
 
 # Prompt: optional param 1
 [time]
 format = " 🕙 $time($style)\n"
 time_format = "%T"
-style = "text"
+style = "subtle"
 disabled = true
 
 # Prompt: param 2 └─
 [character]
-success_symbol = " [╰─λ](mauve)"
-error_symbol = " [×](red)"
+success_symbol = " [╰─λ](accent)"
+error_symbol = " [×](error)"
 
 # SYMBOLS
 [status]
@@ -103,7 +103,7 @@ symbol = " "
 [docker_context]
 symbol = " "
 format = "via [$symbol$context]($style) "
-style = "blue bold"
+style = "bold mint"
 only_with_files = true
 detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
 detect_folders = []
@@ -117,7 +117,7 @@ symbol = " "
 
 [git_branch]
 symbol = " "
-style = "bold mauve"
+style = "bold accent"
 
 [golang]
 symbol = " "
@@ -156,7 +156,7 @@ symbol = " "
 symbol = " "
 #pyenv_version_name = true
 format = 'via [${symbol}python (${version} )(\($virtualenv\) )]($style)'
-style = "bold yellow"
+style = "bold accent"
 pyenv_prefix = "venv "
 python_binary = ["./venv/bin/python", "python", "python3", "python2"]
 detect_extensions = ["py"]
@@ -178,36 +178,17 @@ symbol = " "
 symbol = "ﯣ "
 
 [nodejs]
-format = "via [ Node.js $version](bold green) " # Kept green for Node.js common branding
+format = "via [ Node.js $version](bold mint) "
 detect_files = ["package.json", ".node-version"]
 detect_folders = ["node_modules"]
 
 
 # Palette definitions
-[palettes.catppuccin_mocha]
-rosewater = "#f5e0dc"
-flamingo = "#f2cdcd"
-pink = "#f5c2e7"
-mauve = "#cba6f7"
-red = "#f38ba8"
-maroon = "#eba0ac"
-peach = "#fab387"
-yellow = "#f9e2af"
-green = "#a6e3a1"
-teal = "#94e2d5"
-sky = "#89dceb"
-sapphire = "#74c7ec"
-blue = "#89b4fa"
-lavender = "#b4befe"
-text = "#cdd6f4"
-subtext1 = "#bac2de"
-subtext0 = "#a6adc8"
-overlay2 = "#9399b2"
-overlay1 = "#7f849c"
-overlay0 = "#6c7086"
-surface2 = "#585b70"
-surface1 = "#45475a"
-surface0 = "#313244"
-base = "#1e1e2e"
-mantle = "#181825"
-crust = "#11111b"
+[palettes.vesper]
+accent = "#FFC799"
+mint = "#99FFE4"
+error = "#FF8080"
+subtle = "#A0A0A0"
+text = "#FFFFFF"
+dim = "#505050"
+comment = "#8B8B8B"
