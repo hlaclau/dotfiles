@@ -3,7 +3,7 @@
 
 after-startup-command = [
   'exec-and-forget /opt/homebrew/bin/sketchybar',
-  'exec-and-forget borders active_color=0xffFFC799 inactive_color=0x00000000 width=5.0'
+  'exec-and-forget borders active_color=0xffa485dd inactive_color=0x00000000 width=5.0'
 ]
 
 exec-on-workspace-change = ['/bin/bash', '-c',
