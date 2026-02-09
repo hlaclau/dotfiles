@@ -1,6 +1,6 @@
 /**
- * @name midnight-vesper
- * @description a dark, customizable discord theme using vesper colorscheme
+ * @name midnight-tokyo-dark
+ * @description a dark, customizable discord theme using tokyo dark colorscheme
  * @author hlaclau (forked from refact0r)
  * @version 2.1.1
  * @website https://github.com/refact0r/midnight-discord
@@ -74,28 +74,28 @@ body {
 
     /* text colors */
     --text-0: var(--bg-4); /* text on colored elements */
-    --text-1: hsl(0, 0%, 100%); /* #ffffff */
-    --text-2: hsl(0, 0%, 63%); /* #a0a0a0 */
-    --text-3: hsl(0, 0%, 55%); /* #8b8b8b */
-    --text-4: hsl(0, 0%, 31%); /* #505050 */
-    --text-5: hsl(0, 0%, 21%); /* #353535 */
+    --text-1: hsl(230, 20%, 72%); /* #a0a8cd */
+    --text-2: hsl(230, 15%, 55%); /* muted fg */
+    --text-3: hsl(230, 13%, 45%); /* #565f89 */
+    --text-4: hsl(230, 20%, 30%); /* #3b4261 */
+    --text-5: hsl(232, 23%, 17%); /* #212234 */
 
     /* background and dark colors */
-    --bg-1: hsla(0, 0%, 21%, 1); /* #353535 */
-    --bg-2: hsla(0, 0%, 14%, 1); /* #232323 */
-    --bg-3: hsla(0, 0%, 10%, 1); /* #1a1a1a */
-    --bg-4: hsla(0, 0%, 6%, 1); /* #101010 */
-    --hover: hsla(0, 0%, 50%, 0.1); /* channels and buttons when hovered */
-    --active: hsla(0, 0%, 50%, 0.2); /* channels and buttons when clicked or selected */
-    --active-2: hsla(0, 0%, 50%, 0.3); /* extra state for transparent buttons */
-    --message-hover: hsla(0, 0%, 0%, 0.1); /* messages when hovered */
+    --bg-1: hsla(232, 23%, 17%, 1); /* #212234 */
+    --bg-2: hsla(234, 28%, 12%, 1); /* #161726 */
+    --bg-3: hsla(235, 30%, 9%, 1); /* #11121d */
+    --bg-4: hsla(228, 40%, 3%, 1); /* #06080a */
+    --hover: hsla(230, 20%, 50%, 0.1); /* channels and buttons when hovered */
+    --active: hsla(230, 20%, 50%, 0.2); /* channels and buttons when clicked or selected */
+    --active-2: hsla(230, 20%, 50%, 0.3); /* extra state for transparent buttons */
+    --message-hover: hsla(230, 30%, 5%, 0.1); /* messages when hovered */
 
     /* accent colors */
-    --accent-1: var(--orange-1); /* links and other accent text */
-    --accent-2: var(--orange-2); /* small accent elements */
-    --accent-3: var(--orange-3); /* accent buttons */
-    --accent-4: var(--orange-4); /* accent buttons when hovered */
-    --accent-5: var(--orange-5); /* accent buttons when clicked */
+    --accent-1: var(--purple-1); /* links and other accent text */
+    --accent-2: var(--purple-2); /* small accent elements */
+    --accent-3: var(--purple-3); /* accent buttons */
+    --accent-4: var(--purple-4); /* accent buttons when hovered */
+    --accent-5: var(--purple-5); /* accent buttons when clicked */
     --accent-new: var(--red-2); /* stuff that's normally red like mute/deafen buttons */
     --mention: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 90%) 40%, transparent); /* background of messages that mention you */
     --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 95%) 40%, transparent); /* background of messages that mention you when hovered */
@@ -116,33 +116,33 @@ body {
     --button-border: hsl(0, 0%, 100%, 0.1); /* neutral border color of buttons */
 
     /* base colors */
-    --red-1: oklch(75% 0.14 25); /* #ff8080 family */
-    --red-2: oklch(70% 0.14 25);
-    --red-3: oklch(65% 0.14 25);
-    --red-4: oklch(60% 0.14 25);
-    --red-5: oklch(55% 0.14 25);
+    --red-1: oklch(72% 0.14 12); /* #ee6d85 tokyo dark red family */
+    --red-2: oklch(67% 0.14 12);
+    --red-3: oklch(62% 0.14 12);
+    --red-4: oklch(57% 0.14 12);
+    --red-5: oklch(52% 0.14 12);
 
-    --green-1: oklch(85% 0.1 170); /* #99ffe4 mint family */
-    --green-2: oklch(80% 0.1 170);
-    --green-3: oklch(75% 0.1 170);
-    --green-4: oklch(70% 0.1 170);
-    --green-5: oklch(65% 0.1 170);
+    --green-1: oklch(72% 0.12 145); /* #95c561 tokyo dark green family */
+    --green-2: oklch(67% 0.12 145);
+    --green-3: oklch(62% 0.12 145);
+    --green-4: oklch(57% 0.12 145);
+    --green-5: oklch(52% 0.12 145);
 
-    --orange-1: oklch(85% 0.1 65); /* #ffc799 accent family */
-    --orange-2: oklch(80% 0.1 65);
-    --orange-3: oklch(75% 0.1 65);
-    --orange-4: oklch(70% 0.1 65);
-    --orange-5: oklch(65% 0.1 65);
+    --orange-1: oklch(75% 0.11 75); /* #d7a65f tokyo dark yellow/accent family */
+    --orange-2: oklch(70% 0.11 75);
+    --orange-3: oklch(65% 0.11 75);
+    --orange-4: oklch(60% 0.11 75);
+    --orange-5: oklch(55% 0.11 75);
 
-    --yellow-1: oklch(80% 0.11 85);
-    --yellow-2: oklch(75% 0.11 85);
-    --yellow-3: oklch(70% 0.11 85);
-    --yellow-4: oklch(65% 0.11 85);
-    --yellow-5: oklch(60% 0.11 85);
+    --yellow-1: oklch(75% 0.11 75);
+    --yellow-2: oklch(70% 0.11 75);
+    --yellow-3: oklch(65% 0.11 75);
+    --yellow-4: oklch(60% 0.11 75);
+    --yellow-5: oklch(55% 0.11 75);
 
-    --purple-1: oklch(75% 0.06 15); /* #d4a0a0 muted rose family */
-    --purple-2: oklch(70% 0.06 15);
-    --purple-3: oklch(65% 0.06 15);
-    --purple-4: oklch(60% 0.06 15);
-    --purple-5: oklch(55% 0.06 15);
+    --purple-1: oklch(72% 0.1 305); /* #a485dd tokyo dark magenta family */
+    --purple-2: oklch(67% 0.1 305);
+    --purple-3: oklch(62% 0.1 305);
+    --purple-4: oklch(57% 0.1 305);
+    --purple-5: oklch(52% 0.1 305);
 }
