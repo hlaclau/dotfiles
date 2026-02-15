@@ -73,12 +73,12 @@ body {
     --colors: on; /* off: discord default colors, on: midnight custom colors */
 
     /* text colors */
-    --text-0: var(--bg-4); /* text on colored elements */
-    --text-1: hsl(230, 20%, 72%); /* #a0a8cd */
-    --text-2: hsl(230, 15%, 55%); /* muted fg */
-    --text-3: hsl(230, 13%, 45%); /* #565f89 */
-    --text-4: hsl(230, 20%, 30%); /* #3b4261 */
-    --text-5: hsl(232, 23%, 17%); /* #212234 */
+    --text-0: hsl(0, 0%, 98%);         /* text on colored elements */
+    --text-1: hsl(230, 25%, 82%);      /* primary text (was 72%) */
+    --text-2: hsl(230, 18%, 68%);      /* secondary/muted (was 55%) */
+    --text-3: hsl(230, 16%, 58%);      /* tertiary (was 45%) */
+    --text-4: hsl(230, 18%, 42%);      /* subtle (was 30%) */
+    --text-5: hsl(232, 23%, 22%);      /* darkest text (slightly lighter) */
 
     /* background and dark colors */
     --bg-1: hsla(232, 23%, 17%, 1); /* #212234 */
