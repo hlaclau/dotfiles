@@ -44,6 +44,8 @@ brew "node"
 brew "mise"
 # Fast, disk space efficient Node.js package manager
 brew "pnpm"
+# precommit but better
+brew "prek"
 # Systems programming language with modern features
 brew "rust"
 # go code generator from sql queries
