@@ -3,7 +3,7 @@
 
 # Sets user-defined palette
 # Palettes must be defined _after_ this line
-palette = "tokyo-dark"
+palette = "poimandres"
 
 # Starship modules
 
@@ -184,11 +184,11 @@ detect_folders = ["node_modules"]
 
 
 # Palette definitions
-[palettes.tokyo-dark]
-accent = "#a485dd"
-mint = "#38a89d"
-error = "#ee6d85"
-subtle = "#a0a8cd"
-text = "#a0a8cd"
-dim = "#3b4261"
-comment = "#565f89"
+[palettes.poimandres]
+accent = "#5de4c7"
+mint = "#add7ff"
+error = "#d0679d"
+subtle = "#a6accd"
+text = "#a6accd"
+dim = "#28344a"
+comment = "#787c99"
