@@ -84,16 +84,16 @@ export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git "
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 
-# Configure fzf with tokyo dark colors
+# Configure fzf with poimandres colors
 export FZF_DEFAULT_OPTS=" \
 --height 50% \
 --layout=default \
 --border \
---color=bg+:#212234,bg:#06080a,spinner:#a485dd,hl:#ee6d85 \
---color=fg:#a0a8cd,header:#ee6d85,info:#565f89,pointer:#a485dd \
---color=marker:#38a89d,fg+:#a0a8cd,prompt:#a485dd,hl+:#ee6d85 \
---color=selected-bg:#212234 \
---color=border:#3b4261,label:#a0a8cd"
+--color=bg+:#28344a,bg:#1b1e28,spinner:#5de4c7,hl:#d0679d \
+--color=fg:#a6accd,header:#d0679d,info:#787c99,pointer:#5de4c7 \
+--color=marker:#5de4c7,fg+:#a6accd,prompt:#5de4c7,hl+:#d0679d \
+--color=selected-bg:#28344a \
+--color=border:#28344a,label:#a6accd"
 
 # Configure fzf previews
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}'"
