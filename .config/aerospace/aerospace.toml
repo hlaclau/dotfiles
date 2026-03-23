@@ -89,57 +89,41 @@ alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
-# Chat on 1
+# Browsers on 1
 [[on-window-detected]]
-if.app-id = 'com.hnc.Discord'
+if.app-id = 'org.mozilla.firefox'
 run = "move-node-to-workspace 1"
-
-# IDEs on 2
-[[on-window-detected]]
-if.app-id = 'dev.zed.Zed'
-run = "move-node-to-workspace 2"
-
-[[on-window-detected]]
-if.app-id = 'com.microsoft.VSCode'
-run = "move-node-to-workspace 2"
-
-[[on-window-detected]]
-if.app-id = 'com.jetbrains.rider'
-run = "move-node-to-workspace 2"
-
-[[on-window-detected]]
-if.app-id = 'com.todesktop.230313mzl4w4u92'
-run = "move-node-to-workspace 2"
-
-# Terminal on 3
-[[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
-run = "move-node-to-workspace 3"
-
-[[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
-run = "move-node-to-workspace 3"
-
-# Browsers on 4
-[[on-window-detected]]
-if.app-id = 'company.thebrowser.Browser'
-run = "move-node-to-workspace 4"
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
-run = "move-node-to-workspace 4"
+run = "move-node-to-workspace 1"
+
+# Terminal on 2
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+run = "move-node-to-workspace 2"
+
+# IDEs on 3
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = "move-node-to-workspace 3"
 
 [[on-window-detected]]
-if.app-id = 'app.zen-browser.zen'
-run = "move-node-to-workspace 4"
+if.app-id = 'com.todesktop.230313mzl4w4u92'
+run = "move-node-to-workspace 3"
 
-# Note apps on 5
+# Other IDEs on 3
+[[on-window-detected]]
+if.app-id = 'dev.zed.Zed'
+run = "move-node-to-workspace 3"
+
+[[on-window-detected]]
+if.app-id = 'com.jetbrains.rider'
+run = "move-node-to-workspace 3"
+
+# Notes on 5
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
-run = "move-node-to-workspace 5"
-
-[[on-window-detected]]
-if.app-id = 'notion.id'
 run = "move-node-to-workspace 5"
 
 # Finder on 6
@@ -147,13 +131,14 @@ run = "move-node-to-workspace 5"
 if.app-id = 'com.apple.finder'
 run = "move-node-to-workspace 6"
 
-# Music on 9
-[[on-window-detected]]
-if.app-id = 'com.apple.Music'
-run = "move-node-to-workspace 9"
-
+# Music on 8
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
+run = "move-node-to-workspace 8"
+
+# Chat on 9
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
 run = "move-node-to-workspace 9"
 
 
