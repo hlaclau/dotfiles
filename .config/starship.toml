@@ -1,129 +1,87 @@
-# Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Sets user-defined palette
-# Palettes must be defined _after_ this line
-palette = "poimandres"
-
-# Starship modules
-
-## FIRST LINE/ROW: Info & Status
-# First param ─┌
-[username]
-format = " [╭─$user]($style)@"
-style_user = "bold accent"
-style_root = "bold accent"
-show_always = true
-
-# Second param
-[hostname]
-format = "[$hostname]($style) in "
-style = "bold dimmed subtle"
-trim_at = "-"
-ssh_only = false
-disabled = false
-
-# Third param
-[directory]
-style = "accent"
-truncation_length = 0
-truncate_to_repo = true
-truncation_symbol = "repo: "
-# The 'read_only' field was commented out in the original,
-# so I'm leaving it commented here as well, but this is where
-# it would go if you wanted to enable it.
-#read_only = " "
-
-# Before all the version info (python, nodejs, php, etc.)
-[git_status]
-style = "subtle"
-ahead = "⇡${count}"
-diverged = "⇕⇡${ahead_count}⇣${behind_count}"
-behind = "⇣${count}"
-deleted = "x"
-
-# Last param in the first line/row
-[cmd_duration]
-min_time = 1
-format = "took [$duration]($style)"
-disabled = false
-
-
-## SECOND LINE/ROW: Prompt
-# Somethere at the beginning
-[battery]
-full_symbol = " "
-charging_symbol = " "
-discharging_symbol = " "
-disabled = true
-
-[[battery.display]]  # "bold red" style when capacity is between 0% and 10%
-threshold = 15
-style = "bold error"
-disabled = true
-
-[[battery.display]]  # "bold yellow" style when capacity is between 10% and 30%
-threshold = 50
-style = "bold accent"
-disabled = true
-
-[[battery.display]]  # "bold green" style when capacity is between 10% and 30%
-threshold = 80
-style = "bold mint"
-disabled = true
-
-# Prompt: optional param 1
-[time]
-format = " 🕙 $time($style)\n"
-time_format = "%T"
-style = "subtle"
-disabled = true
-
-# Prompt: param 2 └─
-[character]
-success_symbol = " [╰─λ](accent)"
-error_symbol = " [×](error)"
-
-# SYMBOLS
-[status]
-symbol = "🔴"
-format = '[\[$symbol$status_common_meaning$status_signal_name$status_maybe_int\]]($style)'
-map_symbol = true
-disabled = false
+palette = "black"
 
 [aws]
-symbol = "  "
+symbol = " "
+
+[buf]
+symbol = " "
+
+[bun]
+symbol = " "
+
+[c]
+symbol = " "
+
+[cpp]
+symbol = " "
+
+[cmake]
+symbol = " "
 
 [conda]
 symbol = " "
 
+[crystal]
+symbol = " "
+
 [dart]
 symbol = " "
 
+[deno]
+symbol = " "
+
+[directory]
+read_only = " 󰌾"
+
 [docker_context]
 symbol = " "
-format = "via [$symbol$context]($style) "
-style = "bold mint"
-only_with_files = true
-detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
-detect_folders = []
-disabled = false
 
 [elixir]
-symbol = " "
+symbol = " "
 
 [elm]
 symbol = " "
 
+[fennel]
+symbol = " "
+
+[fortran]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[gcloud]
+symbol = " "
+
 [git_branch]
 symbol = " "
-style = "bold accent"
+
+[git_commit]
+tag_symbol = '  '
 
 [golang]
 symbol = " "
 
+[gradle]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
 [hg_branch]
 symbol = " "
+
+[hostname]
+ssh_symbol = " "
 
 [java]
 symbol = " "
@@ -131,64 +89,147 @@ symbol = " "
 [julia]
 symbol = " "
 
-[haskell]
-symbol = "λ "
+[kotlin]
+symbol = " "
+
+[lua]
+symbol = " "
 
 [memory_usage]
-symbol = " "
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
 
 [nim]
-symbol = " "
+symbol = "󰆥 "
 
 [nix_shell]
-symbol = " "
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[ocaml]
+symbol = " "
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+AOSC = " "
+Arch = " "
+Artix = " "
+CachyOS = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Elementary = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Ios = "󰀷 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+Nobara = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+Zorin = " "
 
 [package]
-symbol = " "
+symbol = "󰏗 "
 
 [perl]
-symbol = " "
+symbol = " "
 
 [php]
 symbol = " "
 
+[pijul_channel]
+symbol = " "
+
+[pixi]
+symbol = "󰏗 "
+
 [python]
-symbol = " "
-#pyenv_version_name = true
-format = 'via [${symbol}python (${version} )(\($virtualenv\) )]($style)'
-style = "bold accent"
-pyenv_prefix = "venv "
-python_binary = ["./venv/bin/python", "python", "python3", "python2"]
-detect_extensions = ["py"]
-version_format = "v${raw}"
+symbol = " "
+
+[rlang]
+symbol = "󰟔 "
 
 [ruby]
-symbol = " "
+symbol = " "
 
 [rust]
-symbol = " "
+symbol = "󱘗 "
 
 [scala]
 symbol = " "
 
-[shlvl]
-symbol = " "
+[status]
+symbol = " "
 
 [swift]
-symbol = "ﯣ "
+symbol = " "
 
-[nodejs]
-format = "via [ Node.js $version](bold mint) "
-detect_files = ["package.json", ".node-version"]
-detect_folders = ["node_modules"]
+[xmake]
+symbol = " "
 
+[zig]
+symbol = " "
 
-# Palette definitions
-[palettes.poimandres]
-accent = "#5de4c7"
-mint = "#add7ff"
-error = "#d0679d"
-subtle = "#a6accd"
-text = "#a6accd"
-dim = "#28344a"
-comment = "#787c99"
+[palettes.black]
+rosewater = "#e4e4e7"
+flamingo = "#e4e4e7"
+pink = "#a1a1aa"
+mauve = "#a1a1aa"
+red = "#71717a"
+maroon = "#a1a1aa"
+peach = "#e4e4e7"
+yellow = "#e4e4e7"
+green = "#fafafa"
+teal = "#fafafa"
+sky = "#fafafa"
+sapphire = "#e4e4e7"
+blue = "#fafafa"
+lavender = "#a1a1aa"
+text = "#fafafa"
+subtext1 = "#e4e4e7"
+subtext0 = "#a1a1aa"
+overlay2 = "#71717a"
+overlay1 = "#71717a"
+overlay0 = "#71717a"
+surface2 = "#3f3f46"
+surface1 = "#27272a"
+surface0 = "#18181b"
+base = "#18181b"
+mantle = "#18181b"
+crust = "#18181b"
