@@ -5,12 +5,12 @@
 ---@type LazySpec
 return {
 
-  -- Poimandres colorscheme
+  -- Zenbones colorscheme (monochromatic zinc-like palette)
   {
-    "olivercederborg/poimandres.nvim",
+    "mcchrish/zenbones.nvim",
     lazy = false,
     priority = 1000,
-    config = function() require("poimandres").setup {} end,
+    dependencies = { "rktjmp/lush.nvim" },
   },
 
   -- == Examples of Adding Plugins ==
