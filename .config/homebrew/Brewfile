@@ -46,6 +46,8 @@ brew "mise"
 brew "pnpm"
 # precommit but better
 brew "prek"
+# token optimizer
+brew "rtk"
 # Systems programming language with modern features
 brew "rust"
 # go code generator from sql queries
