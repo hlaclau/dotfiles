@@ -1,3 +1,6 @@
 [submodule "wallpapers"]
 	path = wallpapers
 	url = git@github.com:hlaclau/wallpapers.git
+[submodule ".config/tmux/plugins/catppuccin/tmux"]
+	path = .config/tmux/plugins/catppuccin/tmux
+	url = https://github.com/catppuccin/tmux.git
