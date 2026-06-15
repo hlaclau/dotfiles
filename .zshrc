@@ -148,6 +148,22 @@ alias sb="brew services restart sketchybar"
 alias reload="source ~/.zshrc"
 
 # =============================================================================
+#                               TMUX WINDOW NAMING
+# =============================================================================
+
+# Rename the current window to the directory name on every cd.
+# Skips windows that were manually renamed (flagged via @manual-rename in tmux.conf).
+_tmux_update_window_name() {
+  [[ -z "$TMUX" ]] && return
+  local renamed
+  renamed=$(tmux show-window-options -v @manual-rename 2>/dev/null)
+  [[ "$renamed" == "1" ]] && return
+  tmux rename-window "$(basename "$PWD")"
+}
+chpwd_functions+=(_tmux_update_window_name)
+_tmux_update_window_name  # set name on shell start
+
+# =============================================================================
 #                               TMUX AUTO-START
 # =============================================================================
 
