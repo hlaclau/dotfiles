@@ -1,13 +1,11 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrocommunity",
+  { import = "astrocommunity.colorscheme.catppuccin" },
   {
-    "tiagovla/tokyodark.nvim",
-    opts = {},
-    config = function(_, opts)
-      require("tokyodark").setup(opts)
-      vim.cmd [[colorscheme tokyodark]]
-    end,
+    "catppuccin/nvim",
+    name = "catppuccin",
+    opts = { flavour = "mocha" },
   },
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.cs" },

@@ -2,7 +2,7 @@
 # Docs: https://nikitabobko.github.io/AeroSpace/
 
 after-startup-command = [
-  'exec-and-forget borders active_color=0xfffafafa inactive_color=0x00000000 width=5.0'
+  'exec-and-forget borders active_color=0xffb4befe inactive_color=0x00000000 width=5.0'
 ]
 
 

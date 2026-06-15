@@ -89,11 +89,11 @@ export FZF_DEFAULT_OPTS=" \
 --height 50% \
 --layout=default \
 --border \
---color=bg+:#3f3f46,bg:#18181b,spinner:#fafafa,hl:#a1a1aa \
---color=fg:#e4e4e7,header:#a1a1aa,info:#71717a,pointer:#fafafa \
---color=marker:#fafafa,fg+:#e4e4e7,prompt:#fafafa,hl+:#a1a1aa \
---color=selected-bg:#3f3f46 \
---color=border:#3f3f46,label:#e4e4e7"
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#cba6f7 \
+--color=fg:#cdd6f4,header:#cba6f7,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#cba6f7 \
+--color=selected-bg:#45475a \
+--color=border:#313244,label:#cdd6f4"
 
 # Configure fzf previews
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}'"
