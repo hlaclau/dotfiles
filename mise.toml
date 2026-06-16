@@ -1,0 +1,11 @@
+[tasks."brew:install"]
+description = "Install packages from Brewfile"
+run = "brew bundle install --file=.config/homebrew/Brewfile"
+
+[tasks.stow]
+description = "Stow all dotfiles"
+run = "stow ."
+
+[tasks."stow:restow"]
+description = "Restow all dotfiles (refresh symlinks)"
+run = "stow --restow ."

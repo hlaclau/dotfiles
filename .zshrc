@@ -45,6 +45,9 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_VERIFY
 
+# Initialize mise
+eval "$(mise activate zsh)"
+
 # Initialize starship prompt
 eval "$(starship init zsh)"
 
@@ -121,7 +124,6 @@ alias glog='git log --oneline --graph --all'
 
 alias lg="lazygit"
 alias gh-create='gh repo create --private --source=. --remote=origin && git push -u --all && gh browse'
-alias brew-update='brew bundle --file=.config/homebrew/Brewfile'
 
 alias pr="~/scripts/pullrequest.sh"
 
