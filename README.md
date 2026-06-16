@@ -7,8 +7,9 @@ This repository contains all my dotfiles for macOS, including my Brewfile, confi
 Before you begin, ensure you have the following installed on your macOS system:
 
 - [Homebrew](https://brew.sh)
+- [mise](https://mise.jdx.dev)
 - Git
-- Stow 
+- Stow
 
 ## Installation
 
@@ -22,7 +23,7 @@ Before you begin, ensure you have the following installed on your macOS system:
 2. Create symbolic links for the dotfiles:
 
    ```sh
-   stow .
+   mise run stow
    ```
 
    This will symlink all configuration files to their appropriate locations in your home directory.  
@@ -31,7 +32,7 @@ Before you begin, ensure you have the following installed on your macOS system:
 3. Install Homebrew packages and applications:
 
    ```sh
-   brew bundle --file=.config/homebrew/Brewfile
+   mise run brew:install
    ```
 
    This will install all necessary tools, including:
@@ -52,6 +53,16 @@ Before you begin, ensure you have the following installed on your macOS system:
    chsh -s $(brew --prefix)/bin/zsh
    ```
 
+## Tasks
+
+Managed via [mise](https://mise.jdx.dev). Run `mise tasks` to list all available tasks.
+
+| Task | Description |
+|------|-------------|
+| `mise run brew:install` | Install packages from Brewfile |
+| `mise run stow` | Stow all dotfiles |
+| `mise run stow:restow` | Restow all dotfiles (refresh symlinks) |
+
 ## Updating
 
 To update your dotfiles and packages:
@@ -66,11 +77,11 @@ To update your dotfiles and packages:
 2. Reapply symlinks if needed:
 
    ```sh
-   stow .
+   mise run stow:restow
    ```
 
 3. Update Homebrew packages:
 
    ```sh
-   brew bundle --file=.config/homebrew/Brewfile
+   mise run brew:install
    ```
