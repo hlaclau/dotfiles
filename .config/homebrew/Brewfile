@@ -1,5 +1,7 @@
 cask_args appdir: "/Applications"
 
+tap "epk/epk"
+
 # Cross-platform graphical process/system monitor for the terminal
 brew "bottom"
 # System resource monitor with real-time CPU, memory, disk, network, and process stats
@@ -77,10 +79,8 @@ cask "visual-studio-code"
 cask "font-jetbrains-mono-nerd-font"
 # Modern monospace font with icon support
 cask "font-geist-mono-nerd-font"
-# Clean, readable monospace font
-cask "font-maple-mono"
-# Same but nerd font
-cask "font-maple-mono-nf"
+# Apple's SF Mono font packaged as a Nerd Font
+cask "font-sf-mono-nerd-font"
 # GPU-accelerated terminal with modern features
 cask "ghostty"
 # Window border highlighting for tiling window managers
@@ -91,5 +91,7 @@ cask "nikitabobko/tap/aerospace"
 cask "obsidian"
 # Spotlight-like productivity tool with extensions
 cask "raycast"
+# music player
+cask "spotify" 
 # Stably's agentic development environment (ADE)
 cask "stablyai/orca/orca"

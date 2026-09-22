@@ -85,17 +85,9 @@ alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
-# Browsers on 1
-[[on-window-detected]]
-if.app-id = 'org.mozilla.firefox'
-run = "move-node-to-workspace 1"
-
+# Browser on 1
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
-run = "move-node-to-workspace 1"
-
-[[on-window-detected]]
-if.app-id = 'app.zen-browser.zen'
 run = "move-node-to-workspace 1"
 
 # Terminal on 2
@@ -119,6 +111,10 @@ run = "move-node-to-workspace 3"
 
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.rider'
+run = "move-node-to-workspace 3"
+
+[[on-window-detected]]
+if.app-id = 'com.stablyai.orca'
 run = "move-node-to-workspace 3"
 
 # Notes on 5
