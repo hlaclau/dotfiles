@@ -9,3 +9,7 @@ run = "stow ."
 [tasks."stow:restow"]
 description = "Restow all dotfiles (refresh symlinks)"
 run = "stow --restow ."
+
+[tasks."scripts:macos-utilities"]
+description = "Apply macOS utility defaults (Finder, trackpad, keyboard)"
+run = "sh scripts/macos-utilities.sh"
