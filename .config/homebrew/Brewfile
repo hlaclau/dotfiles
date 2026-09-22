@@ -1,13 +1,13 @@
 cask_args appdir: "/Applications"
 
-# Modern cat replacement with syntax highlighting, Git integration, and paging
-brew "bat"
 # Cross-platform graphical process/system monitor for the terminal
 brew "bottom"
 # System resource monitor with real-time CPU, memory, disk, network, and process stats
 brew "btop"
 # Terminal-based Matrix digital rain animation
 brew "cmatrix"
+# Easy and fast file transfer over the network
+brew "croc"
 # Modern ls replacement with Git integration, icons, and tree view
 brew "eza"
 # System information tool with customizable display options
@@ -16,16 +16,16 @@ brew "fastfetch"
 brew "fd"
 # Fuzzy finder for command line with advanced search and completion
 brew "fzf"
-# Disk usage analyzer 
+# Disk usage analyzer
 brew "gdu"
+# GitHub's official command line tool
+brew "gh"
 # Syntax-highlighting pager for Git, diff, and grep with delta improvements
 brew "git-delta"
 # Markdown renderer for the terminal
 brew "glow"
 # better go linter
 brew "golangci-lint"
-# Beautiful terminal UI toolkit for shell scripts
-brew "gum"
 # Docker management TUI with container and image management
 brew "lazydocker"
 # Git TUI with staging, committing, and diff viewing
@@ -34,8 +34,6 @@ brew "lazygit"
 brew "lolcat"
 # Media player supporting various formats with hardware acceleration
 brew "mpv"
-# System information tool with customizable display options
-brew "neofetch"
 # Modern Vim fork with Lua scripting and better defaults
 brew "neovim"
 # JavaScript runtime and package manager
@@ -58,8 +56,6 @@ brew "starship"
 brew "stow"
 # A cross-platform, fast and extensible general purpose fuzzy finder TUI.
 brew "television"
-# Command correction tool that suggests fixes for typos
-brew "thefuck"
 # Terminal multiplexer for persistent sessions
 brew "tmux"
 # Tmux plugin manager for easy plugin installation
@@ -71,10 +67,12 @@ brew "zsh-autosuggestions"
 # Syntax highlighting for Zsh commands
 brew "zsh-syntax-highlighting"
 
-# Agentic text editor
-cask "cursor"
 # Dock management tool for macOS
 cask "dockey"
+# Agentic coding tool from Anthropic
+cask "claude-code"
+# Code editor from Microsoft
+cask "visual-studio-code"
 # Programming font with extensive icon support
 cask "font-jetbrains-mono-nerd-font"
 # Modern monospace font with icon support
@@ -85,10 +83,6 @@ cask "font-maple-mono"
 cask "font-maple-mono-nf"
 # GPU-accelerated terminal with modern features
 cask "ghostty"
-# Better Discord client
-cask "legcord"
-# Customizable macOS status bar replacement
-brew "FelixKratz/formulae/sketchybar"
 # Window border highlighting for tiling window managers
 brew "FelixKratz/formulae/borders"
 # Tiling window manager for macOS
@@ -97,5 +91,5 @@ cask "nikitabobko/tap/aerospace"
 cask "obsidian"
 # Spotlight-like productivity tool with extensions
 cask "raycast"
-# The best browser 
-cask "zen"
+# Stably's agentic development environment (ADE)
+cask "stablyai/orca/orca"
