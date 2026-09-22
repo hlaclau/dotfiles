@@ -54,9 +54,6 @@ eval "$(starship init zsh)"
 # Initialize zoxide (smart cd)
 eval "$(zoxide init zsh)"
 
-# Initialize thefuck
-eval $(thefuck --alias)
-
 # Load envman if available
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
@@ -103,7 +100,7 @@ export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}'"
 export FZF_ALT_C_OPTS="--preview 'eza --long --color=always --icons=always --git {} | head -200'"
 
 # Configure fzf for tmux
-export FZF_TMUX_OPTS=" -p90%,70% "
+# export FZF_TMUX_OPTS=" -p90%,70% "
 
 # =============================================================================
 #                               ALIASES
@@ -113,7 +110,6 @@ export FZF_TMUX_OPTS=" -p90%,70% "
 alias ls="eza --color=always --icons=always -a"
 alias ll="eza --long --color=always --icons=always --git -a"
 
-alias cat="bat"
 alias cd="z"
 alias n="nvim"
 alias g="git"
@@ -143,7 +139,6 @@ fzf-cd() {
 # Utility aliases
 alias cls="clear"
 alias h="history 1 | fzf"
-alias f="fuck"
 alias sb="brew services restart sketchybar"
 
 # source zshrc 
@@ -155,24 +150,24 @@ alias reload="source ~/.zshrc"
 
 # Rename the current window to the directory name on every cd.
 # Skips windows that were manually renamed (flagged via @manual-rename in tmux.conf).
-_tmux_update_window_name() {
-  [[ -z "$TMUX" ]] && return
-  local renamed
-  renamed=$(tmux show-window-options -v @manual-rename 2>/dev/null)
-  [[ "$renamed" == "1" ]] && return
-  tmux rename-window "$(basename "$PWD")"
-}
-chpwd_functions+=(_tmux_update_window_name)
-_tmux_update_window_name  # set name on shell start
+# _tmux_update_window_name() {
+#   [[ -z "$TMUX" ]] && return
+#   local renamed
+#   renamed=$(tmux show-window-options -v @manual-rename 2>/dev/null)
+#   [[ "$renamed" == "1" ]] && return
+#   tmux rename-window "$(basename "$PWD")"
+# }
+# chpwd_functions+=(_tmux_update_window_name)
+# _tmux_update_window_name  # set name on shell start
 
 # =============================================================================
 #                               TMUX AUTO-START
 # =============================================================================
 
 # Open tmux by default if available and not already in tmux
-if command -v tmux &> /dev/null && [ -z "$TMUX" ] && [ -n "$PS1" ] && [[ $- == *i* ]]; then
-  tmux attach || tmux
-fi
+# if command -v tmux &> /dev/null && [ -z "$TMUX" ] && [ -n "$PS1" ] && [[ $- == *i* ]]; then
+#   tmux attach || tmux
+# fi
 
 # =============================================================================
 #                               FASTFETCH DISPLAY
