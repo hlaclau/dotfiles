@@ -20,6 +20,14 @@ brew "fd"
 brew "fzf"
 # Disk usage analyzer
 brew "gdu"
+# Docker CLI (used with colima instead of Docker Desktop)
+brew "docker"
+# Docker Compose CLI plugin
+brew "docker-compose"
+# Keychain-backed credential store for docker login
+brew "docker-credential-helper"
+# Container runtime for macOS (Docker Desktop replacement)
+brew "colima"
 # GitHub's official command line tool
 brew "gh"
 # Syntax-highlighting pager for Git, diff, and grep with delta improvements
