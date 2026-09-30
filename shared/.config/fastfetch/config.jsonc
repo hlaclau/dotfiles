@@ -1,79 +1,124 @@
+// Catppuccin Mocha
+//   mauve    #cba6f7  38;2;203;166;247
+//   pink     #f5c2e7  38;2;245;194;231
+//   blue     #89b4fa  38;2;137;180;250
+//   sapphire #74c7ec  38;2;116;199;236
+//   green    #a6e3a1  38;2;166;227;161
+//   peach    #fab387  38;2;250;179;135
+//   text     #cdd6f4  38;2;205;214;244
+//   overlay0 #6c7086  38;2;108;112;134
 {
     "logo": {
-        "type": "auto",
-        "source": "~/.config/fastfetch/ascii.txt",
-        "color": {
-            "1": "magenta"
+        "type": "kitty-direct",
+        "source": "~/.config/fastfetch/logo.png",
+        "width": 30,
+        "height": 15,
+        "padding": {
+            "top": 1,
+            "left": 2,
+            "right": 3
         }
     },
     "display": {
-        "separator": ""
+        "separator": "  ",
+        "color": {
+            "separator": "38;2;108;112;134",
+            "output": "38;2;205;214;244"
+        },
+        "percent": {
+            "color": {
+                "green": "38;2;166;227;161",
+                "yellow": "38;2;249;226;175",
+                "red": "38;2;243;139;168"
+            }
+        }
     },
     "modules": [
         "break",
         {
+            "type": "title",
+            "key": " ",
+            "keyColor": "38;2;245;194;231",
+            "color": {
+                "user": "38;2;203;166;247",
+                "at": "38;2;108;112;134",
+                "host": "38;2;245;194;231"
+            }
+        },
+        {
+            "type": "custom",
+            "format": "{#38;2;108;112;134}───────────────────────────────"
+        },
+        {
             "type": "host",
             "key": "╭─󰇅 ",
-            "keyColor": "blue"
+            "keyColor": "38;2;137;180;250"
         },
         {
             "type": "cpu",
             "key": "├─ ",
             "format": "{1}",
-            "keyColor": "blue"
+            "keyColor": "38;2;137;180;250"
         },
         {
             "type": "memory",
             "key": "├─ ",
-            "keyColor": "blue",
-            "format": "{2}"
+            "keyColor": "38;2;137;180;250"
+        },
+        {
+            "type": "disk",
+            "key": "├─󰋊 ",
+            "folders": "/",
+            "keyColor": "38;2;137;180;250"
         },
         {
             "type": "display",
             "key": "╰─󰍹 ",
-            "keyColor": "blue",
+            "keyColor": "38;2;137;180;250",
             "compactType": "original"
         },
         "break",
         {
             "type": "shell",
             "key": "╭─ ",
-            "keyColor": "green"
+            "keyColor": "38;2;166;227;161"
         },
         {
             "type": "terminal",
             "key": "├─ ",
-            "keyColor": "green"
+            "keyColor": "38;2;166;227;161"
         },
         {
-            "type": "de",
-            "key": "├─ ",
-            "keyColor": "green"
+            "type": "packages",
+            "key": "├─󰏖 ",
+            "keyColor": "38;2;166;227;161"
         },
         {
             "type": "wm",
             "key": "╰─ ",
-            "keyColor": "green"
+            "keyColor": "38;2;166;227;161"
         },
         "break",
         {
-            "type": "title",
-            "key": "╭─ ",
-            "format": "{1}@{2}",
-            "keyColor": "magenta"
-        },
-        {
             "type": "os",
-            "key": "├─ ", 
-            "keyColor": "magenta"
+            "key": "╭─ ",
+            "keyColor": "38;2;203;166;247"
         },
         {
             "type": "kernel",
-            "key": "╰─ ",
+            "key": "├─ ",
             "format": "{1} {2}",
-            "keyColor": "magenta"
+            "keyColor": "38;2;203;166;247"
+        },
+        {
+            "type": "uptime",
+            "key": "╰─󰅐 ",
+            "keyColor": "38;2;203;166;247"
         },
         "break",
-        "colors"
+        {
+            "type": "custom",
+            "format": "{#38;2;243;139;168}● {#38;2;250;179;135}● {#38;2;249;226;175}● {#38;2;166;227;161}● {#38;2;137;180;250}● {#38;2;203;166;247}● {#38;2;245;194;231}●"
+        }
     ]
 }
