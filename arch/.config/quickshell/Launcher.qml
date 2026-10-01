@@ -6,6 +6,7 @@ import Quickshell.Widgets
 
 // Full-screen app grid with search, on the focused screen. Type to filter,
 // arrows to move, Enter to launch, Escape to clear the search or close.
+// Typing a math expression (12*4.5, (3+4)^2) shows the result; Enter copies it.
 PanelWindow {
     id: launcher
 
@@ -18,6 +19,29 @@ PanelWindow {
     readonly property bool focusedScreen: Hyprland.focusedMonitor?.name === modelData.name
     readonly property bool shown: open && focusedScreen
     readonly property var results: Apps.search(search.text)
+
+    // Result of the search text if it's arithmetic, else ""
+    readonly property string calcResult: {
+        const t = search.text.trim();
+        // Only digits and operators reach the evaluator
+        if (!/^[\d\s+\-*/().,%^]+$/.test(t) || !/\d/.test(t) || !/[+\-*/%^]/.test(t)) return "";
+        try {
+            const v = Function(`"use strict"; return (${t.replace(/,/g, ".").replace(/\^/g, "**")});`)();
+            return Number.isFinite(v) ? String(Math.round(v * 1e10) / 1e10) : "";
+        } catch (e) {
+            return "";
+        }
+    }
+
+    function copyResult() {
+        Quickshell.execDetached(["wl-copy", calcResult]);
+        closeRequested();
+    }
+
+    function accept() {
+        if (calcResult) copyResult();
+        else launch(results[grid.currentIndex]);
+    }
 
     visible: shown
     color: "transparent"
@@ -101,8 +125,8 @@ PanelWindow {
                 if (text) text = "";
                 else launcher.closeRequested();
             }
-            Keys.onReturnPressed: launcher.launch(launcher.results[grid.currentIndex])
-            Keys.onEnterPressed: launcher.launch(launcher.results[grid.currentIndex])
+            Keys.onReturnPressed: launcher.accept()
+            Keys.onEnterPressed: launcher.accept()
             Keys.onLeftPressed: grid.moveCurrentIndexLeft()
             Keys.onRightPressed: grid.moveCurrentIndexRight()
             Keys.onUpPressed: grid.moveCurrentIndexUp()
@@ -130,6 +154,49 @@ PanelWindow {
         }
     }
 
+    // ---- Calculator ----
+    Rectangle {
+        id: calcCard
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: searchBox.bottom
+        anchors.topMargin: 16
+        width: searchBox.width
+        height: launcher.calcResult ? 72 : 0
+        visible: launcher.calcResult !== ""
+        radius: 16
+        color: calcMouse.containsMouse ? Theme.surface0 : Theme.base
+        border.width: 1
+        border.color: Theme.surface1
+
+        Text {
+            anchors.left: parent.left
+            anchors.leftMargin: 22
+            anchors.verticalCenter: parent.verticalCenter
+            text: "= " + launcher.calcResult
+            color: Theme.accent
+            font.family: Theme.font
+            font.pixelSize: 26
+            font.bold: true
+        }
+        Text {
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+            anchors.verticalCenter: parent.verticalCenter
+            text: "Enter to copy"
+            color: Theme.overlay0
+            font.family: Theme.font
+            font.pixelSize: 12
+        }
+
+        MouseArea {
+            id: calcMouse
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: launcher.copyResult()
+        }
+    }
+
     // ---- Grid ----
     GridView {
         id: grid
@@ -137,8 +204,8 @@ PanelWindow {
         readonly property int columns: Math.max(3, Math.floor(launcher.width * 0.78 / cellWidth))
 
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: searchBox.bottom
-        anchors.topMargin: 48
+        anchors.top: calcCard.visible ? calcCard.bottom : searchBox.bottom
+        anchors.topMargin: calcCard.visible ? 24 : 48
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 48
         width: columns * cellWidth
@@ -207,7 +274,7 @@ PanelWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: searchBox.bottom
         anchors.topMargin: 80
-        visible: launcher.results.length === 0
+        visible: launcher.results.length === 0 && !launcher.calcResult
         text: "No apps match \"" + search.text + "\""
         color: Theme.overlay0
         font.family: Theme.font
