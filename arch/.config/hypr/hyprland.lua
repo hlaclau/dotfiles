@@ -40,7 +40,11 @@ chat        = "vesktop"
 
 hl.on("hyprland.start", function()
     hl.exec_cmd(terminal)
-    hl.exec_cmd("waybar & hyprpaper & hypridle & " .. chat .. " & qs")
+    hl.exec_cmd("waybar & hyprpaper & hypridle & " .. chat)
+    -- Quickshell runs as a systemd user service so it restarts if it crashes.
+    -- It needs the variables set by hl.env above, which systemd doesn't see.
+    hl.exec_cmd("systemctl --user import-environment TERMINAL BROWSER HYPRSHOT_DIR XCURSOR_THEME XCURSOR_SIZE HYPRCURSOR_SIZE"
+        .. " && systemctl --user reset-failed quickshell.service; systemctl --user start quickshell.service")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme prefer-dark")
     -- Clipboard history for the island (text and images)
     hl.exec_cmd("wl-paste --type text --watch cliphist store & wl-paste --type image --watch cliphist store")

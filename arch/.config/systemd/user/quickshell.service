@@ -1,0 +1,20 @@
+# Quickshell desktop shell: dynamic island, overview, launcher, notifications.
+# Started by hyprland.lua at login; restarted by systemd if it crashes, and
+# stopped with the graphical session.
+#   systemctl --user restart quickshell
+#   journalctl --user -u quickshell
+
+[Unit]
+Description=Quickshell desktop shell
+Documentation=https://quickshell.org
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+# Give up after 5 crashes in 30s instead of looping forever
+StartLimitIntervalSec=30
+StartLimitBurst=5
+
+[Service]
+ExecStart=/usr/bin/qs
+Restart=always
+RestartSec=1

@@ -54,12 +54,14 @@ Singleton {
         counts[app.id] = (counts[app.id] ?? 0) + 1;
         Settings.values.launches = counts;
 
+        // `uwsm app` gives each app its own systemd scope, so it outlives the
+        // quickshell service (restarting or crashing it would kill its children)
         if (app.runInTerminal) {
             // Drop desktop-entry field codes like %U
             const cmd = app.execString.replace(/%[a-zA-Z]/g, "").trim();
-            Quickshell.execDetached(["sh", "-c", `\${TERMINAL:-ghostty} -e ${cmd}`]);
+            Quickshell.execDetached(["sh", "-c", `uwsm app -- \${TERMINAL:-ghostty} -e ${cmd}`]);
         } else {
-            app.execute();
+            Quickshell.execDetached(["uwsm", "app", "--", app.id + ".desktop"]);
         }
     }
 }

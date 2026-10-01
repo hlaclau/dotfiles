@@ -19,7 +19,8 @@ Singleton {
         if (!checker.running && !updater.running) checker.running = true;
     }
 
-    // Runs yay in a terminal, then checks again once it's closed
+    // Runs yay in a terminal (in its own scope, so restarting the island can't
+    // kill an update), then checks again once it's closed
     function update() {
         if (!updater.running) updater.running = true;
     }
@@ -39,7 +40,7 @@ Singleton {
 
     Process {
         id: updater
-        command: ["sh", "-c", `\${TERMINAL:-ghostty} -e sh -c 'yay; printf "\\nDone. Press Enter to close."; read _'`]
+        command: ["sh", "-c", `uwsm app -- \${TERMINAL:-ghostty} -e sh -c 'yay; printf "\\nDone. Press Enter to close."; read _'`]
         onExited: root.check()
     }
 

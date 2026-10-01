@@ -76,6 +76,8 @@ The Arch setup runs Hyprland with a Lua config (`arch/.config/hypr/hyprland.lua`
 
 Press `SUPER + /` for a searchable list of every keybind.
 
+Quickshell runs as a systemd user service (`arch/.config/systemd/user/quickshell.service`) so it comes back if it crashes: `systemctl --user restart quickshell` restarts it, `journalctl --user -u quickshell` shows its logs.
+
 ## Tasks
 
 Run `mise tasks` to list all available tasks.
