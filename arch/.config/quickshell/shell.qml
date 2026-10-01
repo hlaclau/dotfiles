@@ -1,12 +1,14 @@
 //@ pragma UseQApplication
+//@ pragma IconTheme Papirus-Dark
 
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
 
-// Dynamic island and workspace overview, one of each per screen.
-// Control them with `qs ipc call island <fn>` and `qs ipc call overview toggle`.
+// Dynamic island, workspace overview and app launcher, one of each per screen.
+// Control them with `qs ipc call island <fn>`, `qs ipc call overview toggle`
+// and `qs ipc call launcher toggle`.
 ShellRoot {
     Variants {
         id: islands
@@ -23,6 +25,25 @@ ShellRoot {
         Overview {
             open: overviewOpen
             onCloseRequested: overviewOpen = false
+        }
+    }
+
+    property bool launcherOpen: false
+
+    Variants {
+        model: Quickshell.screens
+
+        Launcher {
+            open: launcherOpen
+            onCloseRequested: launcherOpen = false
+        }
+    }
+
+    IpcHandler {
+        target: "launcher"
+
+        function toggle(): void {
+            launcherOpen = !launcherOpen;
         }
     }
 

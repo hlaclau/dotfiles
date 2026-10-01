@@ -67,6 +67,7 @@ bind(mainMod .. " + I",         hl.dsp.exec_cmd("qs ipc call island toggle"), "T
 bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("qs ipc call island clipboard"), "Clipboard history")
 bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("qs ipc call island record"), "Start/stop screen recording")
 bind(mainMod .. " + TAB",       hl.dsp.exec_cmd("qs ipc call overview toggle"), "Workspace overview")
+bind(mainMod .. " + SPACE",     hl.dsp.exec_cmd("qs ipc call launcher toggle"), "All apps")
 
 -- Lock screen
 bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("loginctl lock-session"), "Lock screen")
