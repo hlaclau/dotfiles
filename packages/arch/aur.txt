@@ -1,0 +1,9 @@
+catppuccin-cursors-mocha
+catppuccin-gtk-theme-mocha
+cursor-bin
+google-chrome
+nerd-fonts-sf-mono
+ttf-ms-fonts
+vicinae-bin
+yay-bin
+yay-bin-debug

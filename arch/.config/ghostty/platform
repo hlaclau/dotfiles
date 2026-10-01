@@ -1,0 +1,3 @@
+# Hyprland tiles windows, no need for a GTK titlebar
+window-decoration = none
+font-family = SFMono Nerd Font Mono
