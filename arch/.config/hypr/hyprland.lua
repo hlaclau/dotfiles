@@ -40,7 +40,7 @@ chat        = "vesktop"
 
 hl.on("hyprland.start", function()
     hl.exec_cmd(terminal)
-    hl.exec_cmd("waybar & hyprpaper & hypridle & " .. chat .. " & dunst & vicinae server")
+    hl.exec_cmd("waybar & hyprpaper & hypridle & " .. chat .. " & qs & vicinae server")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme prefer-dark")
 end)
 
