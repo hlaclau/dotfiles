@@ -25,12 +25,12 @@ ShellRoot {
         function toggle(): void {
             focusedIsland().toggle();
         }
-        // 0 Home, 1 Audio, 2 Clipboard, 3 Hyprland
+        // 0 Home, 1 Audio, 2 Network, 3 Clipboard, 4 Hyprland
         function openTab(index: int): void {
             focusedIsland().open(true, index);
         }
         function clipboard(): void {
-            focusedIsland().toggleTab(2);
+            focusedIsland().toggleTab(3);
         }
         function record(): void {
             Status.toggleRecording();
