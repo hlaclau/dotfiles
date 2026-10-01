@@ -3,6 +3,7 @@ catppuccin-gtk-theme-mocha
 cursor-bin
 google-chrome
 nerd-fonts-sf-mono
+stably-orca
 ttf-ms-fonts
 vicinae-bin
 yay-bin
