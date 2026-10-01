@@ -129,7 +129,7 @@ ColumnLayout {
             step: 250
             value: Status.nightTemperature
             dimmed: !Status.nightLight
-            onMoved: v => Status.nightTemperature = Math.round(v / 100) * 100
+            onMoved: v => Settings.values.nightTemperature = Math.round(v / 100) * 100
         }
         Text {
             Layout.preferredWidth: 48
@@ -138,6 +138,63 @@ ColumnLayout {
             color: Theme.subtext1
             font.family: Theme.font
             font.pixelSize: 12
+        }
+    }
+
+    // Automatic schedule: on at the start time, off at the end time
+    RowLayout {
+        Layout.fillWidth: true
+        spacing: 10
+
+        Text {
+            Layout.fillWidth: true
+            text: "Automatically from"
+            color: Settings.values.nightSchedule ? Theme.subtext1 : Theme.overlay0
+            font.family: Theme.font
+            font.pixelSize: 12
+        }
+        TimeField { key: "nightStart" }
+        Text {
+            text: "to"
+            color: Settings.values.nightSchedule ? Theme.subtext1 : Theme.overlay0
+            font.family: Theme.font
+            font.pixelSize: 12
+        }
+        TimeField { key: "nightEnd" }
+        Toggle {
+            checked: Settings.values.nightSchedule
+            onToggled: Settings.values.nightSchedule = !Settings.values.nightSchedule
+        }
+    }
+
+    // HH:MM field bound to a Settings value; invalid input reverts
+    component TimeField: Rectangle {
+        id: field
+
+        property string key
+
+        implicitWidth: 58
+        implicitHeight: 28
+        radius: 8
+        color: Theme.surface0
+        border.width: input.activeFocus ? 1 : 0
+        border.color: Theme.accent
+
+        TextInput {
+            id: input
+            anchors.centerIn: parent
+            text: Settings.values[field.key]
+            color: Settings.values.nightSchedule ? Theme.text : Theme.overlay1
+            font.family: Theme.font
+            font.pixelSize: 12
+            inputMask: "99:99"
+            validator: RegularExpressionValidator { regularExpression: /([01]\d|2[0-3]):[0-5]\d/ }
+
+            function save() {
+                if (acceptableInput) Settings.values[field.key] = text;
+                else text = Settings.values[field.key];
+            }
+            onEditingFinished: save()
         }
     }
 }

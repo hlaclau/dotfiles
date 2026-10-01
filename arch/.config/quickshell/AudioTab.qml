@@ -91,6 +91,42 @@ ColumnLayout {
         }
     }
 
+    RowLayout {
+        Layout.fillWidth: true
+        Layout.leftMargin: 12
+        Layout.rightMargin: 4
+        spacing: 10
+
+        Text {
+            text: Icons.mic
+            color: Status.noiseSuppression ? Theme.accent : Theme.overlay1
+            font.family: Theme.iconFont
+            font.pixelSize: 12
+        }
+        ColumnLayout {
+            Layout.fillWidth: true
+            spacing: 0
+
+            Text {
+                text: "Noise suppression"
+                color: Theme.subtext1
+                font.family: Theme.font
+                font.pixelSize: 12
+            }
+            Text {
+                text: "Filters background noise from your mic (RNNoise)"
+                color: Theme.overlay0
+                font.family: Theme.font
+                font.pixelSize: 10
+            }
+        }
+        Item { Layout.fillWidth: true }
+        Toggle {
+            checked: Status.noiseSuppression
+            onToggled: Status.toggleNoiseSuppression()
+        }
+    }
+
     // ---- Apps ----
     SectionTitle { text: "Apps" }
 
