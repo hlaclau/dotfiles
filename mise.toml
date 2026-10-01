@@ -37,6 +37,11 @@ run = "brew bundle install --file=mac/.config/homebrew/Brewfile"
 description = "Install pacman and AUR packages from packages/arch"
 run = "./scripts/arch-packages.sh"
 
+[tasks."arch:sddm"]
+description = "Apply the Catppuccin config to the SilentSDDM login theme (sudo)"
+depends = ["submodules"]
+run = "./scripts/arch-sddm.sh"
+
 [tasks."scripts:macos-utilities"]
 description = "Apply macOS utility defaults (Finder, trackpad, keyboard)"
 run = "sh scripts/macos-utilities.sh"
