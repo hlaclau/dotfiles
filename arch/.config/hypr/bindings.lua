@@ -66,6 +66,7 @@ bind(mainMod .. " + slash",     hl.dsp.exec_cmd("~/.config/hypr/scripts/keybinds
 bind(mainMod .. " + I",         hl.dsp.exec_cmd("qs ipc call island toggle"), "Toggle island (control center)")
 bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("qs ipc call island clipboard"), "Clipboard history")
 bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("qs ipc call island record"), "Start/stop screen recording")
+bind(mainMod .. " + TAB",       hl.dsp.exec_cmd("qs ipc call overview toggle"), "Workspace overview")
 
 -- Lock screen
 bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("loginctl lock-session"), "Lock screen")

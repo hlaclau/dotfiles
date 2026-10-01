@@ -5,13 +5,33 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
 
-// Dynamic island: one per screen. Control it with `qs ipc call island <fn>`.
+// Dynamic island and workspace overview, one of each per screen.
+// Control them with `qs ipc call island <fn>` and `qs ipc call overview toggle`.
 ShellRoot {
     Variants {
         id: islands
         model: Quickshell.screens
 
         Island {}
+    }
+
+    property bool overviewOpen: false
+
+    Variants {
+        model: Quickshell.screens
+
+        Overview {
+            open: overviewOpen
+            onCloseRequested: overviewOpen = false
+        }
+    }
+
+    IpcHandler {
+        target: "overview"
+
+        function toggle(): void {
+            overviewOpen = !overviewOpen;
+        }
     }
 
     function focusedIsland() {
