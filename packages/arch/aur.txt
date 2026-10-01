@@ -5,6 +5,5 @@ google-chrome
 nerd-fonts-sf-mono
 orca-ide-bin
 ttf-ms-fonts
-vicinae-bin
 yay-bin
 yay-bin-debug
