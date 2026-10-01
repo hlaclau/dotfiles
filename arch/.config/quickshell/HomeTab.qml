@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 
-// Media, volume, quick toggles and notifications
+// Media, volume, quick toggles, package updates and notifications
 ColumnLayout {
     id: tab
 
@@ -100,6 +100,84 @@ ColumnLayout {
             icon: Icons.terminal
             label: "Scratch"
             onClicked: tab.island.runAndClose("hyprctl dispatch 'hl.dsp.workspace.toggle_special(\"scratch\")'")
+        }
+    }
+
+    // ---- Package updates ----
+    Rectangle {
+        Layout.fillWidth: true
+        visible: Updates.count > 0 || Updates.updating
+        implicitHeight: 56
+        radius: 16
+        color: Theme.surface0
+
+        RowLayout {
+            anchors.fill: parent
+            anchors.leftMargin: 14
+            anchors.rightMargin: 10
+            spacing: 12
+
+            Text {
+                text: Icons.download
+                color: Theme.peach
+                font.family: Theme.iconFont
+                font.pixelSize: 16
+            }
+
+            ColumnLayout {
+                Layout.fillWidth: true
+                spacing: 1
+
+                Text {
+                    text: Updates.updating ? "Updating…"
+                        : Updates.count + (Updates.count === 1 ? " update" : " updates")
+                        + (Updates.aur.length > 0 ? "  ·  " + Updates.aur.length + " from AUR" : "")
+                    color: Theme.text
+                    font.family: Theme.font
+                    font.pixelSize: 13
+                    font.bold: true
+                }
+                Text {
+                    Layout.fillWidth: true
+                    text: {
+                        const all = [...Updates.repo, ...Updates.aur];
+                        return all.slice(0, 4).join(", ") + (all.length > 4 ? " +" + (all.length - 4) : "");
+                    }
+                    color: Theme.subtext0
+                    font.family: Theme.font
+                    font.pixelSize: 11
+                    elide: Text.ElideRight
+                }
+            }
+
+            Rectangle {
+                visible: !Updates.updating
+                implicitWidth: updateText.implicitWidth + 24
+                implicitHeight: 30
+                radius: 15
+                color: updateMouse.containsMouse ? Theme.peach : Theme.surface1
+
+                Text {
+                    id: updateText
+                    anchors.centerIn: parent
+                    text: "Update"
+                    color: updateMouse.containsMouse ? Theme.crust : Theme.text
+                    font.family: Theme.font
+                    font.pixelSize: 12
+                    font.bold: true
+                }
+
+                MouseArea {
+                    id: updateMouse
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        tab.island.close();
+                        Updates.update();
+                    }
+                }
+            }
         }
     }
 
