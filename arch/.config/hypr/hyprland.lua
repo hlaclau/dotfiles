@@ -219,6 +219,12 @@ hl.layer_rule({
 })
 
 hl.layer_rule({
+    name  = "overview-blur",
+    match = { namespace = "overview" },
+    blur  = true,
+})
+
+hl.layer_rule({
     name         = "vicinae-blur",
     match        = { namespace = "vicinae" },
     blur         = true,
