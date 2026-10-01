@@ -1,6 +1,7 @@
 bat
 btop
 clang
+cliphist
 efibootmgr
 eza
 fastfetch
@@ -18,6 +19,7 @@ hypridle
 hyprlock
 hyprpicker
 hyprshot
+hyprsunset
 intel-media-driver
 intel-ucode
 iwd
@@ -34,6 +36,7 @@ pavucontrol
 playerctl
 qbittorrent
 quickshell
+slurp
 starship
 stow
 swappy
@@ -43,7 +46,9 @@ ttf-jetbrains-mono-nerd
 ttf-liberation
 vim
 waybar
+wf-recorder
 wget
+wl-clipboard
 zoxide
 zsh
 zsh-autosuggestions
