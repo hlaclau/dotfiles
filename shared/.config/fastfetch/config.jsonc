@@ -9,10 +9,6 @@
 //   overlay0 #6c7086  38;2;108;112;134
 {
     "logo": {
-        "type": "kitty-direct",
-        "source": "~/.config/fastfetch/logo.png",
-        "width": 30,
-        "height": 15,
         "padding": {
             "top": 1,
             "left": 2,
