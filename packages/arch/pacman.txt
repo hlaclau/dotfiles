@@ -15,7 +15,9 @@ git
 github-cli
 grim
 gst-plugin-pipewire
+hypridle
 hyprlock
+hyprpicker
 hyprshot
 intel-media-driver
 intel-ucode
@@ -29,9 +31,12 @@ noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
 papirus-icon-theme
+pavucontrol
+playerctl
 qbittorrent
 starship
 stow
+swappy
 thefuck
 ttf-dejavu
 ttf-jetbrains-mono-nerd
@@ -43,4 +48,3 @@ zoxide
 zsh
 zsh-autosuggestions
 zsh-syntax-highlighting
-pavucontrol
