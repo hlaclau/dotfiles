@@ -6,9 +6,9 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
 
-// Dynamic island, workspace overview and app launcher, one of each per screen.
-// Control them with `qs ipc call island <fn>`, `qs ipc call overview toggle`
-// and `qs ipc call launcher toggle`.
+// Dynamic island, workspace overview, app launcher and keybind cheatsheet,
+// one of each per screen. Control them with `qs ipc call island <fn>` and
+// `qs ipc call <overview|launcher|keybinds> toggle`.
 ShellRoot {
     Variants {
         id: islands
@@ -44,6 +44,25 @@ ShellRoot {
 
         function toggle(): void {
             launcherOpen = !launcherOpen;
+        }
+    }
+
+    property bool keybindsOpen: false
+
+    Variants {
+        model: Quickshell.screens
+
+        Keybinds {
+            open: keybindsOpen
+            onCloseRequested: keybindsOpen = false
+        }
+    }
+
+    IpcHandler {
+        target: "keybinds"
+
+        function toggle(): void {
+            keybindsOpen = !keybindsOpen;
         }
     }
 

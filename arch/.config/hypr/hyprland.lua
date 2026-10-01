@@ -40,7 +40,7 @@ chat        = "vesktop"
 
 hl.on("hyprland.start", function()
     hl.exec_cmd(terminal)
-    hl.exec_cmd("waybar & hyprpaper & hypridle & " .. chat .. " & qs & vicinae server")
+    hl.exec_cmd("waybar & hyprpaper & hypridle & " .. chat .. " & qs")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme prefer-dark")
     -- Clipboard history for the island (text and images)
     hl.exec_cmd("wl-paste --type text --watch cliphist store & wl-paste --type image --watch cliphist store")
@@ -220,13 +220,6 @@ hl.layer_rule({
 
 hl.layer_rule({
     name  = "overlay-blur",
-    match = { namespace = "^(overview|launcher)$" },
+    match = { namespace = "^(overview|launcher|keybinds)$" },
     blur  = true,
-})
-
-hl.layer_rule({
-    name         = "vicinae-blur",
-    match        = { namespace = "vicinae" },
-    blur         = true,
-    ignore_alpha = 0,
 })

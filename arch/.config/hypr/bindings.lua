@@ -20,7 +20,7 @@ bind(mainMod .. " + F",      hl.dsp.exec_cmd(fileManager), "File manager")
 bind(mainMod .. " + B",      hl.dsp.exec_cmd(browser),     "Browser")
 bind(mainMod .. " + O",      hl.dsp.exec_cmd("obsidian"),  "Obsidian")
 bind(mainMod .. " + A",      hl.dsp.exec_cmd("pavucontrol"), "Volume control")
-bind("ALT + SPACE",          hl.dsp.exec_cmd("vicinae toggle"), "Launcher")
+bind("ALT + SPACE",          hl.dsp.exec_cmd("qs ipc call launcher toggle"), "App launcher")
 
 -- Windows
 bind(mainMod .. " + Q", hl.dsp.window.close(),                     "Close window")
@@ -62,12 +62,12 @@ bind(mainMod .. " + ALT + S",   hl.dsp.exec_cmd("hyprshot -m region --raw | swap
 
 -- Tools
 bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"), "Color picker (copies hex)")
-bind(mainMod .. " + slash",     hl.dsp.exec_cmd("~/.config/hypr/scripts/keybinds.sh"), "Keybind cheatsheet")
+bind(mainMod .. " + slash",     hl.dsp.exec_cmd("qs ipc call keybinds toggle"), "Keybind cheatsheet")
 bind(mainMod .. " + I",         hl.dsp.exec_cmd("qs ipc call island toggle"), "Toggle island (control center)")
 bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("qs ipc call island clipboard"), "Clipboard history")
 bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("qs ipc call island record"), "Start/stop screen recording")
 bind(mainMod .. " + TAB",       hl.dsp.exec_cmd("qs ipc call overview toggle"), "Workspace overview")
-bind(mainMod .. " + SPACE",     hl.dsp.exec_cmd("qs ipc call launcher toggle"), "All apps")
+bind(mainMod .. " + SPACE",     hl.dsp.exec_cmd("qs ipc call launcher toggle"), "App launcher")
 
 -- Lock screen
 bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("loginctl lock-session"), "Lock screen")
