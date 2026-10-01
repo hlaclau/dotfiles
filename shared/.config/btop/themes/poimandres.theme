@@ -1,0 +1,87 @@
+
+# Poimandres theme for btop
+# Based on https://github.com/drcmda/poimandres-theme
+
+# Main background, empty for terminal default, need to be empty if you want transparent background
+theme[main_bg]="#1b1e28"
+
+# Main text color
+theme[main_fg]="#a6accd"
+
+# Title color for boxes
+theme[title]="#a6accd"
+
+# Highlight color for keyboard shortcuts
+theme[hi_fg]="#89ddff"
+
+# Background color of selected item in processes box
+theme[selected_bg]="#28344a"
+
+# Foreground color of selected item in processes box
+theme[selected_fg]="#5de4c7"
+
+# Color of inactive/disabled text
+theme[inactive_fg]="#3d59a1"
+
+# Color of text appearing on top of graphs, i.e uptime and current network graph scaling
+theme[graph_text]="#a6accd"
+
+# Background color of the percentage meters
+theme[meter_bg]="#28344a"
+
+# Misc colors for processes box including mini cpu graphs, details memory graph and details status text
+theme[proc_misc]="#add7ff"
+
+# CPU, Memory, Network, Proc box outline colors
+theme[cpu_box]="#89ddff"
+theme[mem_box]="#5de4c7"
+theme[net_box]="#d0679d"
+theme[proc_box]="#add7ff"
+
+# Box divider line and small boxes line color
+theme[div_line]="#3d59a1"
+
+# Temperature graph color (Teal -> Yellow -> Pink)
+theme[temp_start]="#5de4c7"
+theme[temp_mid]="#fffac2"
+theme[temp_end]="#d0679d"
+
+# CPU graph colors (Teal -> Blue)
+theme[cpu_start]="#5de4c7"
+theme[cpu_mid]="#89ddff"
+theme[cpu_end]="#add7ff"
+
+# Mem/Disk free meter (Blue -> Light Blue)
+theme[free_start]="#89ddff"
+theme[free_mid]="#add7ff"
+theme[free_end]="#5de4c7"
+
+# Mem/Disk cached meter (Blue -> Teal)
+theme[cached_start]="#add7ff"
+theme[cached_mid]="#89ddff"
+theme[cached_end]="#5de4c7"
+
+# Mem/Disk available meter (Pink -> Magenta)
+theme[available_start]="#d0679d"
+theme[available_mid]="#fcc5e9"
+theme[available_end]="#fae4fc"
+
+# Mem/Disk used meter (Teal -> Blue)
+theme[used_start]="#5de4c7"
+theme[used_mid]="#89ddff"
+theme[used_end]="#add7ff"
+
+# Download graph colors (Teal -> Blue)
+theme[download_start]="#5de4c7"
+theme[download_mid]="#89ddff"
+theme[download_end]="#add7ff"
+
+# Upload graph colors (Pink -> Magenta)
+theme[upload_start]="#d0679d"
+theme[upload_mid]="#fcc5e9"
+theme[upload_end]="#fae4fc"
+
+# Process box color gradient (Blue -> Teal)
+theme[process_start]="#89ddff"
+theme[process_mid]="#add7ff"
+theme[process_end]="#5de4c7"
