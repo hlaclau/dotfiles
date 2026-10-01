@@ -21,13 +21,15 @@ PanelWindow {
     // it then stays open until Escape, a click outside, or SUPER + I.
     property bool expanded: false
     property bool pinned: false
+    property int tab: 0
 
     readonly property bool focusedScreen: Hyprland.focusedMonitor?.name === modelData.name
     readonly property bool showNotification: !expanded && Notifs.popup !== null && focusedScreen
     readonly property bool showOsd: !expanded && !showNotification && Status.osd && focusedScreen
     readonly property bool fullscreen: Hyprland.monitorFor(modelData)?.activeWorkspace?.hasFullscreen ?? false
 
-    function open(pin) {
+    function open(pin, tabIndex) {
+        if (tabIndex !== undefined) tab = tabIndex;
         expanded = true;
         pinned = pin;
     }
@@ -37,7 +39,11 @@ PanelWindow {
     }
     function toggle() {
         if (expanded) close();
-        else open(true);
+        else open(true, 0);
+    }
+    function toggleTab(tabIndex) {
+        if (expanded && tab === tabIndex) close();
+        else open(true, tabIndex);
     }
     // Close first so screenshots and pickers don't capture the island
     function runAndClose(cmd) {
@@ -94,7 +100,7 @@ PanelWindow {
     Timer {
         id: hoverOpen
         interval: 200
-        onTriggered: if (!island.expanded && !island.showNotification) island.open(false)
+        onTriggered: if (!island.expanded && !island.showNotification) island.open(false, 0)
     }
     Timer {
         id: hoverClose
@@ -144,7 +150,7 @@ PanelWindow {
             onTapped: {
                 hoverOpen.stop();
                 if (island.expanded) island.pinned = true;
-                else island.open(true);
+                else island.open(true, 0);
             }
         }
 
@@ -173,7 +179,33 @@ PanelWindow {
 
                 RowLayout {
                     spacing: 6
-                    visible: Status.player?.isPlaying ?? false
+                    visible: Status.recording
+
+                    Rectangle {
+                        implicitWidth: 8
+                        implicitHeight: 8
+                        radius: 4
+                        color: Theme.red
+
+                        SequentialAnimation on opacity {
+                            running: Status.recording
+                            loops: Animation.Infinite
+                            NumberAnimation { to: 0.3; duration: 700 }
+                            NumberAnimation { to: 1; duration: 700 }
+                        }
+                    }
+                    Text {
+                        text: "REC " + Status.recordTime
+                        color: Theme.red
+                        font.family: Theme.font
+                        font.pixelSize: 12
+                        font.bold: true
+                    }
+                }
+
+                RowLayout {
+                    spacing: 6
+                    visible: !Status.recording && (Status.player?.isPlaying ?? false)
 
                     Text {
                         text: Icons.music
@@ -201,7 +233,8 @@ PanelWindow {
 
                 RowLayout {
                     spacing: 8
-                    visible: Notifs.dnd || Status.caffeine || Status.micMuted || Notifs.count > 0
+                    visible: Notifs.dnd || Status.caffeine || Status.micMuted || Status.nightLight
+                        || Notifs.count > 0 || Status.micInUse || Status.camInUse
 
                     Text {
                         visible: Notifs.dnd
@@ -223,6 +256,28 @@ PanelWindow {
                         color: Theme.red
                         font.family: Theme.iconFont
                         font.pixelSize: 12
+                    }
+                    Text {
+                        visible: Status.nightLight
+                        text: Icons.moon
+                        color: Theme.peach
+                        font.family: Theme.iconFont
+                        font.pixelSize: 12
+                    }
+                    // Privacy: orange = mic in use, green = camera in use
+                    Rectangle {
+                        visible: Status.micInUse
+                        implicitWidth: 7
+                        implicitHeight: 7
+                        radius: 4
+                        color: Theme.peach
+                    }
+                    Rectangle {
+                        visible: Status.camInUse
+                        implicitWidth: 7
+                        implicitHeight: 7
+                        radius: 4
+                        color: Theme.green
                     }
                     Rectangle {
                         visible: Notifs.count > 0 && !Notifs.dnd

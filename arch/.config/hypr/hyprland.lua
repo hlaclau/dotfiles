@@ -42,6 +42,10 @@ hl.on("hyprland.start", function()
     hl.exec_cmd(terminal)
     hl.exec_cmd("waybar & hyprpaper & hypridle & " .. chat .. " & qs & vicinae server")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme prefer-dark")
+    -- Clipboard history for the island (text and images)
+    hl.exec_cmd("wl-paste --type text --watch cliphist store & wl-paste --type image --watch cliphist store")
+    -- Night light daemon, neutral until the island turns it on
+    hl.exec_cmd("hyprsunset --identity")
 end)
 
 

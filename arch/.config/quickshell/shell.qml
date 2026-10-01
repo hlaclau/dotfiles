@@ -25,6 +25,16 @@ ShellRoot {
         function toggle(): void {
             focusedIsland().toggle();
         }
+        // 0 Home, 1 Audio, 2 Clipboard, 3 Hyprland
+        function openTab(index: int): void {
+            focusedIsland().open(true, index);
+        }
+        function clipboard(): void {
+            focusedIsland().toggleTab(2);
+        }
+        function record(): void {
+            Status.toggleRecording();
+        }
         function toggleDnd(): void {
             Notifs.dnd = !Notifs.dnd;
         }
