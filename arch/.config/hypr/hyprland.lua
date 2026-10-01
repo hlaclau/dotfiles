@@ -39,7 +39,9 @@ chat        = "vesktop"
 -------------------
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd(terminal)
+    -- Only the autostarted terminal goes to workspace 3; a class rule would
+    -- also catch the scratchpad and every SUPER+RETURN terminal
+    hl.exec_cmd(terminal, { workspace = "3" })
     hl.exec_cmd("waybar & hyprpaper & hypridle & " .. chat)
     -- Quickshell runs as a systemd user service so it restarts if it crashes.
     -- It, and the apps it launches through uwsm, need the variables set by
@@ -210,6 +212,12 @@ hl.window_rule({
     center = true,
     size   = "900 600",
 })
+
+-- Pin apps to their own workspace
+hl.window_rule({ name = "browser-ws", match = { class = "^(google-chrome)$" },     workspace = "1" })
+hl.window_rule({ name = "orca-ws",    match = { class = "^(orca)$" },              workspace = "4" })
+hl.window_rule({ name = "spotify-ws", match = { class = "^(Spotify)$" },           workspace = "8" })
+hl.window_rule({ name = "discord-ws", match = { class = "^(discord|vesktop)$" },   workspace = "9" })
 
 -- Drop-down terminal: the scratch workspace spawns one when opened empty
 hl.workspace_rule({ workspace = "special:scratch", on_created_empty = terminal })
