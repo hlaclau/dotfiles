@@ -147,6 +147,28 @@ Rectangle {
             }
         }
 
+        // Mute this app's popups; stays visible (peach) once muted
+        Text {
+            readonly property bool muted: Notifs.isMuted(card.notification?.appName ?? "")
+
+            Layout.alignment: Qt.AlignTop
+            visible: !card.flat && (card.notification?.appName ?? "") !== ""
+                && (muted || mouse.containsMouse || muteMouse.containsMouse || closeMouse.containsMouse)
+            text: Icons.bellSlash
+            color: muted || muteMouse.containsMouse ? Theme.peach : Theme.overlay1
+            font.family: Theme.iconFont
+            font.pixelSize: 12
+
+            MouseArea {
+                id: muteMouse
+                anchors.fill: parent
+                anchors.margins: -6
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: Notifs.toggleMute(card.notification.appName)
+            }
+        }
+
         Text {
             Layout.alignment: Qt.AlignTop
             text: Icons.close

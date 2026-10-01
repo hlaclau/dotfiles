@@ -6,7 +6,7 @@ import Quickshell.Services.Notifications
 
 // Notification daemon (replaces dunst). Every notification is kept in the
 // island's history until dismissed; the newest one also pops up in the island
-// unless Do Not Disturb is on (critical ones always pop up).
+// unless Do Not Disturb is on or its app is muted (critical ones always pop up).
 Singleton {
     id: root
 
@@ -17,6 +17,16 @@ Singleton {
 
     readonly property var list: [...server.trackedNotifications.values].reverse()
     readonly property int count: server.trackedNotifications.values.length
+
+    readonly property var mutedApps: Settings.values.mutedApps
+
+    function isMuted(app) {
+        return mutedApps.includes(app);
+    }
+    function toggleMute(app) {
+        if (!app) return;
+        Settings.values.mutedApps = isMuted(app) ? mutedApps.filter(a => a !== app) : [...mutedApps, app];
+    }
 
     function clearAll() {
         for (const n of [...server.trackedNotifications.values]) n.dismiss();
@@ -42,7 +52,7 @@ Singleton {
 
         onNotification: n => {
             n.tracked = true;
-            if (root.dnd && n.urgency !== NotificationUrgency.Critical) {
+            if ((root.dnd || root.isMuted(n.appName)) && n.urgency !== NotificationUrgency.Critical) {
                 if (n.transient) n.expire();
                 return;
             }
