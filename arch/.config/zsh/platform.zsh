@@ -1,10 +1,5 @@
 # Arch-specific shell setup, sourced by ~/.zshrc
 
-# Open tmux by default when not already in tmux (every new terminal gets its own session)
-if [[ -z "$TMUX" ]] && [[ $- == *i* ]] && command -v tmux &> /dev/null; then
-  exec tmux new-session
-fi
-
 # Configure pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 

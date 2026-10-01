@@ -33,7 +33,6 @@ qbittorrent
 starship
 stow
 thefuck
-tmux
 ttf-dejavu
 ttf-jetbrains-mono-nerd
 ttf-liberation

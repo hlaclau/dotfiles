@@ -66,10 +66,6 @@ brew "starship"
 brew "stow"
 # A cross-platform, fast and extensible general purpose fuzzy finder TUI.
 brew "television"
-# Terminal multiplexer for persistent sessions
-brew "tmux"
-# Tmux plugin manager for easy plugin installation
-brew "tpm"
 # Smart directory jumper with learning capabilities
 brew "zoxide"
 # Fish-like autosuggestions for Zsh command history

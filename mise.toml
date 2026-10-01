@@ -1,5 +1,5 @@
 [tasks.submodules]
-description = "Fetch git submodules (wallpapers, tmux catppuccin theme)"
+description = "Fetch git submodules (wallpapers)"
 run = "git submodule update --init --recursive"
 
 [tasks.stow]

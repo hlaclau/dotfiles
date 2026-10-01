@@ -5,7 +5,7 @@ Dotfiles for macOS and Arch Linux, themed with Catppuccin Mocha. Configs are spl
 ## Layout
 
 ```
-shared/     stowed everywhere: zsh, tmux, ghostty, starship, lazygit, fastfetch, btop, bat, mpv, yazi, ideavim
+shared/     stowed everywhere: zsh, ghostty, starship, lazygit, fastfetch, btop, bat, mpv, yazi, ideavim
 mac/        stowed on macOS:   aerospace, borders, homebrew (Brewfile), kitty
 arch/       stowed on Arch:    hyprland, hyprlock, hyprpaper, waybar, dunst, gtk, xsettingsd
 packages/   package lists (not stowed): arch/pacman.txt, arch/aur.txt
@@ -15,7 +15,7 @@ wallpapers/ wallpapers submodule
 
 When a tool needs per-OS settings, the shared config includes a `platform` file that `mac/` and `arch/` each provide:
 
-- **zsh**: `shared/.zshrc` sources `~/.config/zsh/platform.zsh` (PNPM path, plugin locations, OS-specific aliases; on Arch it also auto-starts tmux).
+- **zsh**: `shared/.zshrc` sources `~/.config/zsh/platform.zsh` (PNPM path, plugin locations, OS-specific aliases).
 - **ghostty**: `shared/.config/ghostty/config` includes `~/.config/ghostty/platform` (font, window decorations, macOS option-as-alt).
 
 macOS is the source of truth: when both systems configure the same tool, the macOS version goes in `shared/`.

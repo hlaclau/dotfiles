@@ -101,9 +101,6 @@ export FZF_DEFAULT_OPTS=" \
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}'"
 export FZF_ALT_C_OPTS="--preview 'eza --long --color=always --icons=always --git {} | head -200'"
 
-# Configure fzf for tmux
-# export FZF_TMUX_OPTS=" -p90%,70% "
-
 # =============================================================================
 #                               ALIASES
 # =============================================================================
@@ -146,36 +143,11 @@ alias h="history 1 | fzf"
 alias reload="source ~/.zshrc"
 
 # =============================================================================
-#                               TMUX WINDOW NAMING
-# =============================================================================
-
-# Rename the current window to the directory name on every cd.
-# Skips windows that were manually renamed (flagged via @manual-rename in tmux.conf).
-# _tmux_update_window_name() {
-#   [[ -z "$TMUX" ]] && return
-#   local renamed
-#   renamed=$(tmux show-window-options -v @manual-rename 2>/dev/null)
-#   [[ "$renamed" == "1" ]] && return
-#   tmux rename-window "$(basename "$PWD")"
-# }
-# chpwd_functions+=(_tmux_update_window_name)
-# _tmux_update_window_name  # set name on shell start
-
-# =============================================================================
-#                               TMUX AUTO-START
-# =============================================================================
-
-# Open tmux by default if available and not already in tmux
-# if command -v tmux &> /dev/null && [ -z "$TMUX" ] && [ -n "$PS1" ] && [[ $- == *i* ]]; then
-#   tmux attach || tmux
-# fi
-
-# =============================================================================
 #                               FASTFETCH DISPLAY
 # =============================================================================
 
-# Show fastfetch only in interactive shells that are not inside tmux
-if [[ $- == *i* ]] && [ -z "$TMUX" ]; then
+# Show fastfetch only in interactive shells
+if [[ $- == *i* ]]; then
   fastfetch
 fi
 
