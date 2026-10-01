@@ -51,8 +51,8 @@ bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   "Drag window",   { mouse
 bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), "Resize window", { mouse = true })
 
 -- Scratchpad: drop-down terminal (see the special:scratch workspace rule)
-bind(mainMod .. " + grave",         hl.dsp.workspace.toggle_special("scratch"),          "Toggle scratchpad")
-bind(mainMod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special:scratch" }), "Move window to scratchpad")
+bind(mainMod .. " + T",         hl.dsp.workspace.toggle_special("scratch"),            "Toggle scratchpad")
+bind(mainMod .. " + SHIFT + T", hl.dsp.window.move({ workspace = "special:scratch" }), "Move window to scratchpad")
 
 -- Screenshots with hyprshot
 bind(mainMod .. " + S",         hl.dsp.exec_cmd("hyprshot -m region"), "Screenshot region")
