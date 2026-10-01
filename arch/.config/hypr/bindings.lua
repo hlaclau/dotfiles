@@ -63,7 +63,7 @@ bind(mainMod .. " + ALT + S",   hl.dsp.exec_cmd("hyprshot -m region --raw | swap
 -- Tools
 bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"), "Color picker (copies hex)")
 bind(mainMod .. " + slash",     hl.dsp.exec_cmd("~/.config/hypr/scripts/keybinds.sh"), "Keybind cheatsheet")
-bind(mainMod .. " + N",         hl.dsp.exec_cmd("dunstctl history-pop"), "Show last notification")
+bind(mainMod .. " + I",         hl.dsp.exec_cmd("qs ipc call island toggle"), "Toggle island (control center)")
 
 -- Lock screen
 bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("loginctl lock-session"), "Lock screen")
@@ -88,7 +88,7 @@ bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   "Previous track"
 --------------------
 
 -- First press hides every window in special:panic, mutes audio, pauses media
--- and silences notifications. Second press puts each window back on the
+-- and turns on Do Not Disturb. Second press puts each window back on the
 -- workspace it came from and undoes the rest.
 local hidden = nil
 
@@ -109,13 +109,13 @@ local function toggle_panic()
                 hl.dispatch(hl.dsp.window.move({ window = selector(window), workspace = "special:panic", follow = false }))
             end
         end
-        hl.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ 1; playerctl --all-players pause; dunstctl set-paused true")
+        hl.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ 1; playerctl --all-players pause; qs ipc call island setDnd true")
     else
         for _, entry in ipairs(hidden) do
             hl.dispatch(hl.dsp.window.move({ window = entry.window, workspace = entry.workspace, follow = false }))
         end
         hidden = nil
-        hl.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; dunstctl set-paused false")
+        hl.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; qs ipc call island setDnd false")
     end
 end
 

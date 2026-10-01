@@ -1,134 +1,90 @@
-{ 
-
+// Flat top bar with an empty center: the quickshell island hangs there.
+// Height matches the island (Theme.barHeight in ~/.config/quickshell/Theme.qml).
+{
+  "layer": "top",
   "position": "top",
-  "exlusive": "true",
-  "passthrough": "true",
-  "gtk-layer-shell": "true",
-  "margin-top": 10,
-  "margin-left": 10,
-  "margin-right": 10,
-  "height": 41,
+  "height": 36,
+  "spacing": 0,
+  "exclusive": true,
+
   "modules-left": [
-    "custom/weather",
-    "cpu",
-    "memory",
-    "disk",
+    "hyprland/workspaces",
+    "group/system"
   ],
-  "modules-center": [
-    "hyprland/workspaces"
-  ],
+  "modules-center": [],
   "modules-right": [
     "hyprland/language",
-    "pulseaudio",
-    "pulseaudio#microphone",
-    "clock",
-    "separator",
+    "group/audio",
     "tray"
   ],
 
-
-  "tray": {
-    "icon-size": 16,
-    "icon-theme": "Papirus",
-    "spacing": 2, 
-  },
-   "custom/spacer": {
-        "format": " ", // Empty space
-        "tooltip": false
-  },
-  "separator": {
-    "format": " | "
-  },
-  "hyprland/window": {
-    "format": "{}",
-    "max-length": 35,
-    "rewrite": {
-      "": "Harsh"
-    },
-    "separate-outputs": true
-  },
   "hyprland/workspaces": {
     "format": "{id}",
     "on-click": "activate",
     "separate-outputs": true,
     "sort-by-number": true,
     "persistent-workspaces": {
-      "HDMI-A-1": [6, 7, 8, 9],
-      "DP-3": [1, 2, 3, 4, 5]
+      "DP-2": [1, 2, 3, 4, 5],
+      "DP-1": [6, 7, 8, 9]
     }
   },
-  "clock": {
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format": "<span color='#cba6f7'>󰥔 </span><span color='#bac2de'>{:%H:%M | %a %d %b}</span>",
-    "format-alt": "{:%Y-%m-%d}"
-  },
 
+  "group/system": {
+    "orientation": "horizontal",
+    "modules": ["cpu", "memory", "disk"]
+  },
   "cpu": {
-    "format": "<span color='#cba6f7'>󰍛</span> <span color='#bac2de'>{usage}%</span>",
-    "interval": 1,
-    "format-alt-click": "click",
-    "format-alt": "<span color='#6c7086'>{icon0}{icon1}{icon2}{icon3}</span> <span color='#cba6f7'>{usage:>2}%</span> <span color='#6c7086'>󰍛</span>",
-    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
-    "on-click": "gnome-system-monitor"
+    "interval": 2,
+    "format": "<span color='#cba6f7'>󰻠</span> {usage}%",
+    "tooltip": false
   },
   "memory": {
     "interval": 3,
-    "format": "<span color='#bac2de'> </span> <span color='#bac2de'>{used:0.1f}G</span>"
+    "format": "<span color='#cba6f7'>󰍛</span> {used:0.1f}G",
+    "tooltip-format": "{used:0.1f}G / {total:0.1f}G"
   },
-   
+  "disk": {
+    "interval": 60,
+    "path": "/home",
+    "unit": "GB",
+    "format": "<span color='#cba6f7'>󰋊</span> {free}",
+    "tooltip-format": "{used} used of {total} on {path}"
+  },
 
-"custom/weather": {
-    "exec": "~/.config/hypr/scripts/weather.sh",
-    "return-type": "json",
-    "interval": 600,
-    "format": "{text}"
-},
+  "hyprland/language": {
+    "format": "<span color='#cba6f7'>󰌌</span> {}",
+    "format-en": "us"
+  },
 
-
+  "group/audio": {
+    "orientation": "horizontal",
+    "modules": ["pulseaudio", "pulseaudio#microphone"]
+  },
   "pulseaudio": {
-    "format": "<span color='#cba6f7'>{icon} </span><span color='#bac2de'>{volume}%</span>",
-    "format-bluetooth": "<span color='#cba6f7'>{icon}</span>  <span color='#bac2de'>{volume}%</span>",
-    "tooltip": false,
-    "format-muted": "<span color='#bac2de'>󰝟</span>",
-    "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
-    "on-scroll-up": "wpctl set-volume @DEFAULT_SINK@ 10%+",
-    "on-scroll-down": "wpctl set-volume @DEFAULT_SINK@ 10%-",
+    "format": "<span color='#cba6f7'>{icon}</span> {volume}%",
+    "format-muted": "<span color='#6c7086'>󰝟</span> muted",
     "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": [
-        "",
-        "",
-        "",
-      ]
-    }
+      "headphone": "󰋋",
+      "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "tooltip": false,
+    "on-click": "pavucontrol",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
   },
   "pulseaudio#microphone": {
     "format": "{format_source}",
-    "format-source": "<span color='#bac2de'> </span><span color='#bac2de'>{volume}%</span>",
-    "format-source-muted": "",
-    "on-click": "wpctl set-mute @DEFAULT_SOURCE@ toggle",
-    "on-scroll-up": "wpctl set-volume @DEFAULT_SOURCE@ 5%+",
-    "on-scroll-down": "wpctl set-volume @DEFAULT_SOURCE@ 5%-",
+    "format-source": "<span color='#cba6f7'>󰍬</span> {volume}%",
+    "format-source-muted": "<span color='#f38ba8'>󰍭</span>",
+    "tooltip": false,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-"
   },
 
-   "hyprland/language": {
-
-  "format": "<span color='#cba6f7'>󰌌</span> <span color='#bac2de'>{}</span>",
-
-  "format-ar": "ara",
-
-  "format-en": "eng",
-
-},
-  "disk":{
-	"interval": 3,
-  "path": "/home",
-	"format": "<span color='#cba6f7'> </span><span color='#bac2de'>{free}</span>",
-	"unit": "GB"
-},
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8
+  }
 }
