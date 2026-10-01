@@ -219,8 +219,8 @@ hl.layer_rule({
 })
 
 hl.layer_rule({
-    name  = "overview-blur",
-    match = { namespace = "overview" },
+    name  = "overlay-blur",
+    match = { namespace = "^(overview|launcher)$" },
     blur  = true,
 })
 

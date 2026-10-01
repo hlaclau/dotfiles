@@ -32,6 +32,9 @@ Singleton {
             property bool noiseSuppression: false
             // Hardware mic the noise filter reads from
             property string noiseMic: ""
+
+            // Launcher: how often each app was opened (desktop entry id -> count)
+            property var launches: ({})
         }
     }
 }
