@@ -12,8 +12,10 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH=$PATH:$HOME/.local/opt/go/bin
 export PATH=$PATH:$HOME/go/bin
 
+# Platform-specific setup (PNPM_HOME, plugin paths, aliases, ...) from the mac/ or arch/ package
+[ -f "$HOME/.config/zsh/platform.zsh" ] && source "$HOME/.config/zsh/platform.zsh"
+
 # Configure pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -27,8 +29,8 @@ esac
 autoload -Uz compinit && compinit
 
 # Add git completion to fpath
-if [[ -d "$(brew --prefix)/share/zsh/site-functions" ]]; then
-  fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+if [[ -d "$ZSH_SITE_FUNCTIONS" ]]; then
+  fpath=($ZSH_SITE_FUNCTIONS $fpath)
 fi
 
 # Ignore duplicates in history
@@ -62,7 +64,7 @@ eval "$(zoxide init zsh)"
 # =============================================================================
 
 # Activate syntax highlighting
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH_PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Disable path underline
 (( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
@@ -70,7 +72,7 @@ ZSH_HIGHLIGHT_STYLES[path]=none
 ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 # Activate autosuggestions
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # =============================================================================
 #                               FZF CONFIGURATION
@@ -139,7 +141,6 @@ fzf-cd() {
 # Utility aliases
 alias cls="clear"
 alias h="history 1 | fzf"
-alias sb="brew services restart sketchybar"
 
 # source zshrc 
 alias reload="source ~/.zshrc"
@@ -186,4 +187,4 @@ fi
 export PATH="$HOME/.dotnet/tools:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
-export PATH=$PATH:/Users/hlaclau/.spicetify
+[ -d "$HOME/.spicetify" ] && export PATH=$PATH:$HOME/.spicetify

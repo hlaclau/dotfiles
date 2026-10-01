@@ -1,0 +1,5 @@
+window-decoration = true
+font-thicken = true
+font-family = SFMono Nerd Font
+macos-option-as-alt = true
+keybind = super+t=ignore
