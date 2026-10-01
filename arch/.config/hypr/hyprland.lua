@@ -42,8 +42,9 @@ hl.on("hyprland.start", function()
     hl.exec_cmd(terminal)
     hl.exec_cmd("waybar & hyprpaper & hypridle & " .. chat)
     -- Quickshell runs as a systemd user service so it restarts if it crashes.
-    -- It needs the variables set by hl.env above, which systemd doesn't see.
-    hl.exec_cmd("systemctl --user import-environment TERMINAL BROWSER HYPRSHOT_DIR XCURSOR_THEME XCURSOR_SIZE HYPRCURSOR_SIZE"
+    -- It, and the apps it launches through uwsm, need the variables set by
+    -- hl.env above, which systemd doesn't see.
+    hl.exec_cmd("systemctl --user import-environment TERMINAL BROWSER HYPRSHOT_DIR XCURSOR_THEME XCURSOR_SIZE HYPRCURSOR_SIZE QT_QPA_PLATFORMTHEME"
         .. " && systemctl --user reset-failed quickshell.service; systemctl --user start quickshell.service")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme prefer-dark")
     -- Clipboard history for the island (text and images)
@@ -65,6 +66,8 @@ hl.env("MOZ_DISABLE_RDD_SANDBOX", "1")
 hl.env("HYPRSHOT_DIR", os.getenv("HOME") .. "/Pictures")
 hl.env("TERMINAL", terminal)
 hl.env("BROWSER", browser)
+-- Qt apps: qt6ct picks the Kvantum Catppuccin theme (arch/.config/qt6ct, Kvantum)
+hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
 
 -----------------------
