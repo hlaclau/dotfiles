@@ -218,6 +218,52 @@ ColumnLayout {
         }
     }
 
+    // Muted apps: click one to unmute it
+    Flow {
+        Layout.fillWidth: true
+        visible: Notifs.mutedApps.length > 0
+        spacing: 6
+
+        Text {
+            height: 24
+            verticalAlignment: Text.AlignVCenter
+            text: Icons.bellSlash + "  Muted"
+            color: Theme.peach
+            font.family: Theme.iconFont
+            font.pixelSize: 11
+        }
+
+        Repeater {
+            model: Notifs.mutedApps
+
+            Rectangle {
+                id: chip
+                required property string modelData
+                implicitWidth: chipText.implicitWidth + 22
+                implicitHeight: 24
+                radius: 12
+                color: chipMouse.containsMouse ? Theme.surface1 : Theme.surface0
+
+                Text {
+                    id: chipText
+                    anchors.centerIn: parent
+                    text: chip.modelData + (chipMouse.containsMouse ? "  " + Icons.close : "")
+                    color: Theme.subtext1
+                    font.family: Theme.font
+                    font.pixelSize: 11
+                }
+
+                MouseArea {
+                    id: chipMouse
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: Notifs.toggleMute(chip.modelData)
+                }
+            }
+        }
+    }
+
     Text {
         Layout.fillWidth: true
         Layout.bottomMargin: 6

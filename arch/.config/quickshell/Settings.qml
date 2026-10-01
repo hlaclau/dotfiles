@@ -35,6 +35,9 @@ Singleton {
 
             // Launcher: how often each app was opened (desktop entry id -> count)
             property var launches: ({})
+
+            // Apps whose notifications don't pop up (still kept in the history)
+            property var mutedApps: []
         }
     }
 }
