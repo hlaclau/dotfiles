@@ -1,14 +1,41 @@
-[tasks."brew:install"]
-description = "Install packages from Brewfile"
-run = "brew bundle install --file=.config/homebrew/Brewfile"
+[tasks.submodules]
+description = "Fetch git submodules (wallpapers, tmux catppuccin theme)"
+run = "git submodule update --init --recursive"
 
 [tasks.stow]
-description = "Stow all dotfiles"
-run = "stow ."
+description = "Stow shared dotfiles + the ones for the current OS (mac or arch)"
+depends = ["submodules"]
+run = "./scripts/stow.sh"
 
 [tasks."stow:restow"]
-description = "Restow all dotfiles (refresh symlinks)"
-run = "stow --restow ."
+description = "Restow dotfiles (refresh symlinks)"
+depends = ["submodules"]
+run = "./scripts/stow.sh --restow"
+
+[tasks."stow:check"]
+description = "Dry run: show what stow would do without touching anything"
+run = "./scripts/stow.sh --simulate --verbose"
+
+[tasks.unstow]
+description = "Remove all dotfile symlinks"
+run = "./scripts/stow.sh --delete"
+
+[tasks.install]
+description = "Install packages for the current OS (Brewfile on mac, pacman/AUR on arch)"
+run = '''
+case "$(uname -s)" in
+  Darwin) mise run brew:install ;;
+  Linux) mise run arch:install ;;
+esac
+'''
+
+[tasks."brew:install"]
+description = "Install packages from Brewfile"
+run = "brew bundle install --file=mac/.config/homebrew/Brewfile"
+
+[tasks."arch:install"]
+description = "Install pacman and AUR packages from packages/arch"
+run = "./scripts/arch-packages.sh"
 
 [tasks."scripts:macos-utilities"]
 description = "Apply macOS utility defaults (Finder, trackpad, keyboard)"
