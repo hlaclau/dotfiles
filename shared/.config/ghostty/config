@@ -1,9 +1,12 @@
 theme = Catppuccin Mocha
 background-opacity = 0.9
 font-size = 14
+# SF Mono Nerd Font: Homebrew names it "SFMono Nerd Font", the AUR package (nerd-fonts-sf-mono) "SFMono Nerd Font Mono"
+font-family = SFMono Nerd Font
+font-family = SFMono Nerd Font Mono
 mouse-hide-while-typing = true
 keybind = shift+enter=text:\n
 custom-shader = shaders/cursor_mauve.glsl
 
-# Platform-specific settings (font, decorations, ...) from the mac/ or arch/ package
+# Platform-specific settings (decorations, keybinds, ...) from the mac/ or arch/ package
 config-file = ?platform
