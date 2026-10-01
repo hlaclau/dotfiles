@@ -207,7 +207,13 @@ PanelWindow {
                     spacing: 6
                     visible: !Status.recording && (Status.player?.isPlaying ?? false)
 
+                    // Bars dance with the music; the note shows until cava sends levels
+                    Visualizer {
+                        visible: Cava.bars.length > 0
+                        maxHeight: 14
+                    }
                     Text {
+                        visible: Cava.bars.length === 0
                         text: Icons.music
                         color: Theme.accent
                         font.family: Theme.iconFont
