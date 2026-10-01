@@ -7,8 +7,9 @@ Dotfiles for macOS and Arch Linux, themed with Catppuccin Mocha. Configs are spl
 ```
 shared/     stowed everywhere: zsh, ghostty, starship, lazygit, fastfetch, btop, bat, mpv, yazi, ideavim
 mac/        stowed on macOS:   aerospace, borders, homebrew (Brewfile), kitty
-arch/       stowed on Arch:    hyprland, hyprlock, hyprpaper, waybar, dunst, gtk, xsettingsd
+arch/       stowed on Arch:    hyprland, hyprlock, hypridle, hyprpaper, waybar, quickshell, gtk, xsettingsd
 packages/   package lists (not stowed): arch/pacman.txt, arch/aur.txt
+system/     system files (not stowed): sddm login theme config
 scripts/    helper scripts used by the mise tasks
 wallpapers/ wallpapers submodule
 ```
@@ -51,12 +52,28 @@ macOS is the source of truth: when both systems configure the same tool, the mac
    mise run install
    ```
 
-4. On macOS, set Homebrew's zsh as your shell:
+4. On Arch, apply the login screen theme (needs [SilentSDDM](https://github.com/uiriansan/SilentSDDM) installed):
+
+   ```sh
+   mise run arch:sddm
+   ```
+
+5. On macOS, set Homebrew's zsh as your shell:
 
    ```sh
    sudo sh -c 'echo $(brew --prefix)/bin/zsh >> /etc/shells'
    chsh -s $(brew --prefix)/bin/zsh
    ```
+
+## Hyprland desktop
+
+The Arch setup runs Hyprland with a Lua config (`arch/.config/hypr/hyprland.lua`, binds in `bindings.lua`) and a [Quickshell](https://quickshell.org) shell in `arch/.config/quickshell`:
+
+- **Dynamic island** hanging from the top of each screen: clock, now playing, notifications (it replaces a notification daemon), volume popup and a REC timer. `SUPER + I` opens its control center with Home, Audio, Network, Clipboard and Hyprland tabs.
+- **Workspace overview** with live window previews: `SUPER + Tab`.
+- **Waybar** keeps an empty center for the island.
+
+Press `SUPER + /` for a searchable list of every keybind.
 
 ## Tasks
 
@@ -72,6 +89,7 @@ Run `mise tasks` to list all available tasks.
 | `mise run install` | Install packages for the current OS |
 | `mise run brew:install` | Install packages from the Brewfile |
 | `mise run arch:install` | Install pacman and AUR packages |
+| `mise run arch:sddm` | Apply the Catppuccin config to the SilentSDDM login theme |
 | `mise run scripts:macos-utilities` | Apply macOS defaults (Finder, trackpad, keyboard) |
 
 ## Updating
