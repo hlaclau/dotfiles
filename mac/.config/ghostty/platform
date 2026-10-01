@@ -1,4 +1,6 @@
 window-decoration = true
 font-thicken = true
+# SF Mono from Homebrew
+font-family = SFMono Nerd Font
 macos-option-as-alt = true
 keybind = super+t=ignore
