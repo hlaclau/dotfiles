@@ -39,11 +39,13 @@ pavucontrol
 playerctl
 qbittorrent
 quickshell
+ripgrep
 slurp
 starship
 stow
 swappy
 thefuck
+tree-sitter-cli
 ttf-dejavu
 ttf-jetbrains-mono-nerd
 ttf-liberation

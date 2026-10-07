@@ -50,6 +50,10 @@ brew "neovim"
 brew "node"
 # Tool versionning manager
 brew "mise"
+# Fast recursive grep, used by Neovim pickers
+brew "ripgrep"
+# Tree-sitter CLI, used by nvim-treesitter to build parsers
+brew "tree-sitter-cli"
 # Fast, disk space efficient Node.js package manager
 brew "pnpm"
 # precommit but better

@@ -15,5 +15,5 @@ case "$(uname -s)" in
 esac
 
 echo "Stowing shared + $platform"
-# nvim is kept in the repo but not stowed until it gets redone; mise.toml files are never stowed
-stow --dir "$DOTFILES" --target "$HOME" --ignore='\.config/nvim' --ignore='mise\.toml' "$@" shared "$platform"
+# mise.toml files are never stowed
+stow --dir "$DOTFILES" --target "$HOME" --ignore='mise\.toml' "$@" shared "$platform"

@@ -1,0 +1,7 @@
+# Global tool versions, also needed by Mason to install the Neovim language servers
+[tools]
+node = "lts"
+go = "latest"
+rust = "stable"
+dotnet = "10"
+terraform = "latest"

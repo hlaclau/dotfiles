@@ -5,7 +5,7 @@ Dotfiles for macOS and Arch Linux, themed with Catppuccin Mocha. Configs are spl
 ## Layout
 
 ```
-shared/     stowed everywhere: zsh, ghostty, starship, lazygit, fastfetch, btop, bat, mpv, yazi, ideavim
+shared/     stowed everywhere: zsh, nvim, ghostty, starship, lazygit, fastfetch, btop, bat, mpv, yazi, ideavim
 mac/        stowed on macOS:   omniwm, homebrew (Brewfile), kitty
 arch/       stowed on Arch:    hyprland, hyprlock, hypridle, hyprpaper, waybar, quickshell, gtk, qt (qt6ct + Kvantum), xsettingsd
 packages/   package lists (not stowed): arch/pacman.txt, arch/aur.txt
@@ -21,7 +21,9 @@ When a tool needs per-OS settings, the shared config includes a `platform` file 
 
 macOS is the source of truth: when both systems configure the same tool, the macOS version goes in `shared/`.
 
-`shared/.config/nvim` is kept in the repo but is not stowed for now, since it is being redone.
+## Neovim
+
+`shared/.config/nvim` is a [LazyVim](https://www.lazyvim.org) config with the Catppuccin Mocha colorscheme. Language extras (LSP, treesitter, formatters, linters) are imported in `lua/config/lazy.lua`: Markdown, JavaScript/TypeScript, JSON, Go, Rust, C# and Terraform. Mason installs the language servers on first launch, which needs `node`/`npm`, `go`, `cargo` and `dotnet` on the `PATH` (e.g. through mise). `:LazyHealth` and `:Mason` show what is missing.
 
 ## Prerequisites
 
