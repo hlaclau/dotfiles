@@ -38,6 +38,11 @@ Singleton {
 
             // Apps whose notifications don't pop up (still kept in the history)
             property var mutedApps: []
+
+            // AI panel: backend ("claude", "codex" or "ollama"), agent name and Ollama model
+            property string aiBackend: "claude"
+            property string aiAgent: "Chat"
+            property string aiOllamaModel: ""
         }
     }
 }

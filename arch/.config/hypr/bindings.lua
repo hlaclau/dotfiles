@@ -67,20 +67,26 @@ bind(mainMod .. " + I",         hl.dsp.exec_cmd("qs ipc call island toggle"), "T
 bind(mainMod .. " + V",         hl.dsp.exec_cmd("qs ipc call island clipboard"), "Clipboard history")
 bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("qs ipc call island record"), "Start/stop screen recording")
 bind(mainMod .. " + TAB",       hl.dsp.exec_cmd("qs ipc call overview toggle"), "Workspace overview")
+bind(mainMod .. " + C",         hl.dsp.exec_cmd("qs ipc call ai toggle"), "AI chat panel")
 bind(mainMod .. " + SHIFT + ALT + Q", hl.dsp.exec_cmd("hyprctl kill"), "Force-kill a window (click it)")
 
--- OCR a region with every installed tesseract language (minus osd) and copy the text
-local ocr = [[
+-- OCR a region with every installed tesseract language (minus osd), then
+-- hand the text to `found` (a shell snippet reading it from $text)
+local function ocr(found)
+    return [[
 region=$(slurp) || exit 0
 langs=$(tesseract --list-langs 2>/dev/null | tail -n +2 | grep -vx osd | paste -sd+)
 text=$(grim -g "$region" - |tesseract stdin stdout ${langs:+-l $langs} 2>/dev/null)
 if [ -n "$(printf %s "$text" | tr -d '[:space:]')" ]; then
-    printf %s "$text" | wl-copy && notify-send -a OCR "Text copied" "$(printf %s "$text" | head -c 200)"
+    ]] .. found .. [[
+
 else
     notify-send -a OCR "No text found"
 fi
 ]]
-bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd(ocr), "OCR region to clipboard")
+end
+bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd(ocr([[printf %s "$text" | wl-copy && notify-send -a OCR "Text copied" "$(printf %s "$text" | head -c 200)"]])), "OCR region to clipboard")
+bind(mainMod .. " + CTRL + O",  hl.dsp.exec_cmd(ocr([[qs ipc call ai ask "$text"]])), "OCR region and ask AI")
 
 -- Lock screen
 bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("loginctl lock-session"), "Lock screen")

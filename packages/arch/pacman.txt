@@ -34,6 +34,7 @@ noise-suppression-for-voice
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
+ollama
 pacman-contrib
 papirus-icon-theme
 pavucontrol

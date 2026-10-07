@@ -6,8 +6,9 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
 
-// Dynamic island, workspace overview, app launcher and keybind cheatsheet,
-// one of each per screen. Control them with `qs ipc call island <fn>` and
+// Dynamic island, workspace overview, app launcher, keybind cheatsheet and AI
+// chat, one of each per screen. Control them with `qs ipc call island <fn>`,
+// `qs ipc call ai <toggle|ask TEXT|newChat>` and
 // `qs ipc call <overview|launcher|keybinds> toggle`.
 ShellRoot {
     Variants {
@@ -63,6 +64,33 @@ ShellRoot {
 
         function toggle(): void {
             keybindsOpen = !keybindsOpen;
+        }
+    }
+
+    property bool aiOpen: false
+
+    Variants {
+        model: Quickshell.screens
+
+        AiPanel {
+            open: aiOpen
+            onCloseRequested: aiOpen = false
+        }
+    }
+
+    IpcHandler {
+        target: "ai"
+
+        function toggle(): void {
+            aiOpen = !aiOpen;
+        }
+        // Open the panel and send `text` to the current chat
+        function ask(text: string): void {
+            aiOpen = true;
+            Ai.send(text);
+        }
+        function newChat(): void {
+            Ai.newChat();
         }
     }
 
