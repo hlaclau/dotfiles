@@ -43,6 +43,8 @@ slurp
 starship
 stow
 swappy
+tesseract
+tesseract-data-eng
 thefuck
 tree-sitter-cli
 ttf-dejavu
