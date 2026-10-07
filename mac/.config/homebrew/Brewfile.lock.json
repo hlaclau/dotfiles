@@ -833,15 +833,6 @@
             "appdir": "/Applications"
           }
         }
-      },
-      "aerospace": {
-        "version": "0.15.2-Beta",
-        "options": {
-          "full_name": "nikitabobko/tap/aerospace",
-          "args": {
-            "appdir": "/Applications"
-          }
-        }
       }
     }
   },
