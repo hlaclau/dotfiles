@@ -64,7 +64,7 @@ bind(mainMod .. " + ALT + S",   hl.dsp.exec_cmd("hyprshot -m region --raw | swap
 bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"), "Color picker (copies hex)")
 bind(mainMod .. " + slash",     hl.dsp.exec_cmd("qs ipc call keybinds toggle"), "Keybind cheatsheet")
 bind(mainMod .. " + I",         hl.dsp.exec_cmd("qs ipc call island toggle"), "Toggle island (control center)")
-bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("qs ipc call island clipboard"), "Clipboard history")
+bind(mainMod .. " + V",         hl.dsp.exec_cmd("qs ipc call island clipboard"), "Clipboard history")
 bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("qs ipc call island record"), "Start/stop screen recording")
 bind(mainMod .. " + TAB",       hl.dsp.exec_cmd("qs ipc call overview toggle"), "Workspace overview")
 bind(mainMod .. " + SPACE",     hl.dsp.exec_cmd("qs ipc call launcher toggle"), "App launcher")
