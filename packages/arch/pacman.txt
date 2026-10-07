@@ -8,7 +8,6 @@ eza
 fastfetch
 fd
 ffmpegthumbnailer
-firefox
 flatpak
 fzf
 ghostty

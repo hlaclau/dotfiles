@@ -789,15 +789,6 @@
           }
         }
       },
-      "firefox": {
-        "version": "131.0.3",
-        "options": {
-          "full_name": "firefox",
-          "args": {
-            "appdir": "/Applications"
-          }
-        }
-      },
       "obsidian": {
         "version": "1.7.4",
         "options": {

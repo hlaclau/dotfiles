@@ -6,7 +6,7 @@ Dotfiles for macOS and Arch Linux, themed with Catppuccin Mocha. Configs are spl
 
 ```
 shared/     stowed everywhere: zsh, nvim, ghostty, starship, lazygit, fastfetch, btop, bat, mpv, yazi, ideavim
-mac/        stowed on macOS:   omniwm, homebrew (Brewfile), kitty
+mac/        stowed on macOS:   omniwm, homebrew (Brewfile)
 arch/       stowed on Arch:    hyprland, hyprlock, hypridle, hyprpaper, waybar, quickshell, gtk, qt (qt6ct + Kvantum), xsettingsd
 packages/   package lists (not stowed): arch/pacman.txt, arch/aur.txt
 system/     system files (not stowed): sddm login theme config
