@@ -23,10 +23,10 @@ bind(mainMod .. " + A",      hl.dsp.exec_cmd("pavucontrol"), "Volume control")
 bind("ALT + SPACE",          hl.dsp.exec_cmd("qs ipc call launcher toggle"), "App launcher")
 
 -- Windows
-bind(mainMod .. " + Q", hl.dsp.window.close(),                     "Close window")
-bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }), "Toggle floating")
-bind(mainMod .. " + P", hl.dsp.window.pseudo(),                    "Toggle pseudotile")
-bind(mainMod .. " + X", hl.dsp.layout("togglesplit"),              "Toggle split direction")
+bind(mainMod .. " + Q",         hl.dsp.window.close(),                     "Close window")
+bind(mainMod .. " + SHIFT + V", hl.dsp.window.float({ action = "toggle" }), "Toggle floating")
+bind(mainMod .. " + P",         hl.dsp.window.pseudo(),                    "Toggle pseudotile")
+bind(mainMod .. " + X",         hl.dsp.layout("togglesplit"),              "Toggle split direction")
 
 -- Move focus with mainMod + hjkl
 bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }),  "Focus left")
@@ -67,7 +67,6 @@ bind(mainMod .. " + I",         hl.dsp.exec_cmd("qs ipc call island toggle"), "T
 bind(mainMod .. " + V",         hl.dsp.exec_cmd("qs ipc call island clipboard"), "Clipboard history")
 bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("qs ipc call island record"), "Start/stop screen recording")
 bind(mainMod .. " + TAB",       hl.dsp.exec_cmd("qs ipc call overview toggle"), "Workspace overview")
-bind(mainMod .. " + SPACE",     hl.dsp.exec_cmd("qs ipc call launcher toggle"), "App launcher")
 
 -- Lock screen
 bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("loginctl lock-session"), "Lock screen")

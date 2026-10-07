@@ -73,7 +73,7 @@ The Arch setup runs Hyprland with a Lua config (`arch/.config/hypr/hyprland.lua`
 
 - **Dynamic island** hanging from the top of each screen: clock, now playing, notifications (it replaces a notification daemon), volume popup and a REC timer. `SUPER + I` opens its control center with Home, Audio, Network, Clipboard and Hyprland tabs.
 - **Workspace overview** with live window previews: `SUPER + Tab`.
-- **App launcher**: a full-screen grid of every app with search, most used first: `SUPER + Space`.
+- **App launcher**: a full-screen grid of every app with search, most used first: `ALT + Space`.
 - **Waybar** keeps an empty center for the island.
 
 Press `SUPER + /` for a searchable list of every keybind.
