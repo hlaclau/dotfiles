@@ -87,10 +87,8 @@ cask "font-geist-mono-nerd-font"
 cask "font-sf-mono-nerd-font"
 # GPU-accelerated terminal with modern features
 cask "ghostty"
-# Window border highlighting for tiling window managers
-brew "FelixKratz/formulae/borders"
-# Tiling window manager for macOS
-cask "nikitabobko/tap/aerospace"
+# Niri/Hyprland-style tiling window manager for macOS
+cask "omniwm"
 # Markdown-based note-taking and knowledge management
 cask "obsidian"
 # Spotlight-like productivity tool with extensions

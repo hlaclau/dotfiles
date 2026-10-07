@@ -1,1 +1,3 @@
 .DS_Store
+# OmniWM backups of rejected/migrated settings
+mac/.config/omniwm/settings.toml.*
