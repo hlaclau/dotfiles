@@ -45,6 +45,7 @@ stow
 swappy
 tesseract
 tesseract-data-eng
+tesseract-data-fra
 thefuck
 tree-sitter-cli
 ttf-dejavu
