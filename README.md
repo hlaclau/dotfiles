@@ -7,7 +7,7 @@ Dotfiles for macOS and Arch Linux, themed with Catppuccin Mocha. Configs are spl
 ```
 shared/     stowed everywhere: zsh, nvim, ghostty, starship, lazygit, fastfetch, btop, bat, mpv, yazi, ideavim
 mac/        stowed on macOS:   omniwm, homebrew (Brewfile)
-arch/       stowed on Arch:    hyprland, hyprlock, hypridle, hyprpaper, waybar, quickshell, gtk, qt (qt6ct + Kvantum), xsettingsd
+arch/       stowed on Arch:    hyprland, hyprlock, hypridle, hyprpaper, quickshell, gtk, qt (qt6ct + Kvantum), xsettingsd
 packages/   package lists (not stowed): arch/pacman.txt, arch/aur.txt
 system/     system files (not stowed): sddm login theme config
 scripts/    helper scripts used by the mise tasks
@@ -73,8 +73,9 @@ The Arch setup runs Hyprland with a Lua config (`arch/.config/hypr/hyprland.lua`
 
 - **Dynamic island** hanging from the top of each screen: clock, now playing, notifications (it replaces a notification daemon), volume popup and a REC timer. `SUPER + I` opens its control center with Home, Audio, Network, Clipboard and Hyprland tabs.
 - **Workspace overview** with live window previews: `SUPER + Tab`.
-- **App launcher**: a full-screen grid of every app with search, most used first: `ALT + Space`.
-- **Waybar** keeps an empty center for the island.
+- **Top bar**: a solid strip the island grows out of, with rounded screen corners. Workspaces with app icons, the focused window, weather, CPU/RAM/GPU rings, tray, network/audio/notifications/AI and the date. Hover a chip for details: graphs, a forecast, volume sliders, a calendar.
+- **App launcher**: a full-screen grid of every app with search, most used first: `ALT + Space`. Prefixes switch modes: `=` calc, `>` run, `?` web, `!` ask AI, `:` emoji, `/` files, `@` windows.
+- **AI chat panel** backed by Claude Code, Codex or Ollama, with preset agents in `agents.json`: `SUPER + C`.
 
 Press `SUPER + /` for a searchable list of every keybind.
 

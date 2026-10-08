@@ -157,6 +157,8 @@ PanelWindow {
         Notch {
             anchors.fill: parent
             wing: notch.wing
+            // Wings on the bar's bottom edge once the island reaches below it
+            wingTop: Math.max(0, Math.min(Theme.barHeight, notch.height - Theme.barHeight))
             radius: island.expanded ? 28 : (island.showNotification ? 22 : 16)
             Behavior on radius { NumberAnimation { duration: 200 } }
         }

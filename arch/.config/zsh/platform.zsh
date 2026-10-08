@@ -17,5 +17,5 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Initialize thefuck
 command -v thefuck &> /dev/null && eval "$(thefuck --alias)" && alias f="fuck"
 
-# Restart waybar
-alias wb="pkill waybar; waybar &!"
+# Restart quickshell (bar, island, launcher...)
+alias qsr="systemctl --user restart quickshell"

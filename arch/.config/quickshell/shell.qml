@@ -6,11 +6,22 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
 
-// Dynamic island, workspace overview, app launcher, keybind cheatsheet and AI
-// chat, one of each per screen. Control them with `qs ipc call island <fn>`,
+// Top bar, dynamic island, workspace overview, app launcher, keybind cheatsheet
+// and AI chat, one of each per screen. Control them with `qs ipc call island <fn>`,
 // `qs ipc call ai <toggle|ask TEXT|newChat>` and
 // `qs ipc call <overview|launcher|keybinds> toggle`.
 ShellRoot {
+    Variants {
+        model: Quickshell.screens
+
+        Bar {
+            onIslandTab: index => islandFor(modelData).open(true, index)
+            onToggleLauncher: launcherOpen = !launcherOpen
+            onToggleOverview: overviewOpen = !overviewOpen
+            onToggleAi: aiOpen = !aiOpen
+        }
+    }
+
     Variants {
         id: islands
         model: Quickshell.screens
@@ -102,9 +113,11 @@ ShellRoot {
         }
     }
 
+    function islandFor(screen) {
+        return islands.instances.find(i => i.modelData.name === screen?.name) ?? islands.instances[0];
+    }
     function focusedIsland() {
-        const name = Hyprland.focusedMonitor?.name;
-        return islands.instances.find(i => i.modelData.name === name) ?? islands.instances[0];
+        return islandFor(Hyprland.focusedMonitor);
     }
 
     IpcHandler {

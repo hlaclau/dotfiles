@@ -42,7 +42,7 @@ hl.on("hyprland.start", function()
     -- Only the autostarted terminal goes to workspace 3; a class rule would
     -- also catch the scratchpad and every SUPER+RETURN terminal
     hl.exec_cmd(terminal, { workspace = "3" })
-    hl.exec_cmd("waybar & hyprpaper & hypridle & " .. chat)
+    hl.exec_cmd("hyprpaper & hypridle & " .. chat)
     -- Quickshell runs as a systemd user service so it restarts if it crashes.
     -- It, and the apps it launches through uwsm, need the variables set by
     -- hl.env above, which systemd doesn't see.
@@ -214,6 +214,15 @@ hl.window_rule({
     size   = "900 600",
 })
 
+-- btop from the bar: floating and big enough for all its panels
+hl.window_rule({
+    name   = "btop-float",
+    match  = { class = "^(ghostty\\.btop)$" },
+    float  = true,
+    center = true,
+    size   = "1600 950",
+})
+
 -- Pin apps to their own workspace
 hl.window_rule({ name = "browser-ws", match = { class = "^(google-chrome)$" },     workspace = "1" })
 hl.window_rule({ name = "orca-ws",    match = { class = "^(orca)$" },              workspace = "4" })
@@ -229,8 +238,8 @@ hl.workspace_rule({ workspace = "special:scratch", on_created_empty = terminal }
 ---------------------
 
 hl.layer_rule({
-    name      = "waybar-slide",
-    match     = { namespace = "waybar" },
+    name      = "bar-slide",
+    match     = { namespace = "bar" },
     animation = "slide top",
 })
 

@@ -37,6 +37,6 @@ Singleton {
     readonly property string font: "SFMono Nerd Font Mono"
     readonly property string iconFont: "JetBrainsMono Nerd Font"
 
-    // Height of the collapsed island; waybar uses the same height so the notch lines up with it
-    readonly property int barHeight: 36
+    // Height of the bar and of the collapsed island, so the notch lines up with it
+    readonly property int barHeight: 44
 }

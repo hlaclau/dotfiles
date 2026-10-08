@@ -56,7 +56,6 @@ ttf-jetbrains-mono-nerd
 ttf-liberation
 unicode-emoji
 vim
-waybar
 wf-recorder
 wget
 wl-clipboard
