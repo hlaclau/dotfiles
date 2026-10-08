@@ -7,9 +7,10 @@ import Quickshell.Widgets
 
 // Wallpaper picker on the focused screen. Local: your collection, filtered by
 // name. Online: wallhaven.cc search (empty search = this month's top), more
-// results load as you scroll; picking one downloads it to ~/Pictures/Wallpapers.
+// results load ahead as you scroll; picking one downloads it to ~/Pictures/Wallpapers.
 // Choose which screen to apply to up top. Arrows move, Enter applies, Tab
-// switches Local / Online, Escape clears the search or closes.
+// switches Local / Online, Escape clears the search or closes. Local ones can
+// be moved to the trash: the bin on hover or Delete, twice to confirm.
 PanelWindow {
     id: picker
 
@@ -32,29 +33,38 @@ PanelWindow {
     // What the current target shows, to mark it in the grid
     readonly property string current: Wallpaper.active[target || modelData.name] ?? ""
 
-    readonly property var items: {
-        if (online) {
-            return Wallpaper.results.map(r => ({
-                key: r.id, source: Wallpaper.thumbsReady[r.id] ? "file://" + Wallpaper.thumbPath(r) : "",
-                title: r.resolution,
-                subtitle: (r.size / 1e6).toFixed(1) + " MB", item: r,
-                isCurrent: current === Wallpaper.localPath(r)
-            }));
-        }
-        const q = search.text.trim().toLowerCase();
-        return Wallpaper.local
-            .filter(p => !q || Wallpaper.name(p).toLowerCase().includes(q))
-            .map(p => ({
-                key: p, source: "file://" + p, title: Wallpaper.name(p),
-                subtitle: p.startsWith(Wallpaper.downloadDir) ? "downloaded" : "", path: p,
-                isCurrent: current === p
-            }));
+    readonly property var model: online ? Wallpaper.onlineModel : Wallpaper.localModel
+
+    // Path a row's wallpaper has (or will have, once downloaded) on disk
+    function pathOf(row) {
+        return row.wid ? Wallpaper.localPath(row.wid, row.url) : row.path;
     }
 
-    function pick(entry) {
-        if (!entry) return;
-        if (entry.item) Wallpaper.download(entry.item, targets);
-        else Wallpaper.apply(entry.path, targets);
+    // Path armed for deletion: a second click / Delete within 3s trashes it
+    property string armed: ""
+    Timer {
+        id: disarm
+        interval: 3000
+        onTriggered: picker.armed = ""
+    }
+
+    function remove(index) {
+        if (online || index < 0 || index >= model.count) return;
+        const path = model.get(index).path;
+        if (armed === path) {
+            armed = "";
+            Wallpaper.trash(path);
+        } else {
+            armed = path;
+            disarm.restart();
+        }
+    }
+
+    function pick(index) {
+        if (index < 0 || index >= model.count) return;
+        const row = model.get(index);
+        if (row.wid) Wallpaper.download(row.wid, row.url, targets);
+        else Wallpaper.apply(row.path, targets);
     }
 
     function setOnline(on) {
@@ -62,7 +72,7 @@ PanelWindow {
         online = on;
         search.text = on ? Wallpaper.query : "";
         grid.currentIndex = 0;
-        if (on && Wallpaper.results.length === 0) Wallpaper.search(search.text, false);
+        if (on && Wallpaper.onlineModel.count === 0) Wallpaper.search(search.text, false);
     }
 
     visible: shown
@@ -93,8 +103,17 @@ PanelWindow {
             if (startOnline) online = true;
             Wallpaper.refresh();
             search.text = online ? Wallpaper.query : "";
-            grid.currentIndex = Math.max(0, items.findIndex(i => i.isCurrent));
-            grid.positionViewAtIndex(grid.currentIndex, GridView.Center);
+            if (!online) Wallpaper.filterLocal("");
+            // Start on the wallpaper shown now
+            let i = 0;
+            for (let r = 0; r < model.count; r++) {
+                if (pathOf(model.get(r)) === current) {
+                    i = r;
+                    break;
+                }
+            }
+            grid.currentIndex = i;
+            grid.positionViewAtIndex(i, GridView.Center);
             search.forceActiveFocus();
         }
     }
@@ -210,16 +229,18 @@ PanelWindow {
 
                         onTextChanged: {
                             grid.currentIndex = 0;
-                            if (picker.online && activeFocus) debounce.restart();
+                            if (!picker.online) Wallpaper.filterLocal(text);
+                            else if (activeFocus) debounce.restart();
                         }
 
                         Keys.onEscapePressed: {
                             if (text) text = "";
                             else picker.closeRequested();
                         }
-                        Keys.onReturnPressed: picker.pick(picker.items[grid.currentIndex])
-                        Keys.onEnterPressed: picker.pick(picker.items[grid.currentIndex])
+                        Keys.onReturnPressed: picker.pick(grid.currentIndex)
+                        Keys.onEnterPressed: picker.pick(grid.currentIndex)
                         Keys.onTabPressed: picker.setOnline(!picker.online)
+                        Keys.onDeletePressed: picker.remove(grid.currentIndex)
                         Keys.onLeftPressed: grid.moveCurrentIndexLeft()
                         Keys.onRightPressed: grid.moveCurrentIndexRight()
                         Keys.onUpPressed: grid.moveCurrentIndexUp()
@@ -234,7 +255,7 @@ PanelWindow {
                         }
                     }
                     Text {
-                        text: picker.online && Wallpaper.searching ? "searching…" : picker.items.length
+                        text: picker.online && Wallpaper.searching ? "searching…" : picker.model.count
                         color: Theme.overlay0
                         font.family: Theme.font
                         font.pixelSize: 12
@@ -334,23 +355,50 @@ PanelWindow {
             cellWidth: Math.floor(width / columns)
             cellHeight: Math.round(cellWidth * 0.62)
             clip: true
-            model: picker.items
+            model: picker.model
             boundsBehavior: Flickable.StopAtBounds
             highlightMoveDuration: 0
+            // Keep a couple of rows ready above and below the view
+            cacheBuffer: cellHeight * 2
 
-            // Infinite scroll for online results
-            onAtYEndChanged: if (atYEnd && picker.online && count > 0) Wallpaper.search("", true)
+            // Infinite scroll: fetch the next page two rows before the end,
+            // new rows are appended so the view stays where it is
+            onContentYChanged: {
+                if (picker.online && count > 0 && Wallpaper.hasMore
+                    && contentY + height > contentHeight - cellHeight * 2) Wallpaper.search("", true);
+            }
 
             delegate: Item {
                 id: cell
 
-                required property var modelData
                 required property int index
+                required property string title
+                required property string subtitle
+                required property string thumb
+                required property string path
+                required property string wid
+                required property string url
+
                 readonly property bool selected: GridView.isCurrentItem
-                readonly property bool busy: Wallpaper.downloading !== "" && Wallpaper.downloading === modelData.item?.id
+                readonly property bool isCurrent: picker.current !== "" && picker.pathOf(cell) === picker.current
+                readonly property bool busy: wid !== "" && Wallpaper.downloading === wid
 
                 width: grid.cellWidth
                 height: grid.cellHeight
+
+                MouseArea {
+                    id: cellMouse
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    // Below the card so the card's own buttons (bin) get clicks first.
+                    // Hover doesn't move the keyboard selection: that would
+                    // scroll the view under the pointer
+                    onClicked: {
+                        grid.currentIndex = cell.index;
+                        picker.pick(cell.index);
+                    }
+                }
 
                 ClippingRectangle {
                     id: card
@@ -359,15 +407,15 @@ PanelWindow {
                     anchors.margins: 8
                     radius: 14
                     color: Theme.mantle
-                    border.width: cell.modelData.isCurrent ? 3 : (cell.selected ? 2 : 0)
-                    border.color: cell.modelData.isCurrent ? Theme.accent : Theme.lavender
+                    border.width: cell.isCurrent ? 3 : (cell.selected ? 2 : 0)
+                    border.color: cell.isCurrent ? Theme.accent : Theme.lavender
                     scale: cellMouse.containsMouse || cell.selected ? 1.03 : 1
                     Behavior on scale { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
 
                     Image {
                         id: thumb
                         anchors.fill: parent
-                        source: cell.modelData.source
+                        source: cell.thumb ? "file://" + cell.thumb : ""
                         sourceSize.width: 480
                         fillMode: Image.PreserveAspectCrop
                         asynchronous: true
@@ -396,7 +444,7 @@ PanelWindow {
                             GradientStop { position: 0; color: "transparent" }
                             GradientStop { position: 1; color: Qt.alpha(Theme.crust, 0.9) }
                         }
-                        opacity: cellMouse.containsMouse || cell.selected || cell.modelData.isCurrent ? 1 : 0
+                        opacity: cellMouse.containsMouse || cell.selected || cell.isCurrent ? 1 : 0
                         Behavior on opacity { NumberAnimation { duration: 150 } }
 
                         RowLayout {
@@ -408,7 +456,7 @@ PanelWindow {
 
                             Text {
                                 Layout.fillWidth: true
-                                text: cell.modelData.title
+                                text: cell.title
                                 color: Theme.text
                                 font.family: Theme.font
                                 font.pixelSize: 12
@@ -416,7 +464,7 @@ PanelWindow {
                                 elide: Text.ElideRight
                             }
                             Text {
-                                text: cell.modelData.subtitle
+                                text: cell.subtitle
                                 color: Theme.subtext0
                                 font.family: Theme.font
                                 font.pixelSize: 11
@@ -424,9 +472,58 @@ PanelWindow {
                         }
                     }
 
+                    // Trash (local only): first click arms it, second deletes
+                    Rectangle {
+                        id: bin
+
+                        readonly property bool armed: picker.armed !== "" && picker.armed === cell.path
+
+                        visible: !picker.online && (cellMouse.containsMouse || binMouse.containsMouse || armed)
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        anchors.margins: 10
+                        width: armed ? binLabel.implicitWidth + 40 : 28
+                        height: 28
+                        radius: 14
+                        color: armed ? Theme.red : (binMouse.containsMouse ? Theme.surface1 : Qt.alpha(Theme.crust, 0.8))
+                        Behavior on width { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
+                        Behavior on color { ColorAnimation { duration: 120 } }
+
+                        Row {
+                            anchors.centerIn: parent
+                            spacing: 6
+
+                            Text {
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: Icons.trash
+                                color: bin.armed ? Theme.crust : Theme.text
+                                font.family: Theme.iconFont
+                                font.pixelSize: 12
+                            }
+                            Text {
+                                id: binLabel
+                                visible: bin.armed
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: "Delete?"
+                                color: Theme.crust
+                                font.family: Theme.font
+                                font.pixelSize: 11
+                                font.bold: true
+                            }
+                        }
+
+                        MouseArea {
+                            id: binMouse
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: picker.remove(cell.index)
+                        }
+                    }
+
                     // Current badge
                     Rectangle {
-                        visible: cell.modelData.isCurrent
+                        visible: cell.isCurrent
                         anchors.top: parent.top
                         anchors.right: parent.right
                         anchors.margins: 10
@@ -467,14 +564,6 @@ PanelWindow {
                     }
                 }
 
-                MouseArea {
-                    id: cellMouse
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onEntered: grid.currentIndex = cell.index
-                    onClicked: picker.pick(cell.modelData)
-                }
             }
 
             Text {

@@ -27,6 +27,7 @@ iwd
 jq
 lazygit
 libqalculate
+libvips
 mise
 mpv
 neovim
