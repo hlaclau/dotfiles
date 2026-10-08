@@ -4,7 +4,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-// Current weather and a 3-day forecast from wttr.in (location from the IP,
+// Current weather and a 3-day forecast from wttr.in (fixed to Bordeaux,
 // no API key), refreshed every 30 minutes
 Singleton {
     id: root
@@ -44,7 +44,7 @@ Singleton {
 
     Process {
         id: fetcher
-        command: ["curl", "-sf", "-m", "15", "https://wttr.in/?format=j1"]
+        command: ["curl", "-sf", "-m", "15", "https://wttr.in/Bordeaux?format=j1"]
         stdout: StdioCollector {
             onStreamFinished: {
                 try {
