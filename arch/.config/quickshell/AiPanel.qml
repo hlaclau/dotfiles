@@ -4,9 +4,11 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
 
-// AI chat docked to the right edge of the focused screen (state lives in Ai).
-// Pick a backend and an agent up top, Enter sends, Shift + Enter adds a line,
-// Escape closes. Answers render as Markdown and can be selected or copied.
+// AI chat docked to the right edge of the screen it was opened on (state lives
+// in Ai). It stays open while you click and type in other windows: click back
+// into it to type. Pick a backend and an agent up top, Enter sends, Shift + Enter
+// adds a line, Escape closes. Answers render as Markdown and can be selected or
+// copied. The clock button lists saved chats to reopen and continue.
 PanelWindow {
     id: panel
 
@@ -17,7 +19,13 @@ PanelWindow {
     screen: modelData
 
     readonly property bool focusedScreen: Hyprland.focusedMonitor?.name === modelData.name
-    readonly property bool shown: open && focusedScreen
+    // Pinned to the screen that had focus when it opened, so it doesn't jump
+    // or vanish when focus moves to the other monitor
+    property bool here: false
+    onOpenChanged: if (open) here = focusedScreen
+    readonly property bool shown: open && here
+
+    property bool showHistory: false
 
     visible: shown
     color: "transparent"
@@ -31,14 +39,27 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "ai"
-    WlrLayershell.keyboardFocus: shown ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+    // On demand: typing goes here after a click into the panel, and other
+    // windows stay usable while it's open
+    WlrLayershell.keyboardFocus: shown ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
     onShownChanged: {
         if (shown) {
+            showHistory = false;
             if (Ai.backend === "ollama") Ai.refreshOllama();
             input.forceActiveFocus();
             list.positionViewAtEnd();
         }
+    }
+
+    // "5m ago", "3h ago", "2d ago", then the date
+    function ago(ms) {
+        const m = Math.floor((Date.now() - ms) / 60000);
+        if (m < 1) return "just now";
+        if (m < 60) return m + "m ago";
+        if (m < 24 * 60) return Math.floor(m / 60) + "h ago";
+        if (m < 7 * 24 * 60) return Math.floor(m / 1440) + "d ago";
+        return Qt.formatDate(new Date(ms), "d MMM");
     }
 
     function submit() {
@@ -130,8 +151,18 @@ PanelWindow {
                     font.bold: true
                 }
                 IconButton {
+                    icon: Icons.clock
+                    iconColor: panel.showHistory ? Theme.crust : Theme.text
+                    color: panel.showHistory ? Theme.accent : Theme.surface0
+                    onClicked: panel.showHistory = !panel.showHistory
+                }
+                IconButton {
                     icon: Icons.plus
-                    onClicked: Ai.newChat()
+                    onClicked: {
+                        Ai.newChat();
+                        panel.showHistory = false;
+                        input.forceActiveFocus();
+                    }
                 }
                 IconButton {
                     icon: Icons.close
@@ -219,6 +250,7 @@ PanelWindow {
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                visible: !panel.showHistory
                 clip: true
                 spacing: 14
                 model: Ai.messages
@@ -345,9 +377,94 @@ PanelWindow {
                 }
             }
 
+            // ---- Saved chats ----
+            ListView {
+                id: chatList
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                visible: panel.showHistory
+                clip: true
+                spacing: 4
+                model: Ai.chats
+                boundsBehavior: Flickable.StopAtBounds
+
+                delegate: Rectangle {
+                    id: chat
+
+                    required property var modelData
+                    readonly property bool current: modelData.id === Ai.chatId
+
+                    width: chatList.width
+                    implicitHeight: 52
+                    radius: 12
+                    color: current ? Qt.alpha(Theme.accent, 0.15) : (chatMouse.containsMouse ? Theme.surface0 : "transparent")
+
+                    MouseArea {
+                        id: chatMouse
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            Ai.openChat(chat.modelData.id);
+                            panel.showHistory = false;
+                            input.forceActiveFocus();
+                        }
+                    }
+
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.leftMargin: 12
+                        anchors.rightMargin: 8
+                        spacing: 10
+
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            spacing: 2
+
+                            Text {
+                                Layout.fillWidth: true
+                                text: chat.modelData.title || "Untitled"
+                                color: Theme.text
+                                font.family: Theme.font
+                                font.pixelSize: 13
+                                elide: Text.ElideRight
+                            }
+                            Text {
+                                Layout.fillWidth: true
+                                text: `${chat.modelData.backend} · ${chat.modelData.agent} · ${Math.ceil(chat.modelData.messages.length / 2)} msg · ${panel.ago(chat.modelData.updated)}`
+                                color: Theme.overlay1
+                                font.family: Theme.font
+                                font.pixelSize: 11
+                                elide: Text.ElideRight
+                            }
+                        }
+                        IconButton {
+                            size: 28
+                            icon: Icons.trash
+                            iconColor: Theme.overlay1
+                            opacity: chatMouse.containsMouse || hovered ? 1 : 0
+                            readonly property bool hovered: trashHover.hovered
+                            HoverHandler { id: trashHover }
+                            onClicked: Ai.deleteChat(chat.modelData.id)
+                        }
+                    }
+                }
+
+                Text {
+                    anchors.centerIn: parent
+                    visible: chatList.count === 0
+                    text: "No saved chats yet"
+                    color: Theme.overlay0
+                    font.family: Theme.font
+                    font.pixelSize: 13
+                }
+            }
+
             // ---- Input ----
             Rectangle {
                 Layout.fillWidth: true
+                visible: !panel.showHistory
                 implicitHeight: Math.min(input.implicitHeight, 160) + 20
                 radius: 14
                 color: Theme.surface0

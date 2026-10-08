@@ -11,6 +11,10 @@ import Quickshell.Io
 //   ollama  a local model over the HTTP API; the history is sent every turn
 // Agents (agents.json next to this file) are named system prompts.
 // Switching backend or agent starts a new chat.
+//
+// Chats are saved to ai-chats.json in quickshell's state dir as they go: the
+// last one comes back after a restart, and any older one can be reopened from
+// the history and continued (Claude and Codex resume their session).
 Singleton {
     id: root
 
@@ -37,6 +41,70 @@ Singleton {
         ? Settings.values.aiOllamaModel : (ollamaModels[0] ?? "")
 
     ListModel { id: model }
+
+    // ---- Saved chats ----
+    // [{ id, title, backend, agent, sessionId, updated, messages: [{ role, text, error }] }], newest first
+    readonly property var chats: history.chats
+    // Id of the chat on screen; "" until its first message
+    property string chatId: ""
+    readonly property int maxChats: 100
+
+    FileView {
+        path: Quickshell.statePath("ai-chats.json")
+        blockLoading: true
+        onAdapterUpdated: writeAdapter()
+        onLoadFailed: error => {
+            if (error === FileViewError.FileNotFound) writeAdapter();
+        }
+
+        JsonAdapter {
+            id: history
+            property var chats: []
+            // Chat open when quickshell last stopped
+            property string current: ""
+        }
+    }
+
+    Component.onCompleted: if (history.current) openChat(history.current)
+
+    function save() {
+        if (model.count === 0) return;
+        if (!chatId) chatId = Date.now().toString(36);
+        const messages = [];
+        for (let i = 0; i < model.count; i++) {
+            const m = model.get(i);
+            messages.push({ role: m.role, text: m.text, error: m.error });
+        }
+        const first = messages.find(m => m.role === "user")?.text ?? "";
+        const chat = {
+            id: chatId,
+            title: first.split("\n")[0].slice(0, 80),
+            backend, agent: agent.name, sessionId,
+            updated: Date.now(),
+            messages
+        };
+        history.chats = [chat, ...history.chats.filter(c => c.id !== chatId)].slice(0, maxChats);
+        history.current = chatId;
+    }
+
+    function openChat(id) {
+        const chat = history.chats.find(c => c.id === id);
+        if (!chat) return;
+        stop();
+        model.clear();
+        for (const m of chat.messages) model.append({ role: m.role, text: m.text, status: "", error: m.error ?? "" });
+        // Set the backend and agent directly: their setters would start a new chat
+        if (backends.includes(chat.backend)) Settings.values.aiBackend = chat.backend;
+        Settings.values.aiAgent = chat.agent;
+        sessionId = chat.sessionId ?? "";
+        chatId = chat.id;
+        history.current = chat.id;
+    }
+
+    function deleteChat(id) {
+        history.chats = history.chats.filter(c => c.id !== id);
+        if (id === chatId) newChat();
+    }
 
     FileView {
         id: agentsFile
@@ -65,6 +133,8 @@ Singleton {
         stop();
         model.clear();
         sessionId = "";
+        chatId = "";
+        history.current = "";
     }
 
     function stop() {
@@ -117,6 +187,7 @@ Singleton {
         }
 
         model.append({ role: "assistant", text: "", status: "Thinking…", error: "" });
+        save();
         stopped = false;
         gotOutput = false;
         lastMessageId = "";
@@ -219,6 +290,7 @@ Singleton {
         onExited: code => {
             const i = root.current();
             model.setProperty(i, "status", "");
+            Qt.callLater(root.save);
             if (root.stopped) {
                 model.setProperty(i, "error", "Stopped");
             } else if (!root.gotOutput) {
