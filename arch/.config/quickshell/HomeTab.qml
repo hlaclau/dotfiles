@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 
-// Media, volume, quick toggles, package updates and notifications
+// Media, volume (and per app), quick toggles, package updates and notifications
 ColumnLayout {
     id: tab
 
@@ -36,6 +36,13 @@ ColumnLayout {
             font.family: Theme.font
             font.pixelSize: 12
         }
+    }
+
+    // ---- Per-app volume, only while something plays ----
+    AppMixer {
+        Layout.fillWidth: true
+        Layout.leftMargin: 2
+        hideWhenEmpty: true
     }
 
     // ---- Quick toggles ----

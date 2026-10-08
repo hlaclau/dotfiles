@@ -1,10 +1,9 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Widgets
 import Quickshell.Services.Pipewire
 
-// Output / input device selection and a volume mixer per app
+// Volume mixer per app, then output / input device selection
 ColumnLayout {
     spacing: 8
 
@@ -60,8 +59,16 @@ ColumnLayout {
         }
     }
 
+    // ---- Apps ----
+    SectionTitle { text: "Apps" }
+
+    AppMixer {
+        Layout.fillWidth: true
+        Layout.leftMargin: 4
+    }
+
     // ---- Outputs ----
-    SectionTitle { text: "Output" }
+    SectionTitle { text: "Output"; Layout.topMargin: 10 }
 
     Repeater {
         model: Status.outputs
@@ -124,86 +131,6 @@ ColumnLayout {
         Toggle {
             checked: Status.noiseSuppression
             onToggled: Status.toggleNoiseSuppression()
-        }
-    }
-
-    // ---- Apps ----
-    SectionTitle { text: "Apps" }
-
-    Text {
-        Layout.fillWidth: true
-        visible: Status.apps.length === 0
-        horizontalAlignment: Text.AlignHCenter
-        text: "Nothing is playing"
-        color: Theme.overlay0
-        font.family: Theme.font
-        font.pixelSize: 12
-    }
-
-    Repeater {
-        model: Status.apps
-
-        RowLayout {
-            id: app
-
-            required property var modelData
-            readonly property string iconName: modelData.properties["application.icon-name"] ?? ""
-
-            Layout.fillWidth: true
-            Layout.leftMargin: 4
-            spacing: 12
-
-            Item {
-                implicitWidth: 26
-                implicitHeight: 26
-
-                IconImage {
-                    anchors.fill: parent
-                    source: app.iconName ? Quickshell.iconPath(app.iconName, true) : ""
-                    visible: source != ""
-                }
-                Text {
-                    anchors.centerIn: parent
-                    visible: !app.iconName
-                    text: Icons.music
-                    color: Theme.accent
-                    font.family: Theme.iconFont
-                    font.pixelSize: 14
-                }
-            }
-
-            ColumnLayout {
-                Layout.fillWidth: true
-                spacing: 2
-
-                Text {
-                    Layout.fillWidth: true
-                    text: Status.nodeName(app.modelData)
-                    color: Theme.subtext1
-                    font.family: Theme.font
-                    font.pixelSize: 11
-                    elide: Text.ElideRight
-                }
-                VolumeSlider {
-                    Layout.fillWidth: true
-                    audio: app.modelData.audio
-                }
-            }
-
-            Text {
-                Layout.preferredWidth: 36
-                horizontalAlignment: Text.AlignRight
-                text: Math.round((app.modelData.audio?.volume ?? 0) * 100) + "%"
-                color: Theme.subtext1
-                font.family: Theme.font
-                font.pixelSize: 12
-            }
-            IconButton {
-                size: 28
-                icon: app.modelData.audio?.muted ? Icons.volumeMute : Icons.volumeHigh
-                iconColor: app.modelData.audio?.muted ? Theme.overlay1 : Theme.text
-                onClicked: app.modelData.audio.muted = !app.modelData.audio.muted
-            }
         }
     }
 }
