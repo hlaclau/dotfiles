@@ -43,6 +43,9 @@ Singleton {
             property string aiBackend: "claude"
             property string aiAgent: "Chat"
             property string aiOllamaModel: ""
+
+            // Wallpaper per monitor (name -> path), re-applied at startup
+            property var wallpapers: ({})
         }
     }
 }

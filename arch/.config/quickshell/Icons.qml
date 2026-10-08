@@ -77,4 +77,7 @@ Singleton {
     readonly property string calendar: ""
     readonly property string chevronLeft: ""
     readonly property string chevronRight: ""
+    readonly property string image: ""
+    readonly property string globe: ""
+    readonly property string shuffle: ""
 }

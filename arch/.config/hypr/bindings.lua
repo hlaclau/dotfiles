@@ -67,6 +67,7 @@ bind(mainMod .. " + I",         hl.dsp.exec_cmd("qs ipc call island toggle"), "T
 bind(mainMod .. " + V",         hl.dsp.exec_cmd("qs ipc call island clipboard"), "Clipboard history")
 bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("qs ipc call island record"), "Start/stop screen recording")
 bind(mainMod .. " + TAB",       hl.dsp.exec_cmd("qs ipc call overview toggle"), "Workspace overview")
+bind(mainMod .. " + W",         hl.dsp.exec_cmd("qs ipc call wallpaper toggle"), "Wallpaper picker")
 bind(mainMod .. " + C",         hl.dsp.exec_cmd("qs ipc call ai toggle"), "AI chat panel")
 bind(mainMod .. " + SHIFT + ALT + Q", hl.dsp.exec_cmd("hyprctl kill"), "Force-kill a window (click it)")
 

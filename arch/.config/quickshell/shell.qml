@@ -6,9 +6,10 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
 
-// Top bar, dynamic island, workspace overview, app launcher, keybind cheatsheet
-// and AI chat, one of each per screen. Control them with `qs ipc call island <fn>`,
-// `qs ipc call ai <toggle|ask TEXT|newChat>` and
+// Top bar, dynamic island, workspace overview, app launcher, keybind cheatsheet,
+// AI chat and wallpaper picker, one of each per screen. Control them with `qs ipc call island <fn>`,
+// `qs ipc call ai <toggle|ask TEXT|newChat>`,
+// `qs ipc call wallpaper <toggle|random|set PATH|search QUERY>` and
 // `qs ipc call <overview|launcher|keybinds> toggle`.
 ShellRoot {
     Variants {
@@ -102,6 +103,47 @@ ShellRoot {
         }
         function newChat(): void {
             Ai.newChat();
+        }
+    }
+
+    property bool wallpaperOpen: false
+    // Open on the Online tab (set by `wallpaper search`)
+    property bool wallpaperSearch: false
+
+    Variants {
+        model: Quickshell.screens
+
+        WallpaperPicker {
+            open: wallpaperOpen
+            startOnline: wallpaperSearch
+            onCloseRequested: {
+                wallpaperOpen = false;
+                wallpaperSearch = false;
+            }
+        }
+    }
+
+    // Put back the wallpapers picked last time (hyprpaper.conf only has the default)
+    Component.onCompleted: Wallpaper.restore()
+
+    IpcHandler {
+        target: "wallpaper"
+
+        function toggle(): void {
+            wallpaperOpen = !wallpaperOpen;
+        }
+        // Random local wallpaper on every screen
+        function random(): void {
+            Wallpaper.random([]);
+        }
+        function set(path: string): void {
+            Wallpaper.apply(path, []);
+        }
+        // Open the picker on wallhaven results for `query`
+        function search(query: string): void {
+            Wallpaper.search(query, false);
+            wallpaperSearch = true;
+            wallpaperOpen = true;
         }
     }
 

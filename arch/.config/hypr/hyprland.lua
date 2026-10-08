@@ -245,6 +245,6 @@ hl.layer_rule({
 
 hl.layer_rule({
     name  = "overlay-blur",
-    match = { namespace = "^(overview|launcher|keybinds)$" },
+    match = { namespace = "^(overview|launcher|keybinds|wallpaper)$" },
     blur  = true,
 })
