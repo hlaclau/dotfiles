@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Create a private GitHub repo from the current directory, push it, apply the
+# baseline protections (see gh-protect) and open it in the browser.
+set -euo pipefail
+
+gh repo create --private --source=. --remote=origin "$@"
+git push -u --all
+gh-protect
+gh browse

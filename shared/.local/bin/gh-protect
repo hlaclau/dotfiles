@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Apply the baseline settings to the current GitHub repo (idempotent):
+#   - delete head branches after merge
+#   - ruleset on the default branch: PR required, no force-push, no deletion,
+#     and every check seen on the default branch must pass before merging
+# Re-run after a repo's CI has run once to pick up its check names.
+set -euo pipefail
+
+repo=$(gh repo view --json nameWithOwner --jq .nameWithOwner)
+branch=$(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)
+name="baseline"
+
+gh api -X PATCH "repos/$repo" -F delete_branch_on_merge=true --silent
+
+checks=$(gh api "repos/$repo/commits/$branch/check-runs" --jq '[.check_runs[].name] | unique' 2>/dev/null || echo '[]')
+
+payload=$(jq -n --arg name "$name" --arg branch "$branch" --argjson checks "$checks" '
+  {
+    name: $name,
+    target: "branch",
+    enforcement: "active",
+    conditions: { ref_name: { include: ["refs/heads/\($branch)"], exclude: [] } },
+    rules: (
+      [
+        { type: "deletion" },
+        { type: "non_fast_forward" },
+        { type: "pull_request", parameters: {
+            required_approving_review_count: 0,
+            dismiss_stale_reviews_on_push: false,
+            require_code_owner_review: false,
+            require_last_push_approval: false,
+            required_review_thread_resolution: false } }
+      ]
+      + (if ($checks | length) > 0 then
+          [ { type: "required_status_checks", parameters: {
+              strict_required_status_checks_policy: false,
+              required_status_checks: ($checks | map({context: .})) } } ]
+         else [] end)
+    )
+  }')
+
+id=$(gh api "repos/$repo/rulesets" --jq ".[] | select(.name==\"$name\") | .id" | head -n1)
+if [ -n "$id" ]; then
+  gh api -X PUT "repos/$repo/rulesets/$id" --input - <<<"$payload" --silent
+  action=updated
+else
+  gh api -X POST "repos/$repo/rulesets" --input - <<<"$payload" --silent
+  action=created
+fi
+
+echo "$repo: ruleset '$name' $action on $branch; required checks: $(jq -c . <<<"$checks")"
