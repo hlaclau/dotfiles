@@ -9,7 +9,7 @@ shared/     stowed everywhere: zsh, nvim, ghostty, starship, lazygit, fastfetch,
 mac/        stowed on macOS:   omniwm, homebrew (Brewfile)
 arch/       stowed on Arch:    hyprland, hyprlock, hypridle, hyprpaper, quickshell, gtk, qt (qt6ct + Kvantum), xsettingsd
 packages/   package lists (not stowed): arch/pacman.txt, arch/aur.txt
-system/     system files (not stowed): sddm login theme config
+system/     system files (not stowed): sddm login theme config, reflector, zram
 scripts/    helper scripts used by the mise tasks
 wallpapers/ wallpapers submodule
 ```
@@ -58,6 +58,12 @@ macOS is the source of truth: when both systems configure the same tool, the mac
 
    ```sh
    mise run arch:sddm
+   ```
+
+   Then the system services (mirror refresh, zram, trim, snapper snapshots of a btrfs `/`):
+
+   ```sh
+   mise run arch:system
    ```
 
 5. On macOS, set Homebrew's zsh as your shell:
