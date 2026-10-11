@@ -7,6 +7,8 @@ set -euo pipefail
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
+sudo pacman -S --needed --noconfirm reflector pacman-contrib zram-generator snapper
+
 sudo install -Dm 644 "$DOTFILES/system/reflector/reflector.conf" /etc/xdg/reflector/reflector.conf
 sudo install -Dm 644 "$DOTFILES/system/zram/zram-generator.conf" /etc/systemd/zram-generator.conf
 
