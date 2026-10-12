@@ -20,7 +20,7 @@ bind(mainMod .. " + F",      hl.dsp.exec_cmd(fileManager), "File manager")
 bind(mainMod .. " + B",      hl.dsp.exec_cmd(browser),     "Browser")
 bind(mainMod .. " + O",      hl.dsp.exec_cmd("obsidian"),  "Obsidian")
 bind(mainMod .. " + A",      hl.dsp.exec_cmd("pavucontrol"), "Volume control")
-bind("ALT + SPACE",          hl.dsp.exec_cmd("qs ipc call launcher toggle"), "App launcher")
+bind("SUPER + SPACE",        hl.dsp.exec_cmd("qs ipc call launcher toggle"), "App launcher")
 
 -- Windows
 bind(mainMod .. " + Q",         hl.dsp.window.close(),                     "Close window")
