@@ -5,5 +5,8 @@ mouse-hide-while-typing = true
 keybind = shift+enter=text:\n
 custom-shader = shaders/cursor_mauve.glsl
 
+# Colors of the current theme (scripts/theme.sh), overriding the theme above
+config-file = ?~/.config/theme/ghostty
+
 # Platform-specific settings (font, decorations, keybinds, ...) from the mac/ or arch/ package
 config-file = ?platform

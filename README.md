@@ -1,6 +1,6 @@
 # my dotfiles
 
-Dotfiles for macOS and Arch Linux, themed with Catppuccin Mocha. Configs are split into [GNU Stow](https://www.gnu.org/software/stow/) packages, and [mise](https://mise.jdx.dev) tasks stow only the ones the current OS needs.
+Dotfiles for macOS and Arch Linux, themed with Catppuccin Mocha by default and switchable with `mise run theme`. Configs are split into [GNU Stow](https://www.gnu.org/software/stow/) packages, and [mise](https://mise.jdx.dev) tasks stow only the ones the current OS needs.
 
 ## Layout
 
@@ -21,9 +21,19 @@ When a tool needs per-OS settings, the shared config includes a `platform` file 
 
 macOS is the source of truth: when both systems configure the same tool, the macOS version goes in `shared/`.
 
+## Themes
+
+`mise run theme` lists the themes and `mise run theme <name>` switches to one: Catppuccin (mocha, macchiato, frappe, latte), Rosé Pine (main, moon, dawn), Gruvbox (dark, light), Tokyo Night (night, storm), Nord, Dracula, Everforest and Kanagawa. `mise run stow` applies the current theme (Catppuccin Mocha on a fresh checkout).
+
+- `themes/palettes/<name>.palette` holds the colors of a theme, using the Catppuccin slot names (`base`, `text`, `mauve`, ...). To add a theme, copy a palette and change the hex values.
+- The checked-in configs are Catppuccin Mocha. `scripts/theme.sh` swaps every Mocha color for the same slot of the new palette and writes the result to `~/.config/theme/` (starship, lazygit, fastfetch, fzf, ghostty, nvim palette) or to gitignored files in the config dir of tools that only read their own (bat, btop, yazi). `.zshrc` and the ghostty config pick these up and fall back to Mocha when they are missing.
+- neovim installs the colorscheme plugin of the current theme on its next start, which updates `lazy-lock.json`.
+- Open a new shell for the prompt, lazygit and fzf. ghostty and btop reload on their own, nvim and yazi need a restart.
+- Only the shared tools follow the theme so far. The Hyprland desktop (quickshell, hyprland, GTK/Qt, SDDM) stays Catppuccin Mocha.
+
 ## Neovim
 
-`shared/.config/nvim` is a [LazyVim](https://www.lazyvim.org) config with the Catppuccin Mocha colorscheme. Language extras (LSP, treesitter, formatters, linters) are imported in `lua/config/lazy.lua`: Markdown, JavaScript/TypeScript, JSON, Go, Rust, C# and Terraform. Mason installs the language servers on first launch, which needs `node`/`npm`, `go`, `cargo` and `dotnet` on the `PATH` (e.g. through mise). `:LazyHealth` and `:Mason` show what is missing.
+`shared/.config/nvim` is a [LazyVim](https://www.lazyvim.org) config with the colorscheme of the current theme (Catppuccin Mocha by default). Language extras (LSP, treesitter, formatters, linters) are imported in `lua/config/lazy.lua`: Markdown, JavaScript/TypeScript, JSON, Go, Rust, C# and Terraform. Mason installs the language servers on first launch, which needs `node`/`npm`, `go`, `cargo` and `dotnet` on the `PATH` (e.g. through mise). `:LazyHealth` and `:Mason` show what is missing.
 
 ## Prerequisites
 
