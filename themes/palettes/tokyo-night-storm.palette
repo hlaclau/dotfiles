@@ -1,0 +1,30 @@
+# Tokyo Night Storm
+name Tokyo Night Storm
+variant dark
+accent mauve
+rosewater #f5c2c7
+flamingo #ff9bb0
+pink #ff75a0
+mauve #bb9af7
+red #f7768e
+maroon #db4b4b
+peach #ff9e64
+yellow #e0af68
+green #9ece6a
+teal #73daca
+sky #7dcfff
+sapphire #2ac3de
+blue #7aa2f7
+lavender #9d7cd8
+text #c0caf5
+subtext1 #a9b1d6
+subtext0 #9aa5ce
+overlay2 #737aa2
+overlay1 #565f89
+overlay0 #4a5173
+surface2 #414868
+surface1 #3b4261
+surface0 #2f334d
+base #24283b
+mantle #1f2335
+crust #1b1e2e

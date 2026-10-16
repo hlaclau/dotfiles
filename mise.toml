@@ -5,12 +5,12 @@ run = "git submodule update --init --recursive"
 [tasks.stow]
 description = "Stow shared dotfiles + the ones for the current OS (mac or arch)"
 depends = ["submodules"]
-run = "./scripts/stow.sh"
+run = "./scripts/stow.sh && ./scripts/theme.sh apply"
 
 [tasks."stow:restow"]
 description = "Restow dotfiles (refresh symlinks)"
 depends = ["submodules"]
-run = "./scripts/stow.sh --restow"
+run = "./scripts/stow.sh --restow && ./scripts/theme.sh apply"
 
 [tasks."stow:check"]
 description = "Dry run: show what stow would do without touching anything"
@@ -19,6 +19,10 @@ run = "./scripts/stow.sh --simulate --verbose"
 [tasks.unstow]
 description = "Remove all dotfile symlinks"
 run = "./scripts/stow.sh --delete"
+
+[tasks.theme]
+description = "Switch the color theme: mise run theme <name> (no name lists the themes)"
+run = "./scripts/theme.sh"
 
 [tasks.install]
 description = "Install packages for the current OS (Brewfile on mac, pacman/AUR on arch)"
