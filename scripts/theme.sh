@@ -192,13 +192,21 @@ EOT
   hyprctl reload > /dev/null 2>&1 || true
 }
 
-# Switch to the theme's wallpaper (the `wallpaper` line of its palette, a file in wallpapers/)
-# through quickshell. THEME_NO_WALLPAPER=1 keeps the current one.
+# Switch to the theme's wallpaper through quickshell: themes/wallpapers/<theme>.* if there is one,
+# else the `wallpaper` line of the palette (a file in wallpapers/).
+# THEME_NO_WALLPAPER=1 keeps the current one.
 apply_wallpaper() {
   [ -z "${THEME_NO_WALLPAPER:-}" ] && command -v qs > /dev/null 2>&1 || return 0
-  wp="$(meta wallpaper)"
-  [ -n "$wp" ] && [ -f "$DOTFILES/wallpapers/$wp" ] || return 0
-  qs ipc call wallpaper set "$DOTFILES/wallpapers/$wp" > /dev/null 2>&1 || true
+  wp=""
+  for f in "$DOTFILES/themes/wallpapers/$NAME".*; do
+    [ -f "$f" ] && wp="$f" && break
+  done
+  if [ -z "$wp" ]; then
+    name="$(meta wallpaper)"
+    [ -n "$name" ] && wp="$DOTFILES/wallpapers/$name"
+  fi
+  [ -n "$wp" ] && [ -f "$wp" ] || return 0
+  qs ipc call wallpaper set "$wp" > /dev/null 2>&1 || true
 }
 
 # GTK has no palette to swap, so use an installed GTK theme that matches (first candidate found).
