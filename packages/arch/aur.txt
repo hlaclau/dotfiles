@@ -1,4 +1,3 @@
-catppuccin-cursors-mocha
 cursor-bin
 google-chrome
 nerd-fonts-sf-mono

@@ -66,7 +66,7 @@ end)
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
 
-hl.env("XCURSOR_THEME", "Catppuccin-Mocha-Dark-Cursors")
+hl.env("XCURSOR_THEME", "capitaine-cursors")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "26")
 hl.env("MOZ_ENABLE_WAYLAND", "1")
