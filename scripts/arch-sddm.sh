@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Apply the Catppuccin config to the SilentSDDM login theme.
-# Copies system/sddm/silent-catppuccin.conf and the wallpaper into the theme
-# and points the theme at that config. Needs sudo; run it again after changes.
+# Apply the current theme (scripts/theme.sh) to the SilentSDDM login theme.
+# Recolors system/sddm/silent-catppuccin.conf for the current theme and copies it
+# and the wallpaper into the theme, then points the theme at that config. Needs sudo; run it again after changes.
 set -euo pipefail
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -18,7 +18,11 @@ if [ ! -f "$WALLPAPER" ]; then
   exit 1
 fi
 
-sudo install -m 644 "$CONFIG" "$THEME/configs/silent-catppuccin.conf"
+RECOLORED="$(mktemp)"
+trap 'rm -f "$RECOLORED"' EXIT
+"$DOTFILES/scripts/theme.sh" recolor "$CONFIG" "$RECOLORED"
+
+sudo install -m 644 "$RECOLORED" "$THEME/configs/silent-catppuccin.conf"
 sudo install -m 644 "$WALLPAPER" "$THEME/backgrounds/frieren-catppuccin.png"
 sudo sed -i 's|^ConfigFile=.*|ConfigFile=configs/silent-catppuccin.conf|' "$THEME/metadata.desktop"
 

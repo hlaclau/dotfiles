@@ -42,7 +42,7 @@ description = "Install pacman and AUR packages from packages/arch"
 run = "./scripts/arch-packages.sh"
 
 [tasks."arch:sddm"]
-description = "Apply the Catppuccin config to the SilentSDDM login theme (sudo)"
+description = "Apply the current theme to the SilentSDDM login screen (sudo)"
 depends = ["submodules"]
 run = "./scripts/arch-sddm.sh"
 

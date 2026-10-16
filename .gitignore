@@ -6,3 +6,10 @@ mac/.config/omniwm/settings.toml.*
 shared/.config/bat/themes/Theme.tmTheme
 shared/.config/btop/themes/theme_current.theme
 shared/.config/yazi/flavors/
+arch/.config/gtk-3.0/settings.ini
+arch/.config/gtk-4.0/settings.ini
+arch/.config/gtk-4.0/assets
+arch/.config/gtk-4.0/gtk.css
+arch/.config/gtk-4.0/gtk-dark.css
+arch/.config/xsettingsd/xsettingsd.conf
+arch/.config/Kvantum/theme-current/
