@@ -13,7 +13,6 @@ import Quickshell.Widgets
 //   =  qalc (units, conversions, currency)   Enter copies
 //   >  shell command                          Enter runs it, Shift+Enter in a terminal
 //   ?  web search                             Enter opens the browser
-//   !  ask the AI panel                       Enter sends the question
 //   :  emoji                                  Enter copies
 //   /  files under ~                          Enter opens, Shift+Enter opens the folder
 //   @  open windows                           Enter focuses
@@ -35,10 +34,10 @@ PanelWindow {
     // Prefix character of the current mode, "" for apps
     readonly property string mode: {
         const c = search.text.charAt(0);
-        return c && "=>?!:/@".includes(c) ? c : "";
+        return c && "=>?:/@".includes(c) ? c : "";
     }
     readonly property string query: mode ? search.text.slice(1).trim() : search.text
-    readonly property var modeNames: ({ "=": "calc", ">": "run", "?": "web", "!": "ask", ":": "emoji", "/": "files", "@": "windows" })
+    readonly property var modeNames: ({ "=": "calc", ">": "run", "?": "web", ":": "emoji", "/": "files", "@": "windows" })
 
     readonly property var results: mode ? [] : Apps.search(search.text)
 
@@ -71,8 +70,6 @@ PanelWindow {
             return q ? [{ glyph: Icons.terminal, title: q, subtitle: "Run command", hint: "Enter run · Shift+Enter terminal", act: shift => runCommand(q, shift) }] : [];
         case "?":
             return q ? [{ glyph: Icons.search, title: q, subtitle: "Search the web", hint: "Enter to search", act: () => webSearch(q) }] : [];
-        case "!":
-            return q ? [{ glyph: "\u{F06A9}", title: q, subtitle: "Ask AI", hint: "Enter to ask", act: () => askAi(q) }] : [];
         case ":":
             return Emoji.search(q).map(e => ({ emoji: e.char, title: e.name, subtitle: e.group, hint: "Enter to copy", act: () => copy(e.char) }));
         case "/":
@@ -109,7 +106,6 @@ PanelWindow {
         case "=": return query ? "No result" : "Type an expression, e.g. 5 usd to eur or 10 km to mi";
         case ">": return "Type a command";
         case "?": return "Type a web search";
-        case "!": return "Type a question for the AI";
         case ":": return Emoji.missing ? "Install the unicode-emoji package for emoji search" : "No emoji match";
         case "/": return !query ? "Type to search files in ~" : searching ? "Searching…" : "No files match";
         case "@": return "No windows match";
@@ -136,11 +132,6 @@ PanelWindow {
 
     function webSearch(q) {
         Quickshell.execDetached(["xdg-open", searchUrl.replace("%s", encodeURIComponent(q))]);
-        closeRequested();
-    }
-
-    function askAi(q) {
-        Quickshell.execDetached(["qs", "ipc", "call", "ai", "ask", q]);
         closeRequested();
     }
 
@@ -199,7 +190,7 @@ PanelWindow {
                 if (!q) return launcher.files = [];
                 // Hidden files are searched, minus caches, toolchains and other noise
                 const noise = [".git", "node_modules", ".cache", ".local/state", ".local/share/Trash", ".cargo", ".rustup",
-                    ".npm", ".bun", ".yarn", ".gradle", ".nuget", ".dotnet", ".java", ".nv", ".ollama", ".var",
+                    ".npm", ".bun", ".yarn", ".gradle", ".nuget", ".dotnet", ".java", ".nv", ".var",
                     ".vscode", ".cursor", ".minecraft", ".mozilla", "go/pkg"];
                 finder.command = ["fd", "--hidden", "--fixed-strings", "--max-results", "200",
                     ...[].concat(...noise.map(n => ["--exclude", n])), "--", q, launcher.home];

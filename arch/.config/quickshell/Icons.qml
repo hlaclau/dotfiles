@@ -51,7 +51,6 @@ Singleton {
     readonly property string mouse: "󰍽"
     readonly property string link: ""
     readonly property string unlink: ""
-    readonly property string robot: "󰚩"
     readonly property string copy: ""
     readonly property string send: ""
     readonly property string plus: ""

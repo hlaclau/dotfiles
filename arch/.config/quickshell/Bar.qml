@@ -13,7 +13,7 @@ import Quickshell.Widgets
 // free for the island.
 //
 //   left   launcher · workspaces · focused window
-//   right  updates · weather · CPU/RAM/GPU · tray · network/audio/notifications/AI · date
+//   right  updates · weather · CPU/RAM/GPU · tray · network/audio/notifications · date
 //
 // Hover a chip for details (the volume card has sliders, the date a calendar),
 // click / right click / scroll it to act. On narrow screens (`compact`) the
@@ -27,7 +27,6 @@ PanelWindow {
     signal islandTab(int index)
     signal toggleLauncher
     signal toggleOverview
-    signal toggleAi
 
     readonly property var monitor: Hyprland.monitorFor(modelData)
     readonly property bool fullscreen: monitor?.activeWorkspace?.hasFullscreen ?? false
@@ -342,7 +341,7 @@ PanelWindow {
             }
         }
 
-        // ---- Status: network · volume · mic · notifications · AI ----
+        // ---- Status: network · volume · mic · notifications ----
         BarPill {
             BarItem {
                 id: netItem
@@ -551,28 +550,6 @@ PanelWindow {
                         }
                         Caption { visible: Notifs.dnd; text: "Do not disturb is on"; color: Theme.peach }
                         Hint { text: "Click to open · right click DND · middle click clear"; Layout.topMargin: 4 }
-                    }
-                }
-            }
-
-            BarItem {
-                id: aiItem
-                padding: 9
-                active: Ai.busy
-                onClicked: bar.toggleAi()
-
-                Glyph {
-                    id: robot
-                    text: Icons.robot
-                    font.pixelSize: 16
-                    color: Ai.busy || aiItem.hovered ? Theme.accent : Theme.overlay1
-
-                    SequentialAnimation on opacity {
-                        running: Ai.busy
-                        loops: Animation.Infinite
-                        onRunningChanged: if (!running) robot.opacity = 1
-                        NumberAnimation { to: 0.4; duration: 500 }
-                        NumberAnimation { to: 1; duration: 500 }
                     }
                 }
             }
