@@ -1,0 +1,30 @@
+# Magical Girl
+name Magical Girl
+variant light
+accent pink
+rosewater #e8a0b4
+flamingo #ee8fa8
+pink #ec6fb0
+mauve #a974e8
+red #e0587a
+maroon #c9486a
+peach #f29b6b
+yellow #e9b44c
+green #5fbf8f
+teal #3fb8b0
+sky #5db7ee
+sapphire #4a9ae0
+blue #6a8cf0
+lavender #9a8cf5
+text #4a3b63
+subtext1 #65547d
+subtext0 #7a6890
+overlay2 #8b77a0
+overlay1 #a28db3
+overlay0 #b9a3c4
+surface2 #dfc6dc
+surface1 #ecd6e6
+surface0 #f7e6f0
+base #fff9fc
+mantle #fdf0f7
+crust #f6e4ef

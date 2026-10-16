@@ -18,6 +18,10 @@ local themes = {
   ["everforest-dark"] = { "neanias/everforest-nvim", name = "everforest", main = "everforest", background = "dark", colorscheme = "everforest" },
   ["ayu-mirage"] = { "Shatur/neovim-ayu", name = "ayu", opts = { mirage = true }, colorscheme = "ayu-mirage" },
   ["poimandres"] = { "olivercederborg/poimandres.nvim", name = "poimandres", colorscheme = "poimandres" },
+  ["osaka-jade"] = { "ribru17/bamboo.nvim", name = "bamboo", colorscheme = "bamboo" },
+  ["void"] = { "catppuccin/nvim", name = "catppuccin", opts = { flavour = "mocha" }, colorscheme = "catppuccin-mocha" },
+  ["one-dark-pro"] = { "olimorris/onedarkpro.nvim", name = "onedarkpro", colorscheme = "onedark" },
+  ["magical-girl"] = { "rose-pine/neovim", name = "rose-pine", opts = { variant = "dawn" }, colorscheme = "rose-pine-dawn" },
   ["kanagawa-wave"] = { "rebelot/kanagawa.nvim", name = "kanagawa", opts = { theme = "wave" }, colorscheme = "kanagawa-wave" },
 }
 

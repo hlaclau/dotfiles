@@ -210,6 +210,7 @@ apply_gtk() {
     kanagawa-wave) cands="Kanagawa-B Kanagawa-BL" ;;
     ayu-mirage) cands="Ayu-Mirage Ayu-Dark" ;;
     poimandres) cands="Poimandres" ;;
+    one-dark-pro) cands="Materia-Onedark OneDark One-Dark" ;;
     *) cands="" ;;
   esac
   gtk="" gtkdir=""

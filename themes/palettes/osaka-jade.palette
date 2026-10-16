@@ -1,0 +1,30 @@
+# Osaka Jade
+name Osaka Jade
+variant dark
+accent blue
+rosewater #e3c9b8
+flamingo #db9f9c
+pink #d2689c
+mauve #c283b0
+red #ff5345
+maroon #d9594c
+peach #c5935a
+yellow #e5c736
+green #63b07a
+teal #2dd5b7
+sky #8cd3cb
+sapphire #75bbb3
+blue #509475
+lavender #acd4cf
+text #d6d5bc
+subtext1 #c1c497
+subtext0 #9fa383
+overlay2 #81b8a8
+overlay1 #62806f
+overlay0 #53685b
+surface2 #42584a
+surface1 #32473b
+surface0 #23372b
+base #111c18
+mantle #0c1512
+crust #090f0d
