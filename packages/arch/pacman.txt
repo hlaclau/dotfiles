@@ -44,7 +44,6 @@ noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
 nwg-look
-ollama
 pacman-contrib
 papirus-icon-theme
 pavucontrol
