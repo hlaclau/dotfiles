@@ -202,24 +202,14 @@ apply_gtk() {
   case "$NAME" in
     catppuccin-*) f="${NAME#catppuccin-}"; cands="catppuccin-$f-mauve-standard+default catppuccin-$f-standard-mauve-dark" ;;
     rose-pine) cands="rose-pine Rosé-Pine rose-pine-gtk" ;;
-    rose-pine-moon) cands="rose-pine-moon Rosé-Pine-Moon rose-pine-gtk" ;;
-    rose-pine-dawn) cands="rose-pine-dawn Rosé-Pine-Dawn rose-pine-gtk" ;;
     gruvbox-dark) cands="Gruvbox-Dark Gruvbox-Dark-BL gruvbox-dark-gtk" ;;
-    gruvbox-light) cands="Gruvbox-Light Gruvbox-Light-BL gruvbox-light-gtk" ;;
     tokyo-night) cands="Tokyonight-Dark Tokyonight-Dark-B Tokyonight-Night" ;;
-    tokyo-night-storm) cands="Tokyonight-Storm Tokyonight-Storm-B" ;;
     nord) cands="Nordic Nordic-darker Nord-Dark" ;;
     dracula) cands="Dracula" ;;
     everforest-dark) cands="Everforest-Dark-BL Everforest-Dark" ;;
     kanagawa-wave) cands="Kanagawa-B Kanagawa-BL" ;;
-    solarized-dark) cands="Solarized-Dark Solarized-Dark-Blue Solarized-Dark-Green" ;;
-    solarized-light) cands="Solarized-Light Solarized-Light-Blue Solarized-Light-Green" ;;
-    one-dark) cands="Materia-Onedark OneDark One-Dark" ;;
-    github-dark) cands="Github-Dark Github-Dark-Default" ;;
     ayu-mirage) cands="Ayu-Mirage Ayu-Dark" ;;
-    nightfox) cands="Nightfox-Dark Nightfox-Dusk Nightfox-Dark-B" ;;
     poimandres) cands="Poimandres" ;;
-    monokai) cands="Monokai Monokai-Dark" ;;
     *) cands="" ;;
   esac
   gtk="" gtkdir=""
