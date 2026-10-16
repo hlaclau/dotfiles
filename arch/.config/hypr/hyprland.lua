@@ -2,6 +2,12 @@
 -- Wiki: https://wiki.hypr.land/Configuring/Start/
 -- API stubs for the LSP: /usr/share/hypr/stubs/hl.meta.lua
 
+-- Colors of the current theme (scripts/theme.sh), Catppuccin Mocha when it has not generated them
+local colors = { border_active = "rgba(b4befeee)", border_inactive = "rgba(45475aaa)", shadow = "rgba(11111bee)" }
+local ok, generated = pcall(dofile, os.getenv("HOME") .. "/.config/theme/hypr.lua")
+if ok and type(generated) == "table" then
+    colors = generated
+end
 
 ------------------
 ---- MONITORS ----
@@ -88,8 +94,8 @@ hl.config({
         border_size = 2,
 
         col = {
-            active_border   = "rgba(b4befeee)", -- catppuccin lavender
-            inactive_border = "rgba(45475aaa)", -- catppuccin surface1
+            active_border   = colors.border_active,   -- lavender
+            inactive_border = colors.border_inactive, -- surface1
         },
 
         resize_on_border = false,
@@ -109,7 +115,7 @@ hl.config({
             enabled      = true,
             range        = 4,
             render_power = 3,
-            color        = "rgba(11111bee)", -- catppuccin crust
+            color        = colors.shadow, -- crust
         },
 
         blur = {
