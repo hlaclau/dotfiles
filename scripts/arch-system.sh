@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Apply the system-level setup for Arch: mirror refresh, zram swap, SSD trim,
-# package cache cleanup and btrfs snapshots of / with snapper.
+# package cache cleanup, btrfs snapshots of / with snapper and the Chrome theme policy link.
 # Copies the files in system/ to /etc and enables the timers. Needs sudo;
 # safe to run again.
 set -euo pipefail
@@ -11,6 +11,13 @@ sudo pacman -S --needed --noconfirm reflector pacman-contrib zram-generator snap
 
 sudo install -Dm 644 "$DOTFILES/system/reflector/reflector.conf" /etc/xdg/reflector/reflector.conf
 sudo install -Dm 644 "$DOTFILES/system/zram/zram-generator.conf" /etc/systemd/zram-generator.conf
+
+# Chrome only reads policies from /etc/opt/chrome and watches the file itself (not a symlink target),
+# so scripts/theme.sh rewrites this file in place; it is owned by the user so that needs no sudo
+sudo install -d /etc/opt/chrome/policies/managed
+sudo rm -f /etc/opt/chrome/policies/managed/theme.json
+sudo install -m 644 -o "$USER" -g "$(id -gn)" /dev/null /etc/opt/chrome/policies/managed/theme.json
+THEME_NO_WALLPAPER=1 "$DOTFILES/scripts/theme.sh" apply
 
 sudo systemctl daemon-reload
 sudo systemctl start systemd-zram-setup@zram0.service || true
