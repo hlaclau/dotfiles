@@ -1,0 +1,31 @@
+# Ayu Mirage
+name Ayu Mirage
+variant dark
+accent yellow
+wallpaper waves.png
+rosewater #f3c5b0
+flamingo #f28779
+pink #ff8fb1
+mauve #dfbfff
+red #f28779
+maroon #ff6666
+peach #ffa759
+yellow #ffcc66
+green #d5ff80
+teal #95e6cb
+sky #5ccfe6
+sapphire #5ccfe6
+blue #73d0ff
+lavender #b8c2ff
+text #cccac2
+subtext1 #b4b6bd
+subtext0 #9da3b0
+overlay2 #8a919f
+overlay1 #707a8c
+overlay0 #565b66
+surface2 #3d4659
+surface1 #323a4c
+surface0 #272d38
+base #1f2430
+mantle #1c212b
+crust #171b24

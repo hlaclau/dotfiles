@@ -23,14 +23,14 @@ macOS is the source of truth: when both systems configure the same tool, the mac
 
 ## Themes
 
-`mise run theme` lists the themes and `mise run theme <name>` switches to one: Catppuccin (mocha, macchiato, frappe, latte), Rosé Pine (main, moon, dawn), Gruvbox (dark, light), Tokyo Night (night, storm), Nord, Dracula, Everforest and Kanagawa. `mise run stow` applies the current theme (Catppuccin Mocha on a fresh checkout).
+`mise run theme` lists the themes and `mise run theme <name>` switches to one: Catppuccin (mocha, macchiato, frappe, latte), Rosé Pine (main, moon, dawn), Gruvbox (dark, light), Tokyo Night (night, storm), Nord, Dracula, Everforest, Kanagawa, Solarized (dark, light), One Dark, GitHub Dark, Ayu Mirage, Nightfox, Poimandres and Monokai. `mise run stow` applies the current theme (Catppuccin Mocha on a fresh checkout).
 
-- `themes/palettes/<name>.palette` holds the colors of a theme, using the Catppuccin slot names (`base`, `text`, `mauve`, ...). To add a theme, copy a palette and change the hex values.
+- `themes/palettes/<name>.palette` holds the colors of a theme, using the Catppuccin slot names (`base`, `text`, `mauve`, ...). The `wallpaper` line names a file in `wallpapers/` that quickshell switches to with the theme (`THEME_NO_WALLPAPER=1 mise run theme <name>` keeps the current one). To add a theme, copy a palette and change the hex values and the wallpaper.
 - The checked-in configs are Catppuccin Mocha. `scripts/theme.sh` swaps every Mocha color for the same slot of the new palette and writes the result to `~/.config/theme/` (starship, lazygit, fastfetch, fzf, ghostty, nvim palette) or to gitignored files in the config dir of tools that only read their own (bat, btop, yazi). `.zshrc` and the ghostty config pick these up and fall back to Mocha when they are missing.
 - neovim installs the colorscheme plugin of the current theme on its next start, which updates `lazy-lock.json`.
 - Open a new shell for the prompt, lazygit and fzf. ghostty and btop reload on their own, nvim and yazi need a restart.
 - On Arch it also themes: quickshell (reads `~/.config/theme/palette.json` and follows changes live), hyprland (borders and shadow, reloaded with `hyprctl reload`), hyprlock (recolored copy, started with `-c`), Kvantum (the Mocha Kvantum theme recolored into the gitignored `theme-current`) and the ghostty cursor trail. SDDM is themed by `mise run arch:sddm`, which recolors its config for the current theme.
-- GTK has no palette to swap, so `theme.sh` picks an installed GTK theme that matches (e.g. `catppuccin-<flavor>-mauve-standard+default`, `Gruvbox-Dark`, `Tokyonight-Dark`, `Nordic`, `Dracula`, see `apply_gtk`) and otherwise keeps the current one. Its icons, cursor and wallpaper stay as they are, as does the arch:sddm wallpaper.
+- GTK has no palette to swap, so `theme.sh` picks an installed GTK theme that matches (e.g. `catppuccin-<flavor>-mauve-standard+default`, `Gruvbox-Dark`, `Tokyonight-Dark`, `Nordic`, `Dracula`, see `apply_gtk`) and otherwise keeps the current one. Its icons and cursor stay as they are, as does the arch:sddm wallpaper.
 
 ## Neovim
 

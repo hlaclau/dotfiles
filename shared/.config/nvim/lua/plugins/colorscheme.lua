@@ -22,6 +22,14 @@ local themes = {
   ["nord"] = { "gbprod/nord.nvim", name = "nord", colorscheme = "nord" },
   ["dracula"] = { "Mofiqul/dracula.nvim", name = "dracula", colorscheme = "dracula" },
   ["everforest-dark"] = { "neanias/everforest-nvim", name = "everforest", main = "everforest", background = "dark", colorscheme = "everforest" },
+  ["solarized-dark"] = { "maxmx03/solarized.nvim", name = "solarized", background = "dark", colorscheme = "solarized" },
+  ["solarized-light"] = { "maxmx03/solarized.nvim", name = "solarized", background = "light", colorscheme = "solarized" },
+  ["one-dark"] = { "navarasu/onedark.nvim", name = "onedark", opts = { style = "dark" }, colorscheme = "onedark" },
+  ["github-dark"] = { "projekt0n/github-nvim-theme", name = "github-theme", colorscheme = "github_dark" },
+  ["ayu-mirage"] = { "Shatur/neovim-ayu", name = "ayu", opts = { mirage = true }, colorscheme = "ayu-mirage" },
+  ["nightfox"] = { "EdenEast/nightfox.nvim", name = "nightfox", colorscheme = "nightfox" },
+  ["poimandres"] = { "olivercederborg/poimandres.nvim", name = "poimandres", colorscheme = "poimandres" },
+  ["monokai"] = { "tanvirtin/monokai.nvim", name = "monokai", main = "monokai", colorscheme = "monokai" },
   ["kanagawa-wave"] = { "rebelot/kanagawa.nvim", name = "kanagawa", opts = { theme = "wave" }, colorscheme = "kanagawa-wave" },
 }
 

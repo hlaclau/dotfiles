@@ -192,6 +192,15 @@ EOT
   hyprctl reload > /dev/null 2>&1 || true
 }
 
+# Switch to the theme's wallpaper (the `wallpaper` line of its palette, a file in wallpapers/)
+# through quickshell. THEME_NO_WALLPAPER=1 keeps the current one.
+apply_wallpaper() {
+  [ -z "${THEME_NO_WALLPAPER:-}" ] && command -v qs > /dev/null 2>&1 || return 0
+  wp="$(meta wallpaper)"
+  [ -n "$wp" ] && [ -f "$DOTFILES/wallpapers/$wp" ] || return 0
+  qs ipc call wallpaper set "$DOTFILES/wallpapers/$wp" > /dev/null 2>&1 || true
+}
+
 # GTK has no palette to swap, so use an installed GTK theme that matches (first candidate found).
 # Without one the previous GTK theme stays (Catppuccin Mocha on a fresh checkout).
 apply_gtk() {
@@ -208,6 +217,14 @@ apply_gtk() {
     dracula) cands="Dracula" ;;
     everforest-dark) cands="Everforest-Dark-BL Everforest-Dark" ;;
     kanagawa-wave) cands="Kanagawa-B Kanagawa-BL" ;;
+    solarized-dark) cands="Solarized-Dark Solarized-Dark-Blue Solarized-Dark-Green" ;;
+    solarized-light) cands="Solarized-Light Solarized-Light-Blue Solarized-Light-Green" ;;
+    one-dark) cands="Materia-Onedark OneDark One-Dark" ;;
+    github-dark) cands="Github-Dark Github-Dark-Default" ;;
+    ayu-mirage) cands="Ayu-Mirage Ayu-Dark" ;;
+    nightfox) cands="Nightfox-Dark Nightfox-Dusk Nightfox-Dark-B" ;;
+    poimandres) cands="Poimandres" ;;
+    monokai) cands="Monokai Monokai-Dark" ;;
     *) cands="" ;;
   esac
   gtk="" gtkdir=""
@@ -256,6 +273,7 @@ apply() {
   write_nvim
   write_cursor_shader
   apply_desktop
+  apply_wallpaper
   echo "$NAME" > "$OUT/current"
 
   # Reload what is running (best effort)
