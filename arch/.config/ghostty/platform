@@ -3,3 +3,5 @@ window-decoration = none
 # SF Mono from the AUR package (nerd-fonts-sf-mono); fontconfig would silently
 # substitute Noto Sans Mono for the macOS name, so only list this one here
 font-family = SFMono Nerd Font Mono
+# No "configuration reloaded" toast on every theme switch
+app-notifications = no-config-reload
