@@ -35,6 +35,8 @@ PanelWindow {
     // Room each side gets: half the screen minus the expanded island (560) and a gap
     readonly property real sideWidth: width / 2 - 280 - 24
     readonly property int corner: 18
+    // The strip is translucent (blurred through the bar-blur layer rule in hyprland.lua)
+    readonly property real stripAlpha: 0.72
 
     visible: !fullscreen
     color: "transparent"
@@ -146,7 +148,7 @@ PanelWindow {
         transform: Scale { xScale: parent.mirrored ? -1 : 1; origin.x: bar.corner / 2 }
 
         ShapePath {
-            fillColor: Theme.crust
+            fillColor: Qt.alpha(Theme.crust, bar.stripAlpha)
             strokeWidth: -1
             startX: 0; startY: 0
             PathLine { x: bar.corner; y: 0 }
@@ -165,7 +167,7 @@ PanelWindow {
         anchors.right: parent.right
         anchors.top: parent.top
         height: Theme.barHeight
-        color: Theme.crust
+        color: Qt.alpha(Theme.crust, bar.stripAlpha)
     }
     Corner {
         anchors.left: parent.left

@@ -9,7 +9,7 @@ Rectangle {
     property bool active: false
     signal clicked
 
-    implicitHeight: 64
+    implicitHeight: 58
     radius: 16
     color: active ? Theme.accent : (mouse.containsMouse ? Theme.surface1 : Theme.surface0)
 

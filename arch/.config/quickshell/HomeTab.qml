@@ -1,41 +1,18 @@
 import QtQuick
 import QtQuick.Layouts
 
-// Media, volume (and per app), quick toggles, package updates and notifications
+// Media, per-app volume, quick actions, package updates and notifications. Volume, mic and
+// do-not-disturb are in the bar (click, scroll, right click).
 ColumnLayout {
     id: tab
 
     required property var island
 
-    spacing: 14
+    spacing: 12
 
     MediaCard {
         Layout.fillWidth: true
         visible: Status.player !== null
-    }
-
-    // ---- Volume ----
-    RowLayout {
-        Layout.fillWidth: true
-        spacing: 12
-
-        IconButton {
-            size: 30
-            icon: Status.muted ? Icons.volumeMute : (Status.volume < 0.4 ? Icons.volumeLow : Icons.volumeHigh)
-            iconColor: Status.muted ? Theme.overlay1 : Theme.accent
-            onClicked: Status.toggleMute()
-        }
-        VolumeSlider {
-            Layout.fillWidth: true
-        }
-        Text {
-            Layout.preferredWidth: 36
-            horizontalAlignment: Text.AlignRight
-            text: Math.round(Status.volume * 100) + "%"
-            color: Theme.subtext1
-            font.family: Theme.font
-            font.pixelSize: 12
-        }
     }
 
     // ---- Per-app volume, only while something plays ----
@@ -48,30 +25,16 @@ ColumnLayout {
     // ---- Quick toggles ----
     GridLayout {
         Layout.fillWidth: true
-        columns: 4
+        columns: 6
         columnSpacing: 8
         rowSpacing: 8
 
-        Tile {
-            Layout.fillWidth: true
-            icon: Notifs.dnd ? Icons.bellSlash : Icons.bell
-            label: "Silent"
-            active: Notifs.dnd
-            onClicked: Notifs.dnd = !Notifs.dnd
-        }
         Tile {
             Layout.fillWidth: true
             icon: Icons.coffee
             label: "Awake"
             active: Status.caffeine
             onClicked: Status.caffeine = !Status.caffeine
-        }
-        Tile {
-            Layout.fillWidth: true
-            icon: Status.micMuted ? Icons.micSlash : Icons.mic
-            label: "Mic"
-            active: !Status.micMuted
-            onClicked: Status.toggleMic()
         }
         Tile {
             Layout.fillWidth: true

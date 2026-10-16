@@ -42,7 +42,7 @@ ColumnLayout {
                 text: Qt.formatDateTime(view.clock.date, "HH:mm")
                 color: Theme.text
                 font.family: Theme.font
-                font.pixelSize: 30
+                font.pixelSize: 24
                 font.bold: true
             }
             Text {
@@ -104,7 +104,9 @@ ColumnLayout {
                     required property int index
                     readonly property bool current: view.island.tab === index
 
-                    Layout.fillWidth: true
+                    // Only the current tab shows its label, the others shrink to their icon
+                    Layout.fillWidth: current
+                    Layout.preferredWidth: current ? -1 : 40
                     Layout.fillHeight: true
                     radius: 9
                     color: current ? Theme.accent : (tabMouse.containsMouse ? Theme.surface1 : "transparent")
@@ -122,6 +124,7 @@ ColumnLayout {
                             font.pixelSize: 12
                         }
                         Text {
+                            visible: tabButton.current
                             anchors.verticalCenter: parent.verticalCenter
                             text: tabButton.modelData.label
                             color: tabButton.current ? Theme.crust : Theme.subtext1

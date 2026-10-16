@@ -249,6 +249,14 @@ hl.layer_rule({
     animation = "slide top",
 })
 
+-- The bar is translucent (Bar.qml), blur what is behind it
+hl.layer_rule({
+    name         = "bar-blur",
+    match        = { namespace = "bar" },
+    blur         = true,
+    ignore_alpha = 0.2,
+})
+
 hl.layer_rule({
     name  = "overlay-blur",
     match = { namespace = "^(overview|launcher|keybinds|wallpaper)$" },
