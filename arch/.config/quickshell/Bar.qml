@@ -34,9 +34,9 @@ PanelWindow {
     readonly property bool compact: width < 2400
     // Room each side gets: half the screen minus the expanded island (560) and a gap
     readonly property real sideWidth: width / 2 - 280 - 24
-    readonly property int corner: 18
+    readonly property int corner: 0
     // The strip is translucent (blurred through the bar-blur layer rule in hyprland.lua)
-    readonly property real stripAlpha: 0.72
+    readonly property real stripAlpha: 0.55
 
     visible: !fullscreen
     color: "transparent"
@@ -71,14 +71,14 @@ PanelWindow {
     component Glyph: Text {
         color: Theme.accent
         font.family: Theme.iconFont
-        font.pixelSize: 15
+        font.pixelSize: 14
         Behavior on color { ColorAnimation { duration: 200 } }
     }
     component Label: Text {
         color: Theme.subtext1
         font.family: Theme.font
-        font.pixelSize: 13
-        font.bold: true
+        font.pixelSize: 12
+        font.bold: false
     }
     // Small caption above or beside a main label
     component Caption: Text {
@@ -168,6 +168,15 @@ PanelWindow {
         anchors.top: parent.top
         height: Theme.barHeight
         color: Qt.alpha(Theme.crust, bar.stripAlpha)
+
+        // Hairline along the bottom edge
+        Rectangle {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            height: 1
+            color: Qt.alpha(Theme.text, 0.08)
+        }
     }
     Corner {
         anchors.left: parent.left

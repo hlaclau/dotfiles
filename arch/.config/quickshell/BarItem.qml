@@ -19,8 +19,8 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: 9
-        color: item.active ? Qt.alpha(Theme.accent, 0.18) : Theme.surface0
+        radius: 6
+        color: item.active ? Qt.alpha(Theme.accent, 0.18) : Qt.alpha(Theme.text, 0.12)
         opacity: item.active || mouse.containsMouse ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: 120 } }
     }

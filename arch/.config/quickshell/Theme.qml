@@ -81,5 +81,5 @@ Singleton {
     readonly property string iconFont: "JetBrainsMono Nerd Font"
 
     // Height of the bar and of the collapsed island, so the notch lines up with it
-    readonly property int barHeight: 44
+    readonly property int barHeight: 32
 }
