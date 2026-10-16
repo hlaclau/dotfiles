@@ -3,7 +3,6 @@ background-opacity = 0.9
 font-size = 14
 mouse-hide-while-typing = true
 keybind = shift+enter=text:\n
-custom-shader = ?~/.config/theme/cursor.glsl
 
 # Colors of the current theme (scripts/theme.sh), overriding the theme above
 config-file = ?~/.config/theme/ghostty
