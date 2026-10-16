@@ -105,8 +105,10 @@ Singleton {
     }
 
     // ---- Screen recorder ----
-    // Select a region, record it with desktop audio to ~/Videos/Recordings
-    readonly property bool recording: recorder.running && recordStart > 0
+    // hypr/record.sh selects a region and records it with desktop audio to ~/Videos/Recordings; it
+    // runs from Hyprland (not from here) so slurp gets the pointer, and leaves its start time in
+    // $XDG_RUNTIME_DIR/recording-start while it records
+    readonly property bool recording: recordStart > 0
     property real recordStart: 0
     property int recordSeconds: 0
     readonly property string recordTime: {
@@ -115,40 +117,26 @@ Singleton {
     }
 
     function toggleRecording() {
-        if (recorder.running) recorder.signal(15); // SIGTERM: wf-recorder finalizes the file
-        else recorder.running = true;
+        Quickshell.execDetached(["hyprctl", "dispatch", 'hl.dsp.exec_cmd("$HOME/.config/hypr/record.sh")']);
     }
 
     Process {
-        id: recorder
-        command: ["sh", "-c", `
-            sleep 0.3 # let the island close before selecting
-            region=$(slurp) || exit 1
-            dir="$HOME/Videos/Recordings"
-            mkdir -p "$dir"
-            file="$dir/$(date +%Y-%m-%d_%H-%M-%S).mp4"
-            wf-recorder -g "$region" --audio="$(pactl get-default-sink).monitor" -f "$file" >/dev/null 2>&1 &
-            pid=$!
-            trap 'kill -TERM $pid' INT TERM
-            echo started
-            wait $pid; wait $pid 2>/dev/null
-            notify-send -a Recorder -i video-x-generic "Recording saved" "$file"
-        `]
+        id: recordPoll
+        command: ["sh", "-c", "cat \"${XDG_RUNTIME_DIR:-/tmp}/recording-start\" 2>/dev/null || echo 0"]
         stdout: SplitParser {
             onRead: line => {
-                if (line === "started") {
-                    root.recordStart = Date.now();
-                    root.recordSeconds = 0;
-                }
+                const start = parseInt(line) * 1000;
+                root.recordStart = start;
+                root.recordSeconds = start > 0 ? Math.max(0, Math.round((Date.now() - start) / 1000)) : 0;
             }
         }
-        onExited: root.recordStart = 0
     }
     Timer {
         interval: 1000
         repeat: true
-        running: root.recording
-        onTriggered: root.recordSeconds = Math.round((Date.now() - root.recordStart) / 1000)
+        running: true
+        triggeredOnStart: true
+        onTriggered: recordPoll.running = true
     }
 
     // ---- Toggles ----

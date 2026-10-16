@@ -66,7 +66,7 @@ bind(mainMod .. " + slash",     hl.dsp.exec_cmd("qs ipc call keybinds toggle"), 
 bind(mainMod .. " + I",         hl.dsp.exec_cmd("qs ipc call island toggle"), "Toggle island (control center)")
 bind(mainMod .. " + V",         hl.dsp.exec_cmd("qs ipc call island clipboard"), "Clipboard history")
 bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("qs ipc call island openTab 5"), "Screens (on/off, mirror)")
-bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("qs ipc call island record"), "Start/stop screen recording")
+bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("$HOME/.config/hypr/record.sh"), "Start/stop screen recording")
 bind(mainMod .. " + TAB",       hl.dsp.exec_cmd("qs ipc call overview toggle"), "Workspace overview")
 bind(mainMod .. " + W",         hl.dsp.exec_cmd("qs ipc call wallpaper toggle"), "Wallpaper picker")
 bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("qs ipc call themes toggle"),    "Theme picker")
