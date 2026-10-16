@@ -232,6 +232,16 @@ Singleton {
         if (mic) Pipewire.preferredDefaultAudioSource = mic;
     }
 
+    // Restart the session manager so it re-scans devices (headsets that were plugged in late)
+    function refreshAudio() {
+        audioRefresh.running = true;
+    }
+
+    Process {
+        id: audioRefresh
+        command: ["systemctl", "--user", "restart", "wireplumber"]
+    }
+
     Process {
         running: root.noiseSuppression && Settings.values.noiseMic !== ""
         command: ["sh", "-c", `

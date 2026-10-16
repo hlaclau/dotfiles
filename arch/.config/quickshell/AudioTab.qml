@@ -68,7 +68,17 @@ ColumnLayout {
     }
 
     // ---- Outputs ----
-    SectionTitle { text: "Output"; Layout.topMargin: 10 }
+    RowLayout {
+        Layout.fillWidth: true
+        Layout.topMargin: 10
+
+        SectionTitle { text: "Output"; Layout.topMargin: 0; Layout.fillWidth: true }
+        IconButton {
+            icon: Icons.refresh
+            size: 24
+            onClicked: Status.refreshAudio()
+        }
+    }
 
     Repeater {
         model: Status.outputs
