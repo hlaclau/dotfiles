@@ -65,11 +65,11 @@ bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"), "Color picker 
 bind(mainMod .. " + slash",     hl.dsp.exec_cmd("qs ipc call keybinds toggle"), "Keybind cheatsheet")
 bind(mainMod .. " + I",         hl.dsp.exec_cmd("qs ipc call island toggle"), "Toggle island (control center)")
 bind(mainMod .. " + V",         hl.dsp.exec_cmd("qs ipc call island clipboard"), "Clipboard history")
+bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("qs ipc call island openTab 5"), "Screens (on/off, mirror)")
 bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("qs ipc call island record"), "Start/stop screen recording")
 bind(mainMod .. " + TAB",       hl.dsp.exec_cmd("qs ipc call overview toggle"), "Workspace overview")
 bind(mainMod .. " + W",         hl.dsp.exec_cmd("qs ipc call wallpaper toggle"), "Wallpaper picker")
 bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("qs ipc call themes toggle"),    "Theme picker")
-bind(mainMod .. " + C",         hl.dsp.exec_cmd("qs ipc call ai toggle"), "AI chat panel")
 bind(mainMod .. " + SHIFT + ALT + Q", hl.dsp.exec_cmd("hyprctl kill"), "Force-kill a window (click it)")
 
 -- OCR a region with every installed tesseract language (minus osd), then
@@ -88,7 +88,6 @@ fi
 ]]
 end
 bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd(ocr([[printf %s "$text" | wl-copy && notify-send -a OCR "Text copied" "$(printf %s "$text" | head -c 200)"]])), "OCR region to clipboard")
-bind(mainMod .. " + CTRL + O",  hl.dsp.exec_cmd(ocr([[qs ipc call ai ask "$text"]])), "OCR region and ask AI")
 
 -- Lock screen
 bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("loginctl lock-session"), "Lock screen")

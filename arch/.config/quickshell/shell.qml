@@ -7,8 +7,7 @@ import Quickshell.Hyprland
 import Quickshell.Io
 
 // Top bar, dynamic island, workspace overview, app launcher, keybind cheatsheet,
-// AI chat and wallpaper picker, one of each per screen. Control them with `qs ipc call island <fn>`,
-// `qs ipc call ai <toggle|ask TEXT|newChat>`,
+// and wallpaper picker, one of each per screen. Control them with `qs ipc call island <fn>`,
 // `qs ipc call wallpaper <toggle|random|set PATH|search QUERY>`,
 // `qs ipc call themes <toggle|set ID>` and
 // `qs ipc call <overview|launcher|keybinds> toggle`.
@@ -20,7 +19,6 @@ ShellRoot {
             onIslandTab: index => islandFor(modelData).open(true, index)
             onToggleLauncher: launcherOpen = !launcherOpen
             onToggleOverview: overviewOpen = !overviewOpen
-            onToggleAi: aiOpen = !aiOpen
         }
     }
 
@@ -77,33 +75,6 @@ ShellRoot {
 
         function toggle(): void {
             keybindsOpen = !keybindsOpen;
-        }
-    }
-
-    property bool aiOpen: false
-
-    Variants {
-        model: Quickshell.screens
-
-        AiPanel {
-            open: aiOpen
-            onCloseRequested: aiOpen = false
-        }
-    }
-
-    IpcHandler {
-        target: "ai"
-
-        function toggle(): void {
-            aiOpen = !aiOpen;
-        }
-        // Open the panel and send `text` to the current chat
-        function ask(text: string): void {
-            aiOpen = true;
-            Ai.send(text);
-        }
-        function newChat(): void {
-            Ai.newChat();
         }
     }
 
@@ -192,7 +163,7 @@ ShellRoot {
         function toggle(): void {
             focusedIsland().toggle();
         }
-        // 0 Home, 1 Audio, 2 Network, 3 Clipboard, 4 Hyprland
+        // 0 Home, 1 Audio, 2 Network, 3 Clipboard, 4 Hyprland, 5 Screens
         function openTab(index: int): void {
             focusedIsland().open(true, index);
         }

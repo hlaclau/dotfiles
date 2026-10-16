@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 
 // Control center shown when the island is expanded: header, tab bar, then the
-// current tab (Home, Audio, Network, Clipboard, Hyprland)
+// current tab (Home, Audio, Network, Clipboard, Hyprland, Screens)
 ColumnLayout {
     id: view
 
@@ -95,6 +95,7 @@ ColumnLayout {
                     { icon: Icons.wifi, label: "Network" },
                     { icon: Icons.clipboard, label: "Clipboard" },
                     { icon: Icons.sliders, label: "Hyprland" },
+                    { icon: Icons.desktop, label: "Screens" },
                 ]
 
                 Rectangle {
@@ -163,5 +164,9 @@ ColumnLayout {
     HyprTab {
         Layout.fillWidth: true
         visible: view.island.tab === 4
+    }
+    ScreensTab {
+        Layout.fillWidth: true
+        visible: view.island.tab === 5
     }
 }
