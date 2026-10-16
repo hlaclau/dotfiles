@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Switch the colour theme: theme.sh [list | current | apply | recolor SRC DST | <name>]
+# Switch the colour theme: theme.sh [list | current | json | apply | recolor SRC DST | <name>]
 #
 # Palettes live in themes/palettes (one `slot #hex` per line, Catppuccin slot names). The checked-in
 # configs are Catppuccin Mocha; they are recoloured (every Mocha hex/rgb value is swapped for the
@@ -267,6 +267,20 @@ apply() {
   echo "Open a new shell (or run: reload) for the prompt, lazygit and fzf; restart nvim, yazi and GTK apps."
 }
 
+# JSON of the current theme and all palettes, for the quickshell theme picker
+print_json() {
+  printf '{"current": "%s", "themes": [' "$(current_theme)"
+  sep=""
+  for n in $(palette_names); do
+    PAL="$PALETTES/$n.palette"
+    printf '%s{"id": "%s", "name": "%s", "variant": "%s", "accent": "%s"' "$sep" "$n" "$(meta name)" "$(meta variant)" "$(slot "$(meta accent)")"
+    awk '$2 ~ /^#/ { printf ", \"%s\": \"%s\"", $1, $2 }' "$PAL"
+    printf '}'
+    sep=", "
+  done
+  printf ']}\n'
+}
+
 case "${1:-list}" in
   list)
     cur="$(current_theme)"
@@ -275,6 +289,7 @@ case "${1:-list}" in
     done
     ;;
   current) current_theme ;;
+  json) print_json ;;
   apply) apply "$(current_theme)" ;;
   recolor) PAL="$PALETTES/$(current_theme).palette"; recolor "$2" "$3" ;;
   *) apply "$1" ;;

@@ -93,6 +93,7 @@ The Arch setup runs Hyprland with a Lua config (`arch/.config/hypr/hyprland.lua`
 - **Top bar**: a solid strip the island grows out of, with rounded screen corners. Workspaces with app icons, the focused window, weather, CPU/RAM/GPU rings, tray, network/audio/notifications/AI and the date. Hover a chip for details: graphs, a forecast, volume sliders, a calendar.
 - **App launcher**: a full-screen grid of every app with search, most used first: `SUPER + Space`. Prefixes switch modes: `=` calc, `>` run, `?` web, `!` ask AI, `:` emoji, `/` files, `@` windows.
 - **Wallpaper picker**: your collection plus wallhaven.cc search; downloads go to `~/Pictures/Wallpapers`, and the choice per screen is remembered: `SUPER + W`.
+- **Theme picker**: cards with the palette of every theme, Enter or a click applies it with `scripts/theme.sh` (see Themes): `SUPER + SHIFT + W`, or `qs ipc call themes set <id>`.
 - **AI chat panel** backed by Claude Code, Codex or Ollama, with preset agents in `agents.json`: `SUPER + C`.
 
 Press `SUPER + /` for a searchable list of every keybind.

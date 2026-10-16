@@ -9,7 +9,8 @@ import Quickshell.Io
 // Top bar, dynamic island, workspace overview, app launcher, keybind cheatsheet,
 // AI chat and wallpaper picker, one of each per screen. Control them with `qs ipc call island <fn>`,
 // `qs ipc call ai <toggle|ask TEXT|newChat>`,
-// `qs ipc call wallpaper <toggle|random|set PATH|search QUERY>` and
+// `qs ipc call wallpaper <toggle|random|set PATH|search QUERY>`,
+// `qs ipc call themes <toggle|set ID>` and
 // `qs ipc call <overview|launcher|keybinds> toggle`.
 ShellRoot {
     Variants {
@@ -103,6 +104,29 @@ ShellRoot {
         }
         function newChat(): void {
             Ai.newChat();
+        }
+    }
+
+    property bool themesOpen: false
+
+    Variants {
+        model: Quickshell.screens
+
+        ThemePicker {
+            open: themesOpen
+            onCloseRequested: themesOpen = false
+        }
+    }
+
+    IpcHandler {
+        target: "themes"
+
+        function toggle(): void {
+            themesOpen = !themesOpen;
+        }
+        // Apply a theme by id (see `scripts/theme.sh list`)
+        function set(id: string): void {
+            Themes.apply(id);
         }
     }
 
