@@ -30,7 +30,7 @@ macOS is the source of truth: when both systems configure the same tool, the mac
 - neovim installs the colorscheme plugin of the current theme on its next start, which updates `lazy-lock.json`.
 - Open a new shell for the prompt, lazygit and fzf. ghostty and btop reload on their own, nvim and yazi need a restart.
 - On Arch it also themes: quickshell (reads `~/.config/theme/palette.json` and follows changes live), hyprland (borders and shadow, reloaded with `hyprctl reload`), hyprlock (recolored copy, started with `-c`), Kvantum (the Mocha Kvantum theme recolored into the gitignored `theme-current`). SDDM is themed by `mise run arch:sddm`, which recolors its config for the current theme.
-- GTK has no palette to swap, so `theme.sh` picks an installed GTK theme that matches (e.g. `catppuccin-<flavor>-mauve-standard+default`, `Gruvbox-Dark`, `Tokyonight-Dark`, `Nordic`, `Dracula`, see `apply_gtk`) and otherwise keeps the current one. Its icons and cursor stay as they are, as does the arch:sddm wallpaper.
+- GTK (Thunar, GTK 3 and 4 apps): the built-in Adwaita theme with its named colors replaced by the palette, written to a generated `gtk.css` for GTK 3 and GTK 4 (no GTK theme package needed). Apps pick it up when they start. The icons switch between Papirus-Dark and Papirus-Light with the theme, the cursor and the arch:sddm wallpaper stay as they are.
 
 ## Neovim
 
