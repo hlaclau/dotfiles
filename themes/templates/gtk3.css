@@ -1,0 +1,131 @@
+/* GTK 3 widget colors, written in Catppuccin Mocha and recolored by scripts/theme.sh.
+   The accent placeholders become the theme's accent and the text color drawn on it. */
+
+* { text-shadow: none; -gtk-icon-shadow: none; }
+
+window, .background, dialog, messagedialog {
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+}
+label, .label { color: inherit; }
+label:disabled, *:disabled { color: #6c7086; }
+selection, *:selected { background-color: ACCENT_BG; color: ACCENT_FG; }
+
+headerbar, .titlebar, headerbar.titlebar {
+  background-image: none;
+  background-color: #181825;
+  color: #cdd6f4;
+  border: none;
+  border-bottom: 1px solid #11111b;
+  box-shadow: none;
+}
+headerbar:backdrop, .titlebar:backdrop { background-color: #1e1e2e; color: #a6adc8; }
+menubar, toolbar, .toolbar, .primary-toolbar, actionbar, statusbar {
+  background-image: none;
+  background-color: #181825;
+  color: #cdd6f4;
+  border-color: #313244;
+  box-shadow: none;
+}
+menubar > menuitem:hover, menubar > menuitem:selected { background-color: #45475a; color: #cdd6f4; }
+
+menu, .menu, .popup, popover, popover.background, .context-menu {
+  background-color: #313244;
+  color: #cdd6f4;
+  border: 1px solid #45475a;
+  box-shadow: none;
+}
+menuitem { color: #cdd6f4; }
+menuitem:hover, menuitem:selected { background-color: #45475a; color: #cdd6f4; }
+menuitem:disabled { color: #6c7086; }
+separator, menu separator { background-color: #45475a; min-width: 1px; min-height: 1px; }
+
+button, .button {
+  background-image: none;
+  background-color: #313244;
+  color: #cdd6f4;
+  border: 1px solid #45475a;
+  box-shadow: none;
+}
+button:hover { background-color: #45475a; }
+button:active, button:checked { background-color: ACCENT_BG; color: ACCENT_FG; border-color: ACCENT_BG; }
+button:disabled { background-color: #1e1e2e; color: #6c7086; border-color: #313244; }
+button.suggested-action { background-color: ACCENT_BG; color: ACCENT_FG; border-color: ACCENT_BG; }
+button.destructive-action { background-color: #f38ba8; color: ACCENT_FG; border-color: #f38ba8; }
+button.flat, toolbar button, headerbar button { background-color: transparent; border-color: transparent; }
+button.flat:hover, toolbar button:hover, headerbar button:hover { background-color: #45475a; }
+toolbar button:checked, headerbar button:checked { background-color: ACCENT_BG; color: ACCENT_FG; }
+
+entry, spinbutton, spinbutton entry, combobox entry, .entry {
+  background-image: none;
+  background-color: #181825;
+  color: #cdd6f4;
+  border: 1px solid #45475a;
+  box-shadow: none;
+  caret-color: ACCENT_BG;
+}
+entry:focus, spinbutton:focus { border-color: ACCENT_BG; }
+entry selection, textview text selection { background-color: ACCENT_BG; color: ACCENT_FG; }
+entry:disabled { color: #6c7086; }
+spinbutton button { background-color: #313244; border-color: #45475a; }
+
+.view, iconview, treeview.view, textview, textview text, .content-view, list, listview, flowbox {
+  background-color: #181825;
+  color: #cdd6f4;
+}
+.view:selected, iconview:selected, treeview.view:selected, row:selected, flowboxchild:selected,
+.view:selected:focus, treeview.view:selected:focus, iconview:selected:focus {
+  background-color: ACCENT_BG;
+  color: ACCENT_FG;
+}
+.view:hover, iconview:hover, treeview.view:hover { background-color: #313244; }
+row:hover { background-color: #313244; }
+treeview.view:disabled, .view:disabled { color: #6c7086; }
+treeview header button, treeview header button:hover {
+  background-image: none;
+  background-color: #1e1e2e;
+  color: #a6adc8;
+  border: none;
+  border-bottom: 1px solid #313244;
+  border-right: 1px solid #313244;
+  box-shadow: none;
+}
+scrolledwindow, scrolledwindow viewport, viewport { background-color: transparent; }
+scrolledwindow.frame, frame > border, .frame { border-color: #313244; }
+
+.sidebar, placessidebar, placessidebar list, placessidebar row, stacksidebar list, .sidebar .view {
+  background-color: #181825;
+  color: #cdd6f4;
+}
+placessidebar row:selected, .sidebar row:selected { background-color: ACCENT_BG; color: ACCENT_FG; }
+placessidebar row:hover { background-color: #313244; }
+paned > separator { background-color: #313244; background-image: none; }
+
+scrollbar { background-color: transparent; border: none; }
+scrollbar trough { background-color: transparent; border: none; }
+scrollbar slider { background-color: #585b70; border: none; border-radius: 8px; min-width: 8px; min-height: 8px; }
+scrollbar slider:hover { background-color: #7f849c; }
+scrollbar slider:active { background-color: ACCENT_BG; }
+
+tooltip, tooltip.background { background-color: #45475a; color: #cdd6f4; border: 1px solid #585b70; box-shadow: none; }
+tooltip label, tooltip * { color: #cdd6f4; }
+
+notebook { background-color: #1e1e2e; }
+notebook > header { background-color: #181825; border-color: #313244; }
+notebook > header > tabs > tab { background-color: transparent; color: #a6adc8; border-color: transparent; }
+notebook > header > tabs > tab:checked { background-color: #1e1e2e; color: #cdd6f4; border-color: #313244; }
+notebook > header > tabs > tab:hover { color: #cdd6f4; }
+
+progressbar trough, scale trough, levelbar trough { background-color: #313244; border: none; }
+progressbar progress, scale highlight, levelbar block.filled { background-color: ACCENT_BG; border: none; }
+scale slider { background-color: #cdd6f4; border: 1px solid #585b70; box-shadow: none; }
+switch { background-color: #313244; border: 1px solid #45475a; color: #cdd6f4; }
+switch:checked { background-color: ACCENT_BG; color: ACCENT_FG; border-color: ACCENT_BG; }
+switch slider { background-color: #cdd6f4; border: none; box-shadow: none; }
+check, radio { background-image: none; background-color: #313244; color: ACCENT_FG; border: 1px solid #585b70; box-shadow: none; }
+check:checked, radio:checked, check:indeterminate, radio:indeterminate { background-color: ACCENT_BG; border-color: ACCENT_BG; color: ACCENT_FG; }
+
+link, *:link { color: #74c7ec; }
+infobar, .infobar { background-color: #313244; color: #cdd6f4; }
+infobar.warning { background-color: #f9e2af; color: ACCENT_FG; }
+infobar.error { background-color: #f38ba8; color: ACCENT_FG; }
