@@ -88,13 +88,13 @@ macOS is the source of truth: when both systems configure the same tool, the mac
 
 The Arch setup runs Hyprland with a Lua config (`arch/.config/hypr/hyprland.lua`, binds in `bindings.lua`) and a [Quickshell](https://quickshell.org) shell in `arch/.config/quickshell`:
 
-- **Dynamic island** hanging from the top of each screen: clock, now playing, notifications (it replaces a notification daemon), volume popup and a REC timer. `SUPER + I` opens its control center with Home, Audio, Network, Clipboard and Hyprland tabs.
+- **Dynamic island** hanging from the top of each screen: clock, now playing, notifications (it replaces a notification daemon), volume popup and a REC timer. Click it or press `SUPER + I` to open the control center, a dimmed overlay with a dock at the top and Home, Audio, Network, Clipboard, Hyprland, Screens, Resources, Calendar (with weather), Emoji, Music (spectrum), Floating image and Crosshair panels you can drag, resize and pin (pinned ones stay on screen, clickable, after the overlay closes). Open panels, pins and positions are remembered. A pinned floating image drops its frame and lets clicks through; the crosshair is drawn at the middle of the screen (`qs ipc call island toggleCrosshair`), and `qs ipc call island panel <id>` opens or closes any panel, so both can have a key.
 - **Workspace overview** with live window previews: `SUPER + Tab`.
 - **Top bar**: a solid strip the island grows out of, with rounded screen corners. Workspaces with app icons, the focused window, weather, CPU/RAM/GPU rings, tray, network/audio/notifications and the date. Hover a chip for details: graphs, a forecast, volume sliders, a calendar.
 - **App launcher**: a full-screen grid of every app with search, most used first: `SUPER + Space`. Prefixes switch modes: `=` calc, `>` run, `?` web, `:` emoji, `/` files, `@` windows.
 - **Wallpaper picker**: your collection plus wallhaven.cc search; downloads go to `~/Pictures/Wallpapers`, and the choice per screen is remembered: `SUPER + W`.
 - **Theme picker**: cards with the palette of every theme, Enter or a click applies it with `scripts/theme.sh` (see Themes): `SUPER + SHIFT + W`, or `qs ipc call themes set <id>`.
-- **Screens** (island tab, `SUPER + SHIFT + P`): switch each monitor on or off, keep only one, or mirror one on another (for a console or a work pc). It applies live through `hyprctl eval` and `Restore` goes back to `hyprland.lua`; the last screen can't be turned off.
+- **Screens** (overlay panel, `SUPER + SHIFT + P`): switch each monitor on or off, keep only one, or mirror one on another (for a console or a work pc). It applies live through `hyprctl eval` and `Restore` goes back to `hyprland.lua`; the last screen can't be turned off.
 
 Press `SUPER + /` for a searchable list of every keybind.
 

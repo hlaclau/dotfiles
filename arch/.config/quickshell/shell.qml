@@ -6,7 +6,7 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
 
-// Top bar, dynamic island, workspace overview, app launcher, keybind cheatsheet,
+// Top bar, dynamic island with its control center overlay, workspace overview, app launcher, keybind cheatsheet,
 // and wallpaper picker, one of each per screen. Control them with `qs ipc call island <fn>`,
 // `qs ipc call wallpaper <toggle|random|set PATH|search QUERY>`,
 // `qs ipc call themes <toggle|set ID>` and
@@ -27,6 +27,14 @@ ShellRoot {
         model: Quickshell.screens
 
         Island {}
+    }
+
+    // Control center: panels (home, audio, network, ...) over a dimmed screen. Declared after the
+    // islands so it stacks above them.
+    Variants {
+        model: Quickshell.screens
+
+        Overlay {}
     }
 
     property bool overviewOpen: false
@@ -163,15 +171,25 @@ ShellRoot {
         function toggle(): void {
             focusedIsland().toggle();
         }
-        // 0 Home, 1 Audio, 2 Network, 3 Clipboard, 4 Hyprland, 5 Screens
+        // Open the control center on a panel: 0 Home, 1 Audio, 2 Network, 3 Clipboard, 4 Hyprland, 5 Screens
         function openTab(index: int): void {
             focusedIsland().open(true, index);
+        }
+        // Open or close a panel by id (home, audio, network, clipboard, hyprland, screens,
+        // resources, calendar, emoji, music, image, crosshair)
+        function panel(id: string): void {
+            const screen = Hyprland.focusedMonitor?.name;
+            OverlayState.togglePanelOnScreen(id, screen);
         }
         function clipboard(): void {
             focusedIsland().toggleTab(3);
         }
         function record(): void {
             Status.toggleRecording();
+        }
+        // Show or hide the crosshair at the middle of the screen
+        function toggleCrosshair(): void {
+            OverlayState.setCrosshair({ enabled: !OverlayState.crosshair.enabled });
         }
         function toggleDnd(): void {
             Notifs.dnd = !Notifs.dnd;

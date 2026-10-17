@@ -7,48 +7,33 @@ import Quickshell.Wayland
 // The dynamic island for one screen.
 //
 // States, highest priority first:
-//   expanded      control center (hover, click, or SUPER + I)
 //   notification  newest notification pops up for a few seconds
 //   osd           volume changed
 //   collapsed     clock, now playing and status indicators
+// Clicking it (or SUPER + I) opens the control center overlay (Overlay.qml).
 PanelWindow {
     id: island
 
     required property var modelData
     screen: modelData
 
-    // Opened on purpose (click / keybind) rather than by hovering:
-    // it then stays open until Escape, a click outside, or SUPER + I.
-    property bool expanded: false
-    property bool pinned: false
-    property int tab: 0
-
     readonly property bool focusedScreen: Hyprland.focusedMonitor?.name === modelData.name
-    readonly property bool showNotification: !expanded && Notifs.popup !== null && focusedScreen
-    readonly property bool showOsd: !expanded && !showNotification && Status.osd && focusedScreen
+    readonly property bool showNotification: Notifs.popup !== null && focusedScreen
+    readonly property bool showOsd: !showNotification && Status.osd && focusedScreen
     readonly property bool fullscreen: Hyprland.monitorFor(modelData)?.activeWorkspace?.hasFullscreen ?? false
 
+    // The control center lives in the overlay; tabIndex follows OverlayState.panels
     function open(pin, tabIndex) {
-        if (tabIndex !== undefined) tab = tabIndex;
-        expanded = true;
-        pinned = pin;
+        OverlayState.showPanel(OverlayState.panelAt(tabIndex ?? 0), modelData.name);
     }
     function close() {
-        expanded = false;
-        pinned = false;
+        OverlayState.hide();
     }
     function toggle() {
-        if (expanded) close();
-        else open(true, 0);
+        OverlayState.toggle(modelData.name);
     }
     function toggleTab(tabIndex) {
-        if (expanded && tab === tabIndex) close();
-        else open(true, tabIndex);
-    }
-    // Close first so screenshots and pickers don't capture the island
-    function runAndClose(cmd) {
-        close();
-        Status.run("sleep 0.3; " + cmd);
+        OverlayState.togglePanelOnScreen(OverlayState.panelAt(tabIndex), modelData.name);
     }
 
     visible: !fullscreen
@@ -63,49 +48,16 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "island"
-    WlrLayershell.keyboardFocus: expanded && pinned ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
-    // Only the notch takes input, except while expanded where a click anywhere closes it
+    // Only the notch takes input
     mask: Region {
-        item: island.expanded ? backdrop : notch
+        item: notch
     }
 
     SystemClock {
         id: clock
         precision: SystemClock.Seconds
-    }
-
-    // Dim the screen and close on click outside while expanded
-    Rectangle {
-        id: backdrop
-        anchors.fill: parent
-        color: Qt.rgba(0, 0, 0, 0.25)
-        opacity: island.expanded ? 1 : 0
-        visible: opacity > 0
-        Behavior on opacity { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }
-
-        MouseArea {
-            anchors.fill: parent
-            enabled: island.expanded
-            onClicked: island.close()
-        }
-    }
-
-    FocusScope {
-        anchors.fill: parent
-        focus: island.expanded
-        Keys.onEscapePressed: island.close()
-    }
-
-    Timer {
-        id: hoverOpen
-        interval: 200
-        onTriggered: if (!island.expanded && !island.showNotification) island.open(false, 0)
-    }
-    Timer {
-        id: hoverClose
-        interval: 400
-        onTriggered: if (island.expanded && !island.pinned) island.close()
     }
 
     Item {
@@ -118,13 +70,11 @@ PanelWindow {
         anchors.horizontalCenter: parent.horizontalCenter
 
         width: {
-            if (island.expanded) return 560;
             if (island.showNotification) return 460;
             if (island.showOsd) return 340;
             return collapsed.implicitWidth + 2 * (wing + pad);
         }
         height: {
-            if (island.expanded) return Math.min(controlCenter.implicitHeight + 2 * pad, island.height * 0.85);
             if (island.showNotification) return popup.implicitHeight + 2 * pad - 4;
             if (island.showOsd) return Theme.barHeight + 8;
             return Theme.barHeight;
@@ -133,25 +83,9 @@ PanelWindow {
         Behavior on width { NumberAnimation { duration: 260; easing.type: Easing.OutBack; easing.overshoot: 0.8 } }
         Behavior on height { NumberAnimation { duration: 260; easing.type: Easing.OutBack; easing.overshoot: 0.8 } }
 
-        HoverHandler {
-            onHoveredChanged: {
-                if (hovered) {
-                    hoverClose.stop();
-                    hoverOpen.restart();
-                } else {
-                    hoverOpen.stop();
-                    if (island.expanded && !island.pinned) hoverClose.restart();
-                }
-            }
-        }
-
-        // Any click inside keeps it open after the pointer leaves
+        // Click to open the control center
         TapHandler {
-            onTapped: {
-                hoverOpen.stop();
-                if (island.expanded) island.pinned = true;
-                else island.open(true, 0);
-            }
+            onTapped: island.toggle()
         }
 
         Notch {
@@ -159,7 +93,7 @@ PanelWindow {
             wing: notch.wing
             // Wings on the bar's bottom edge once the island reaches below it
             wingTop: Math.max(0, Math.min(Theme.barHeight, notch.height - Theme.barHeight))
-            radius: island.expanded ? 28 : (island.showNotification ? 22 : 16)
+            radius: island.showNotification ? 22 : 16
             Behavior on radius { NumberAnimation { duration: 200 } }
         }
 
@@ -175,7 +109,7 @@ PanelWindow {
                 id: collapsed
                 anchors.centerIn: parent
                 spacing: 12
-                opacity: !island.expanded && !island.showNotification && !island.showOsd ? 1 : 0
+                opacity: !island.showNotification && !island.showOsd ? 1 : 0
                 visible: opacity > 0
                 Behavior on opacity { NumberAnimation { duration: 150 } }
 
@@ -339,20 +273,6 @@ PanelWindow {
                 opacity: island.showNotification ? 1 : 0
                 visible: opacity > 0 && notification !== null
                 Behavior on opacity { NumberAnimation { duration: 150 } }
-            }
-
-            // ---- Expanded control center ----
-            ExpandedView {
-                id: controlCenter
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.margins: notch.pad
-                island: island
-                clock: clock
-                opacity: island.expanded ? 1 : 0
-                visible: opacity > 0
-                Behavior on opacity { NumberAnimation { duration: 180 } }
             }
         }
     }

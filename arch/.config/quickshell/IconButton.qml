@@ -1,6 +1,6 @@
 import QtQuick
 
-// Round icon button. `danger` turns it red (used to confirm reboot/power off).
+// Round icon button. `danger` turns it red (used to confirm reboot/power off), `active` uses the accent.
 Rectangle {
     id: button
 
@@ -8,19 +8,21 @@ Rectangle {
     property int size: 32
     property color iconColor: Theme.text
     property bool danger: false
+    property bool active: false
+    readonly property bool hovered: mouse.containsMouse
     signal clicked
 
     implicitWidth: size
     implicitHeight: size
     radius: size / 2
-    color: danger ? Theme.red : (mouse.containsMouse ? Theme.surface1 : Theme.surface0)
+    color: danger ? Theme.red : (active ? Theme.accent : (hovered ? Theme.surface1 : Theme.surface0))
 
     Behavior on color { ColorAnimation { duration: 120 } }
 
     Text {
         anchors.centerIn: parent
         text: button.icon
-        color: button.danger ? Theme.crust : button.iconColor
+        color: button.danger || button.active ? Theme.crust : button.iconColor
         font.family: Theme.iconFont
         font.pixelSize: button.size * 0.42
     }
