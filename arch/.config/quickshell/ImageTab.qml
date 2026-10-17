@@ -3,13 +3,15 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 
-// An image floating above everything: a reference, a guide, a map. Paste one from the clipboard
+// An image (or an animated gif / webp) floating above everything: a reference, a guide, a map. Paste one from the clipboard
 // (an image, or a path / URL copied as text) or type a path or URL. Pin it and it stays on screen
 // without its frame, letting clicks through; turn the mouse button on in its title bar to move it.
 Item {
     id: tab
 
     readonly property string source: OverlayState.image.source
+    // Image only plays the first frame
+    readonly property bool animated: /\.(gif|webp|apng)([?#].*)?$/i.test(source)
 
     // A path, ~/ path, URL or file:// URL as something Image can load
     function resolve(text) {
@@ -26,11 +28,20 @@ Item {
 
     Image {
         anchors.fill: parent
-        source: tab.source
+        visible: !tab.animated
+        source: tab.animated ? "" : tab.source
         fillMode: Image.PreserveAspectFit
         asynchronous: true
-        // The URL is the cache key; a new paste gets a new file name
         cache: false
+    }
+    AnimatedImage {
+        anchors.fill: parent
+        visible: tab.animated
+        source: tab.animated ? tab.source : ""
+        fillMode: Image.PreserveAspectFit
+        asynchronous: true
+        cache: false
+        playing: visible
     }
 
     Text {
@@ -51,7 +62,9 @@ Item {
             type=$(wl-paste -l 2>/dev/null | grep -m1 '^image/')
             if [ -n "$type" ]; then
                 rm -f "$dir"/pasted-*
-                f="$dir/pasted-$(date +%s%N)"
+                # The extension tells the tab to animate it
+                case "$type" in image/gif) ext=.gif ;; image/webp) ext=.webp ;; *) ext= ;; esac
+                f="$dir/pasted-$(date +%s%N)$ext"
                 wl-paste -t "$type" > "$f" && echo "$f"
             else
                 wl-paste -n 2>/dev/null | head -c 2000
