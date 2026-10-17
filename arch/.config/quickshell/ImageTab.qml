@@ -10,8 +10,24 @@ Item {
     id: tab
 
     readonly property string source: OverlayState.image.source
+    readonly property bool remote: /^https?:\/\//i.test(source)
+    // What the image items load: always a local file, because AnimatedImage crashes quickshell on URLs
+    property string local: ""
     // Image only plays the first frame
-    readonly property bool animated: /\.(gif|webp|apng)([?#].*)?$/i.test(source)
+    readonly property bool animated: /\.(gif|webp|apng)$/i.test(local)
+
+    onSourceChanged: refresh()
+    Component.onCompleted: refresh()
+
+    function refresh() {
+        if (!remote) {
+            local = source;
+            return;
+        }
+        local = "";
+        fetcher.url = source;
+        fetcher.running = true;
+    }
 
     // A path, ~/ path, URL or file:// URL as something Image can load
     function resolve(text) {
@@ -29,7 +45,7 @@ Item {
     Image {
         anchors.fill: parent
         visible: !tab.animated
-        source: tab.animated ? "" : tab.source
+        source: tab.animated ? "" : tab.local
         fillMode: Image.PreserveAspectFit
         asynchronous: true
         cache: false
@@ -37,7 +53,7 @@ Item {
     AnimatedImage {
         anchors.fill: parent
         visible: tab.animated
-        source: tab.animated ? tab.source : ""
+        source: tab.animated ? tab.local : ""
         fillMode: Image.PreserveAspectFit
         asynchronous: true
         cache: false
@@ -51,6 +67,33 @@ Item {
         color: Theme.overlay0
         font.family: Theme.font
         font.pixelSize: 12
+    }
+
+    // Remote images are downloaded once to the cache dir (named after the URL), the extension
+    // coming from the content type so gifs and webps animate
+    Process {
+        id: fetcher
+
+        property string url
+
+        command: ["sh", "-c", `
+            dir="$1"; url="$2"; mkdir -p "$dir"
+            key=$(printf %s "$url" | md5sum | cut -c1-16)
+            f=$(ls "$dir"/remote-$key.* 2>/dev/null | head -1)
+            if [ -z "$f" ]; then
+                tmp="$dir/remote-$key.part"
+                type=$(curl -sfL -m 30 -o "$tmp" -w '%{content_type}' "$url") || { rm -f "$tmp"; exit 1; }
+                case "$type" in image/gif) ext=.gif ;; image/webp) ext=.webp ;; image/png) ext=.png ;; image/jpeg) ext=.jpg ;; *) ext=.img ;; esac
+                f="$dir/remote-$key$ext"
+                mv "$tmp" "$f"
+            fi
+            echo "$f"`, "sh", Quickshell.cachePath("floating-image"), url]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const file = this.text.trim();
+                if (file && tab.remote && fetcher.url === tab.source) tab.local = "file://" + file;
+            }
+        }
     }
 
     // Image from the clipboard goes to the cache dir; anything else is taken as text
