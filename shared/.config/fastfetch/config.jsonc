@@ -65,6 +65,14 @@
             "type": "disk",
             "key": "├─󰋊 ",
             "folders": "/",
+            "format": "/ {1} / {2} ({3})",
+            "keyColor": "38;2;137;180;250"
+        },
+        {
+            "type": "disk",
+            "key": "├─󰋊 ",
+            "folders": "/home",
+            "format": "/home {1} / {2} ({3})",
             "keyColor": "38;2;137;180;250"
         },
         {
