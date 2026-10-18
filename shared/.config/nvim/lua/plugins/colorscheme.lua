@@ -22,6 +22,7 @@ local themes = {
   ["void"] = { "catppuccin/nvim", name = "catppuccin", opts = { flavour = "mocha" }, colorscheme = "catppuccin-mocha" },
   ["one-dark-pro"] = { "olimorris/onedarkpro.nvim", name = "onedarkpro", colorscheme = "onedark" },
   ["magical-girl"] = { "rose-pine/neovim", name = "rose-pine", opts = { variant = "dawn" }, colorscheme = "rose-pine-dawn" },
+  ["blue-hour"] = { "folke/tokyonight.nvim", name = "tokyonight", opts = { style = "storm" }, colorscheme = "tokyonight-storm" },
   ["kanagawa-wave"] = { "rebelot/kanagawa.nvim", name = "kanagawa", opts = { theme = "wave" }, colorscheme = "kanagawa-wave" },
 }
 

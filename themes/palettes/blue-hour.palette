@@ -1,0 +1,31 @@
+# Blue Hour
+name Blue Hour
+variant dark
+accent sapphire
+wallpaper frieren.jpg
+rosewater #f4d6d0
+flamingo #f2b8b4
+pink #e8a0c8
+mauve #a99be8
+red #e87a8c
+maroon #d46a7e
+peach #f0a878
+yellow #efd68a
+green #8fcf9e
+teal #5fd1c4
+sky #7fd0f5
+sapphire #4fb0e8
+blue #5b9cf0
+lavender #a8b8f8
+text #dbe8f5
+subtext1 #bcd0e2
+subtext0 #9fb6cc
+overlay2 #6f8ca8
+overlay1 #56738f
+overlay0 #3f5a7a
+surface2 #2b4562
+surface1 #20354f
+surface0 #172840
+base #0f1b2d
+mantle #0b1523
+crust #08101b

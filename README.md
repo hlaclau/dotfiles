@@ -23,7 +23,7 @@ macOS is the source of truth: when both systems configure the same tool, the mac
 
 ## Themes
 
-`mise run theme` lists the themes and `mise run theme <name>` switches to one: Catppuccin (mocha, latte), Rosé Pine, Gruvbox, Tokyo Night, Nord, Dracula, Everforest, Kanagawa, Ayu Mirage, Poimandres, Osaka Jade, Void, One Dark Pro and Magical Girl (a pastel white theme made for this repo). `mise run stow` applies the current theme (Catppuccin Mocha on a fresh checkout).
+`mise run theme` lists the themes and `mise run theme <name>` switches to one: Catppuccin (mocha, latte), Rosé Pine, Gruvbox, Tokyo Night, Nord, Dracula, Everforest, Kanagawa, Ayu Mirage, Poimandres, Osaka Jade, Void, One Dark Pro, Blue Hour and Magical Girl (a pastel white theme made for this repo). `mise run stow` applies the current theme (Catppuccin Mocha on a fresh checkout).
 
 - `themes/palettes/<name>.palette` holds the colors of a theme, using the Catppuccin slot names (`base`, `text`, `mauve`, ...). quickshell switches to the theme's wallpaper: `themes/wallpapers/<theme>.<ext>` if you put one there, otherwise the file in `wallpapers/` named by the `wallpaper` line of the palette (`THEME_NO_WALLPAPER=1 mise run theme <name>` keeps the current one). To add a theme, copy a palette and change the hex values and the wallpaper.
 - The checked-in configs are Catppuccin Mocha. `scripts/theme.sh` swaps every Mocha color for the same slot of the new palette and writes the result to `~/.config/theme/` (starship, lazygit, fastfetch, fzf, ghostty, nvim palette) or to gitignored files in the config dir of tools that only read their own (bat, btop, yazi). `.zshrc` and the ghostty config pick these up and fall back to Mocha when they are missing.
