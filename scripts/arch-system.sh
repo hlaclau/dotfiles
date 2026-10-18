@@ -11,6 +11,9 @@ sudo pacman -S --needed --noconfirm reflector pacman-contrib zram-generator snap
 
 sudo install -Dm 644 "$DOTFILES/system/reflector/reflector.conf" /etc/xdg/reflector/reflector.conf
 sudo install -Dm 644 "$DOTFILES/system/zram/zram-generator.conf" /etc/systemd/zram-generator.conf
+sudo install -Dm 644 "$DOTFILES/system/udev/71-razer-hidraw.rules" /etc/udev/rules.d/71-razer-hidraw.rules
+sudo udevadm control --reload
+sudo udevadm trigger --subsystem-match=hidraw
 
 # Chrome only reads policies from /etc/opt/chrome and watches the file itself (not a symlink target),
 # so scripts/theme.sh rewrites this file in place; it is owned by the user so that needs no sudo

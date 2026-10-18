@@ -808,6 +808,25 @@ PanelWindow {
             }
         }
 
+        // ---- Mouse battery (only when the mouse reports one) ----
+        BarPill {
+            shown: Battery.mouseShown
+
+            BarItem {
+                id: batteryItem
+                onClicked: Battery.refresh()
+
+                Glyph {
+                    text: Icons.mouse
+                    color: Battery.mouse <= 15 && !Battery.mouseCharging ? Theme.red : Theme.accent
+                }
+                Label {
+                    text: Battery.mouse + "%" + (Battery.mouseCharging ? "+" : "")
+                    color: Battery.mouse <= 15 && !Battery.mouseCharging ? Theme.red : Theme.text
+                }
+            }
+        }
+
         // ---- Package updates (only when there are some) ----
         BarPill {
             shown: Updates.count > 0 || Updates.updating

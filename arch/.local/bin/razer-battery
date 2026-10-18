@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+"""Print the Razer Viper V4 Pro battery as JSON: {"mouse": 62, "charging": false}.
+
+Sends Razer's battery query (class 0x07, ids 0x80 level / 0x84 charging) as a
+90-byte feature report to the device's hidraw nodes; only one interface answers.
+Prints {"mouse": -1, "charging": false} when the mouse is off or missing.
+"""
+import fcntl
+import glob
+import json
+import os
+import time
+
+VID_PID = "00001532:000000E6"
+
+
+def ioctl_code(number, size):
+    return (3 << 30) | (size << 16) | (ord("H") << 8) | number
+
+
+def query(fd, command_id):
+    report = bytearray(91)  # report id + 90 bytes
+    report[2], report[6], report[7], report[8] = 0x1F, 2, 7, command_id
+    for b in report[3:89]:
+        report[89] ^= b
+    fcntl.ioctl(fd, ioctl_code(6, 91), bytes(report))
+    time.sleep(0.03)
+    reply = fcntl.ioctl(fd, ioctl_code(7, 91), bytes(91))
+    # status 2 = success, arguments start at byte 9
+    return reply[10] if reply[1] == 2 else None
+
+
+def read():
+    for node in sorted(glob.glob("/sys/class/hidraw/hidraw*")):
+        try:
+            if VID_PID not in open(node + "/device/uevent").read():
+                continue
+            fd = os.open("/dev/" + os.path.basename(node), os.O_RDWR)
+        except OSError:
+            continue
+        try:
+            level = query(fd, 0x80)
+            if level is not None:
+                return round(level * 100 / 255), bool(query(fd, 0x84))
+        except OSError:
+            pass
+        finally:
+            os.close(fd)
+    return -1, False
+
+
+level, charging = read()
+print(json.dumps({"mouse": level, "charging": charging}))
