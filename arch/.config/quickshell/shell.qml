@@ -6,7 +6,7 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
 
-// Top bar, dynamic island with its control center overlay, workspace overview, app launcher, keybind cheatsheet,
+// Top bar, bottom dock, dynamic island with its control center overlay, workspace overview, app launcher, keybind cheatsheet,
 // and wallpaper picker, one of each per screen. Control them with `qs ipc call island <fn>`,
 // `qs ipc call wallpaper <toggle|random|set PATH|search QUERY>`,
 // `qs ipc call themes <toggle|set ID>` and
@@ -35,6 +35,12 @@ ShellRoot {
         model: Quickshell.screens
 
         Overlay {}
+    }
+
+    Variants {
+        model: Quickshell.screens
+
+        Dock {}
     }
 
     property bool overviewOpen: false

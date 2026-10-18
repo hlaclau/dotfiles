@@ -263,6 +263,19 @@ hl.layer_rule({
 })
 
 hl.layer_rule({
+    name      = "dock-slide",
+    match     = { namespace = "dock" },
+    animation = "slide bottom",
+})
+
+hl.layer_rule({
+    name         = "dock-blur",
+    match        = { namespace = "dock" },
+    blur         = true,
+    ignore_alpha = 0.2,
+})
+
+hl.layer_rule({
     name  = "overlay-blur",
     match = { namespace = "^(overview|launcher|keybinds|wallpaper)$" },
     blur  = true,
