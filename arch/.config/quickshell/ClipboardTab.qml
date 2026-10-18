@@ -15,12 +15,9 @@ ColumnLayout {
         return list.slice(0, 50);
     }
 
-    onVisibleChanged: {
-        if (visible) {
-            search.text = "";
-            Clipboard.refresh();
-            search.forceActiveFocus();
-        }
+    Component.onCompleted: {
+        Clipboard.refresh();
+        search.forceActiveFocus();
     }
 
     RowLayout {
