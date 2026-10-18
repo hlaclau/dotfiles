@@ -237,6 +237,8 @@ hl.window_rule({ name = "orca-ws",    match = { class = "^(orca)$" },           
 hl.window_rule({ name = "spotify-ws", match = { class = "^(Spotify)$" },           workspace = "8" })
 hl.window_rule({ name = "discord-ws", match = { class = "^(discord|vesktop)$" },   workspace = "9" })
 
+hl.window_rule({ name = "t3code-translucent", match = { class = "^(com\\.t3tools\\.T3Code)$" }, opacity = "0.85 0.85" })
+
 -- CS2 always opens fullscreen
 hl.window_rule({ name = "cs2-fullscreen", match = { class = "^(cs2)$" }, fullscreen = true })
 
