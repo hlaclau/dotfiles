@@ -1,7 +1,5 @@
-cursor-bin
 google-chrome
 nerd-fonts-sf-mono
-orca-ide-bin
 spicetify-cli
 ttf-ms-fonts
 yay-bin
