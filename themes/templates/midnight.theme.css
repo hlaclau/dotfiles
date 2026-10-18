@@ -1,36 +1,35 @@
 /**
- * @name system24
- * @description a tui-style discord theme.
+ * @name midnight
+ * @description a dark, customizable discord theme.
  * @author refact0r
- * @version 2.1.0
+ * @version 2.1.1
  * @invite nz87hXyvcy
- * @website https://github.com/refact0r/system24
- * @source https://github.com/refact0r/system24/blob/master/theme/system24.theme.css
+ * @website https://github.com/refact0r/midnight-discord
+ * @source https://github.com/refact0r/midnight-discord/blob/master/themes/midnight.theme.css
  * @authorId 508863359777505290
  * @authorLink https://www.refact0r.dev
  * @donate https://ko-fi.com/refact0r
 */
 
 /* import theme modules */
-@import url('https://refact0r.github.io/system24/build/system24.css');
+@import url('https://refact0r.github.io/midnight-discord/build/midnight.css');
 
 body {
-    /* font, change to '' for default discord font */
-    --font: 'SFMono Nerd Font Mono'; /* change to '' for default discord font */
-    --code-font: 'SFMono Nerd Font Mono'; /* change to '' for default discord font */
-    font-weight: 300; /* text font weight. 300 is light, 400 is normal. DOES NOT AFFECT BOLD TEXT */
-    letter-spacing: -0.05ch; /* decreases letter spacing for better readability. recommended on monospace fonts.*/
+    /* font options */
+    --font: 'figtree'; /* change to '' for default discord font */
+    --code-font: ''; /* change to '' for default discord font */
+    font-weight: 400; /* normal text font weight. DOES NOT AFFECT BOLD TEXT */
 
     /* sizes */
     --gap: 12px; /* spacing between panels */
     --divider-thickness: 4px; /* thickness of unread messages divider and highlighted message borders */
-    --border-thickness: 2px; /* thickness of borders around main panels. DOES NOT AFFECT OTHER BORDERS */
-    --border-hover-transition: 0.2s ease; /* transition for borders when hovered */
+    --border-thickness: 1px; /* thickness of borders around main panels. DOES NOT AFFECT OTHER BORDERS */
 
     /* animation/transition options */
     --animations: on; /* off: disable animations/transitions, on: enable animations/transitions */
     --list-item-transition: 0.2s ease; /* transition for list items */
     --dms-icon-svg-transition: 0.4s ease; /* transition for the dms icon */
+    --border-hover-transition: 0.2s ease; /* transition for borders when hovered */
 
     /* top bar options */
     --top-bar-height: var(--gap); /* height of the top bar (discord default is 36px, old discord style is 24px, var(--gap) recommended if button position is set to titlebar) */
@@ -39,12 +38,12 @@ body {
     --subtle-top-bar-title: off; /* off: default, on: hide the icon and use subtle text color (like old discord) */
 
     /* window controls */
-    --custom-window-controls: off; /* off: default window controls, on: custom window controls */
+    --custom-window-controls: on; /* off: default window controls, on: custom window controls */
     --window-control-size: 14px; /* size of custom window controls */
 
     /* dms button options */
-    --custom-dms-icon: off; /* off: use default discord icon, hide: remove icon entirely, custom: use custom icon */
-    --dms-icon-svg-url: url(''); /* icon svg url. MUST BE A SVG. */
+    --custom-dms-icon: custom; /* off: use default discord icon, hide: remove icon entirely, custom: use custom icon */
+    --dms-icon-svg-url: url('https://refact0r.github.io/midnight-discord/assets/Font_Awesome_5_solid_moon.svg'); /* icon svg url. MUST BE A SVG. */
     --dms-icon-svg-size: 90%; /* size of the svg (css mask-size property) */
     --dms-icon-color-before: var(--icon-subtle); /* normal icon color */
     --dms-icon-color-after: var(--white); /* icon color when button is hovered/selected */
@@ -65,21 +64,30 @@ body {
     --blur-amount: 12px; /* amount of blur */
     --bg-floating: var(--bg-3); /* set this to a more opaque color if floating panels look too transparent. only applies if panel blur is on  */
 
+    /* chatbar options */
+    --custom-chatbar: off; /* off: default chatbar, separated: chatbar separated from chat */
+    --chatbar-height: 47px; /* height of the chatbar (56px by default, 47px to align with user panel, 56px recommended for separated) */
+
     /* other options */
     --small-user-panel: on; /* off: default user panel, on: smaller user panel like in old discord */
+}
 
-    /* unrounding options */
-    --unrounding: on; /* off: default, on: remove rounded corners from panels */
-    --round-pfp: off; /* off: square profile pictures, on: rounded profile pictures (Discord default) */
-    --remove-pfp-decor: off; /* off: default, on: remove profile picture decorations */
-
-    /* styling options */
-    --custom-spotify-bar: on; /* off: default, on: custom text-like spotify progress bar */
-    --ascii-titles: on; /* off: default, on: use ascii font for titles at the start of a channel */
-    --ascii-loader: system24; /* off: default, system24: use system24 ascii loader, cats: use cats loader */
-
-    /* panel labels */
-    --panel-labels: on; /* off: default, on: add labels to panels */
-    --label-color: var(--text-muted); /* color of labels */
-    --label-font-weight: 500; /* font weight of labels */
+/* flat square toggles instead of pills (my tweak, not upstream) */
+[role='switch'],
+.container__3f21e,
+.vc-switch-container {
+    border-radius: 6px !important;
+}
+[role='switch'] *,
+.container__3f21e *,
+.vc-switch-container * {
+    border-radius: 4px !important;
+}
+[role='switch'] svg rect,
+.container__3f21e svg rect {
+    rx: 4px;
+}
+body {
+    --switch-thumb-background-default: var(--text-3);
+    --switch-thumb-background-selected-default: var(--text-0);
 }
