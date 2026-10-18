@@ -266,13 +266,13 @@ EOT
   hyprctl reload > /dev/null 2>&1 || true
 }
 
-# Switch to the theme's wallpaper through quickshell: themes/wallpapers/<theme>.* if there is one,
+# Switch to the theme's wallpaper through quickshell: wallpapers/themes/<theme>.* if there is one,
 # else the `wallpaper` line of the palette (a file in wallpapers/).
 # THEME_NO_WALLPAPER=1 keeps the current one.
 apply_wallpaper() {
   [ -z "${THEME_NO_WALLPAPER:-}" ] && command -v qs > /dev/null 2>&1 || return 0
   wp=""
-  for f in "$DOTFILES/themes/wallpapers/$NAME".*; do
+  for f in "$DOTFILES/wallpapers/themes/$NAME".*; do
     [ -f "$f" ] && wp="$f" && break
   done
   if [ -z "$wp" ]; then
