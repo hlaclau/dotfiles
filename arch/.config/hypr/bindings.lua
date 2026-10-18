@@ -25,7 +25,8 @@ bind("SUPER + SPACE",        hl.dsp.exec_cmd("qs ipc call launcher toggle"), "Ap
 -- Windows
 bind(mainMod .. " + Q",         hl.dsp.window.close(),                     "Close window")
 bind(mainMod .. " + SHIFT + V", hl.dsp.window.float({ action = "toggle" }), "Toggle floating")
-bind(mainMod .. " + P",         hl.dsp.window.pseudo(),                    "Toggle pseudotile")
+bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen(),                "Toggle fullscreen")
+bind(mainMod .. " + P",         hl.dsp.window.pseudo(),                   "Toggle pseudotile")
 bind(mainMod .. " + X",         hl.dsp.layout("togglesplit"),              "Toggle split direction")
 
 -- Move focus with mainMod + hjkl
