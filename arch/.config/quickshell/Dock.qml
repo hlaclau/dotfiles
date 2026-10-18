@@ -21,8 +21,8 @@ PanelWindow {
         .filter(t => t.workspace && t.address)
         .sort((a, b) => a.workspace.id - b.workspace.id)
     readonly property int margin: 10
-    readonly property int iconSize: 64
-    readonly property int pillHeight: 92
+    readonly property int iconSize: 56
+    readonly property int pillHeight: 82
     // Pointer over the trigger strip or the dock itself, held a moment so it doesn't flicker
     property bool hovered: false
     readonly property bool revealed: hovered || hold.running
@@ -45,7 +45,7 @@ PanelWindow {
 
     visible: !fullscreen && windows.length > 0
     color: "transparent"
-    implicitHeight: pillHeight + margin + 90
+    implicitHeight: pillHeight + margin + 80
     exclusiveZone: 0
     mask: Region {
         item: pill
@@ -84,7 +84,7 @@ PanelWindow {
         anchors.bottomMargin: dock.revealed ? dock.margin : -(height + 4)
         implicitWidth: row.implicitWidth + 28
         height: dock.pillHeight
-        radius: 30
+        radius: 28
         color: Qt.alpha(Theme.crust, 0.7)
         border.width: 1
         border.color: Theme.surface0
@@ -103,7 +103,7 @@ PanelWindow {
         RowLayout {
             id: row
             anchors.centerIn: parent
-            spacing: 10
+            spacing: 9
 
             Repeater {
                 model: dock.windows
@@ -118,7 +118,7 @@ PanelWindow {
                     // Swell towards the pointer
                     readonly property real centerX: x + width / 2 + row.x
                     readonly property real swell: pillHover.hovered
-                        ? 1 + 0.55 * Math.exp(-Math.pow((pillHover.point.position.x - centerX) / 72, 2)) : 1
+                        ? 1 + 0.55 * Math.exp(-Math.pow((pillHover.point.position.x - centerX) / 66, 2)) : 1
 
                     Layout.preferredWidth: dock.iconSize
                     Layout.preferredHeight: dock.iconSize
@@ -132,7 +132,7 @@ PanelWindow {
 
                         Rectangle {
                             anchors.fill: parent
-                            radius: 16
+                            radius: 15
                             color: entry.active ? Qt.alpha(Theme.accent, 0.2) : Theme.surface0
                             border.width: entry.active ? 1 : 0
                             border.color: Qt.alpha(Theme.accent, 0.45)
@@ -142,7 +142,7 @@ PanelWindow {
 
                         IconImage {
                             anchors.centerIn: parent
-                            implicitSize: 50
+                            implicitSize: 44
                             source: Quickshell.iconPath(DesktopEntries.heuristicLookup(entry.app)?.icon ?? entry.app.toLowerCase(), "application-x-executable")
                             asynchronous: true
                         }
