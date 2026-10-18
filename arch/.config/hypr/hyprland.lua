@@ -16,7 +16,7 @@ end
 -- Left monitor (BenQ ZOWIE 1080p)
 hl.monitor({
     output   = "desc:BNQ ZOWIE XL LCD EBACN01401SL0",
-    mode     = "1920x1080@120",
+    mode     = "1920x1080@239.96",
     position = "0x0",
     scale    = 1,
 })
@@ -52,7 +52,7 @@ hl.on("hyprland.start", function()
     -- Quickshell runs as a systemd user service so it restarts if it crashes.
     -- It, and the apps it launches through uwsm, need the variables set by
     -- hl.env above, which systemd doesn't see.
-    hl.exec_cmd("systemctl --user import-environment TERMINAL BROWSER HYPRSHOT_DIR XCURSOR_THEME XCURSOR_SIZE HYPRCURSOR_SIZE QT_QPA_PLATFORMTHEME"
+    hl.exec_cmd("systemctl --user import-environment TERMINAL BROWSER HYPRSHOT_DIR XCURSOR_THEME XCURSOR_SIZE HYPRCURSOR_SIZE QT_QPA_PLATFORMTHEME _JAVA_AWT_WM_NONREPARENTING"
         .. " && systemctl --user reset-failed quickshell.service; systemctl --user start quickshell.service")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme prefer-dark")
     -- Clipboard history for the island (text and images)
@@ -76,6 +76,8 @@ hl.env("TERMINAL", terminal)
 hl.env("BROWSER", browser)
 -- Qt apps: qt6ct picks the Kvantum Catppuccin theme (arch/.config/qt6ct, Kvantum)
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+-- Java Swing apps (ATLauncher) render empty windows without this
+hl.env("_JAVA_AWT_WM_NONREPARENTING", "1")
 
 
 -----------------------
@@ -234,6 +236,9 @@ hl.window_rule({ name = "browser-ws", match = { class = "^(google-chrome)$" },  
 hl.window_rule({ name = "orca-ws",    match = { class = "^(orca)$" },              workspace = "4" })
 hl.window_rule({ name = "spotify-ws", match = { class = "^(Spotify)$" },           workspace = "8" })
 hl.window_rule({ name = "discord-ws", match = { class = "^(discord|vesktop)$" },   workspace = "9" })
+
+-- CS2 always opens fullscreen
+hl.window_rule({ name = "cs2-fullscreen", match = { class = "^(cs2)$" }, fullscreen = true })
 
 -- Drop-down terminal: the scratch workspace spawns one when opened empty
 hl.workspace_rule({ workspace = "special:scratch", on_created_empty = terminal })
