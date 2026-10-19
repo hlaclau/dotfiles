@@ -18,9 +18,10 @@ Singleton {
     id: root
 
     readonly property string home: Quickshell.env("HOME")
-    // The dotfiles collection, plus downloads (kept out of the repo)
+    // The dotfiles collection (with the per-theme ones), plus downloads (kept out of the repo)
     readonly property string downloadDir: home + "/Pictures/Wallpapers"
-    readonly property var dirs: [home + "/dotfiles/wallpapers", downloadDir]
+    readonly property string themeDir: home + "/dotfiles/wallpapers/themes"
+    readonly property var dirs: [home + "/dotfiles/wallpapers", themeDir, downloadDir]
     readonly property string thumbDir: Quickshell.cachePath("wallpaper-thumbs")
 
     // Absolute paths of every local wallpaper, sorted by name
@@ -184,9 +185,15 @@ Singleton {
         onExited: next()
     }
 
+    // The per-theme wallpapers are what theme.sh switches to, so they stay
+    function deletable(path) {
+        return !path.startsWith(themeDir + "/");
+    }
+
     // Move a local wallpaper to the trash (recoverable), and its thumbnail out
     // of the cache. A screen still showing it keeps it until changed.
     function trash(path) {
+        if (!deletable(path)) return;
         trasher.target = path;
         trasher.command = ["sh", "-c", 'gio trash -- "$1" && rm -f -- "$2"', "sh", path, localThumbs[path] ?? ""];
         trasher.running = true;

@@ -51,6 +51,7 @@ PanelWindow {
     function remove(index) {
         if (online || index < 0 || index >= model.count) return;
         const path = model.get(index).path;
+        if (!Wallpaper.deletable(path)) return;
         if (armed === path) {
             armed = "";
             Wallpaper.trash(path);
@@ -478,7 +479,7 @@ PanelWindow {
 
                         readonly property bool armed: picker.armed !== "" && picker.armed === cell.path
 
-                        visible: !picker.online && (cellMouse.containsMouse || binMouse.containsMouse || armed)
+                        visible: !picker.online && Wallpaper.deletable(cell.path) && (cellMouse.containsMouse || binMouse.containsMouse || armed)
                         anchors.top: parent.top
                         anchors.left: parent.left
                         anchors.margins: 10
