@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Apply the system-level setup for Arch: mirror refresh, zram swap, SSD trim,
-# package cache cleanup, btrfs snapshots of / with snapper and the Chrome theme policy link.
+# package cache cleanup, btrfs snapshots of / with snapper.
 # Copies the files in system/ to /etc and enables the timers. Needs sudo;
 # safe to run again.
 set -euo pipefail
@@ -15,11 +15,8 @@ sudo install -Dm 644 "$DOTFILES/system/udev/71-razer-hidraw.rules" /etc/udev/rul
 sudo udevadm control --reload
 sudo udevadm trigger --subsystem-match=hidraw
 
-# Chrome only reads policies from /etc/opt/chrome and watches the file itself (not a symlink target),
-# so scripts/theme.sh rewrites this file in place; it is owned by the user so that needs no sudo
-sudo install -d /etc/opt/chrome/policies/managed
-sudo rm -f /etc/opt/chrome/policies/managed/theme.json
-sudo install -m 644 -o "$USER" -g "$(id -gn)" /dev/null /etc/opt/chrome/policies/managed/theme.json
+# Remove the Chrome theme policy left by older versions of this script (it makes Chrome show "managed by your organization")
+sudo rm -rf /etc/opt/chrome/policies/managed/theme.json
 THEME_NO_WALLPAPER=1 "$DOTFILES/scripts/theme.sh" apply
 
 sudo systemctl daemon-reload

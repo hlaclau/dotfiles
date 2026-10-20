@@ -148,21 +148,6 @@ write_palette_json() {
   } > "$OUT/palette.json"
 }
 
-# Chrome policy: the base (background) color seeds the browser UI colors, the variant picks dark or light. Chrome only
-# reads policies from /etc/opt/chrome/policies/managed, where
-# scripts/arch-system.sh creates a user-owned theme.json that is rewritten in place (so Chrome's file
-# watcher fires) whenever it is writable
-write_chrome() {
-  cat > "$OUT/chrome-policy.json" <<EOT
-{
-  "BrowserThemeColor": "$(slot base)",
-  "BrowserColorScheme": "$(meta variant)"
-}
-EOT
-  managed=/etc/opt/chrome/policies/managed/theme.json
-  [ -w "$managed" ] && [ ! -L "$managed" ] && cat "$OUT/chrome-policy.json" > "$managed" || true
-}
-
 # Discord (Equicord): the midnight theme (https://github.com/refact0r/midnight-discord) with its colors
 # taken from the palette. The options live in themes/templates/midnight.theme.css; enable
 # "midnight.theme.css" under Equicord's Themes once.
@@ -251,7 +236,6 @@ EOT
   recolor "$kv/catppuccin-mocha-mauve/catppuccin-mocha-mauve.svg" "$kv/theme-current/theme-current.svg"
 
   apply_gtk
-  write_chrome
 
   # On Wayland GTK takes the theme from gsettings first, so point it at Adwaita (apply_gtk's
   # gtk.css recolors it) and keep the icons and light/dark preference in line
