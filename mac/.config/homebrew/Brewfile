@@ -2,6 +2,8 @@ cask_args appdir: "/Applications"
 
 tap "epk/epk"
 
+# Magical shell history with fuzzy search and optional encrypted sync
+brew "atuin"
 # Cross-platform graphical process/system monitor for the terminal
 brew "bottom"
 # System resource monitor with real-time CPU, memory, disk, network, and process stats
@@ -18,7 +20,6 @@ brew "fastfetch"
 brew "fd"
 # Fuzzy finder for command line with advanced search and completion
 brew "fzf"
-brew "atuin"
 # Disk usage analyzer
 brew "gdu"
 # Docker CLI (used with colima instead of Docker Desktop)
