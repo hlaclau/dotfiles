@@ -84,6 +84,9 @@ source $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
 
+# Initialize atuin (history search), after fzf so it owns Ctrl-R
+eval "$(atuin init zsh --disable-up-arrow)"
+
 # Configure fzf search commands
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git "
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -140,7 +143,6 @@ fzf-cd() {
 
 # Utility aliases
 alias cls="clear"
-alias h="history 1 | fzf"
 
 # source zshrc 
 alias reload="source ~/.zshrc"

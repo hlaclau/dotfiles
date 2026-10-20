@@ -18,6 +18,7 @@ brew "fastfetch"
 brew "fd"
 # Fuzzy finder for command line with advanced search and completion
 brew "fzf"
+brew "atuin"
 # Disk usage analyzer
 brew "gdu"
 # Docker CLI (used with colima instead of Docker Desktop)
