@@ -35,6 +35,12 @@ bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }), "Focus right")
 bind(mainMod .. " + K", hl.dsp.focus({ direction = "up" }),    "Focus up")
 bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }),  "Focus down")
 
+-- Move the active window (swap panes) with mainMod + arrows
+bind(mainMod .. " + left",  hl.dsp.window.move({ direction = "left" }),  "Move window left")
+bind(mainMod .. " + right", hl.dsp.window.move({ direction = "right" }), "Move window right")
+bind(mainMod .. " + up",    hl.dsp.window.move({ direction = "up" }),    "Move window up")
+bind(mainMod .. " + down",  hl.dsp.window.move({ direction = "down" }),  "Move window down")
+
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
