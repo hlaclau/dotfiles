@@ -89,6 +89,10 @@ hl.config({
         no_hardware_cursors = true,
     },
 
+    render = {
+        cm_auto_hdr = 0, -- fullscreen video switching the OLED to HDR blacks the screen on NVIDIA
+    },
+
     general = {
         gaps_in  = 5,
         gaps_out = 20,
