@@ -245,7 +245,11 @@ hl.window_rule({ name = "vscode-translucent", match = { class = "^([Cc]ode|com\\
 hl.window_rule({ name = "cs2-fullscreen", match = { class = "^(cs2)$" }, fullscreen = true })
 
 -- Drop-down terminal: the scratch workspace spawns one when opened empty
-hl.workspace_rule({ workspace = "special:scratch", on_created_empty = terminal })
+hl.on("workspace.created", function(ws)
+    if ws.name == "special:scratch" and ws.is_empty then
+        hl.exec_cmd(terminal, { workspace = "special:scratch" })
+    end
+end)
 
 
 ---------------------
