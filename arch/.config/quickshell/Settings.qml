@@ -29,6 +29,9 @@ Singleton {
             property string nightStart: "20:00"
             property string nightEnd: "07:00"
 
+            // Awake timer, in minutes (0 = until switched off)
+            property int caffeineMinutes: 120
+
             property bool noiseSuppression: false
             // Hardware mic the noise filter reads from
             property string noiseMic: ""

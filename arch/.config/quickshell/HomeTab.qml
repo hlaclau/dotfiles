@@ -32,9 +32,12 @@ ColumnLayout {
         Tile {
             Layout.fillWidth: true
             icon: Icons.coffee
-            label: "Awake"
+            label: Status.caffeine && Status.caffeineEnd > 0 ? Status.formatLeft(Status.caffeineLeft) : "Awake"
             active: Status.caffeine
-            onClicked: Status.caffeine = !Status.caffeine
+            onClicked: {
+                if (Status.caffeine) Status.stopCaffeine();
+                else Status.startCaffeine(Settings.values.caffeineMinutes);
+            }
         }
         Tile {
             Layout.fillWidth: true
@@ -70,6 +73,86 @@ ColumnLayout {
             icon: Icons.terminal
             label: "Scratch"
             onClicked: tab.island.runAndClose("hyprctl dispatch 'hl.dsp.workspace.toggle_special(\"scratch\")'")
+        }
+    }
+
+    // ---- Awake timer: how long the Awake tile keeps the PC from idling ----
+    RowLayout {
+        id: awake
+        Layout.fillWidth: true
+        Layout.leftMargin: 2
+        spacing: 10
+
+        readonly property var steps: [30, 60, 120, 240, 360, 480, 600, 720, 1440, 0]
+        readonly property int index: Math.max(0, steps.indexOf(Settings.values.caffeineMinutes))
+
+        function label(min) {
+            if (min === 0) return "No limit";
+            return min < 60 ? min + " min" : (min / 60) + " h";
+        }
+        // Changing it while Awake is on restarts the countdown
+        function set(i) {
+            const min = steps[Math.max(0, Math.min(steps.length - 1, i))];
+            Settings.values.caffeineMinutes = min;
+            if (Status.caffeine) Status.startCaffeine(min);
+        }
+
+        Text {
+            text: Icons.coffee + "  Awake for"
+            color: Theme.subtext0
+            font.family: Theme.iconFont
+            font.pixelSize: 12
+        }
+        Item { Layout.fillWidth: true }
+
+        Rectangle {
+            implicitWidth: 26
+            implicitHeight: 26
+            radius: 13
+            color: minusMouse.containsMouse ? Theme.surface1 : Theme.surface0
+            Text {
+                anchors.centerIn: parent
+                text: "−"
+                color: Theme.text
+                font.family: Theme.font
+                font.pixelSize: 14
+            }
+            MouseArea {
+                id: minusMouse
+                anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: awake.set(awake.index - 1)
+            }
+        }
+        Text {
+            Layout.preferredWidth: 60
+            horizontalAlignment: Text.AlignHCenter
+            text: awake.label(Settings.values.caffeineMinutes)
+            color: Theme.text
+            font.family: Theme.font
+            font.pixelSize: 13
+            font.bold: true
+        }
+        Rectangle {
+            implicitWidth: 26
+            implicitHeight: 26
+            radius: 13
+            color: plusMouse.containsMouse ? Theme.surface1 : Theme.surface0
+            Text {
+                anchors.centerIn: parent
+                text: "+"
+                color: Theme.text
+                font.family: Theme.font
+                font.pixelSize: 14
+            }
+            MouseArea {
+                id: plusMouse
+                anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: awake.set(awake.index + 1)
+            }
         }
     }
 

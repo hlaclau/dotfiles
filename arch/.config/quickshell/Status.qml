@@ -142,6 +142,38 @@ Singleton {
     // ---- Toggles ----
     // Caffeine: block idle (hypridle honours systemd inhibitor locks)
     property bool caffeine: false
+    // When it switches itself off (epoch ms), 0 = never. Set through startCaffeine().
+    property real caffeineEnd: 0
+    property int caffeineLeft: 0   // seconds remaining, 0 when unlimited
+
+    function startCaffeine(minutes) {
+        caffeineEnd = minutes > 0 ? Date.now() + minutes * 60000 : 0;
+        caffeineLeft = minutes * 60;
+        caffeine = true;
+    }
+    function stopCaffeine() {
+        caffeine = false;
+    }
+    onCaffeineChanged: if (!caffeine) { caffeineEnd = 0; caffeineLeft = 0; }
+
+    // "10h 05m" / "42m" / "59s"
+    function formatLeft(sec) {
+        const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60);
+        if (h > 0) return h + "h " + String(m).padStart(2, "0") + "m";
+        if (m > 0) return m + "m";
+        return sec + "s";
+    }
+
+    Timer {
+        interval: 1000
+        repeat: true
+        running: root.caffeine && root.caffeineEnd > 0
+        onTriggered: {
+            const left = Math.ceil((root.caffeineEnd - Date.now()) / 1000);
+            if (left <= 0) root.caffeine = false;
+            else root.caffeineLeft = left;
+        }
+    }
 
     Process {
         running: root.caffeine

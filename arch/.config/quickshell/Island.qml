@@ -193,6 +193,13 @@ PanelWindow {
                         font.pixelSize: 12
                     }
                     Text {
+                        visible: Status.caffeine && Status.caffeineEnd > 0
+                        text: Status.formatLeft(Status.caffeineLeft)
+                        color: Theme.yellow
+                        font.family: Theme.font
+                        font.pixelSize: 11
+                    }
+                    Text {
                         visible: Status.micMuted
                         text: Icons.micSlash
                         color: Theme.red
