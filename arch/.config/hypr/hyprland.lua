@@ -182,7 +182,7 @@ hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "a
 hl.config({
     input = {
         kb_layout  = "us",
-        kb_variant = "intl",
+        kb_variant = "altgr-intl",
         kb_model   = "",
         kb_options = "",
         kb_rules   = "",
