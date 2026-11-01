@@ -236,7 +236,7 @@ PanelWindow {
             readonly property var entry: appId ? DesktopEntries.heuristicLookup(appId) : null
             readonly property string appName: entry?.name ?? appId
             readonly property bool focused: toplevel !== null && toplevel === Hyprland.activeToplevel
-            // The app name is already shown: drop a trailing " - Google Chrome"
+            // The app name is already shown: drop a trailing " — Mozilla Firefox"
             readonly property string title: {
                 const t = toplevel?.title ?? "";
                 const m = t.match(/^(.*\S)\s+[-—–|]\s+([^-—–|]+)$/);

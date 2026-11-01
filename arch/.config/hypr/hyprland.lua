@@ -36,7 +36,7 @@ hl.monitor({
 
 terminal    = "ghostty"
 fileManager = "thunar"
-browser     = "google-chrome-stable"
+browser     = "firefox"
 chat        = "vesktop"
 
 
@@ -236,7 +236,7 @@ hl.window_rule({
 })
 
 -- Pin apps to their own workspace
-hl.window_rule({ name = "browser-ws", match = { class = "^(google-chrome)$" },     workspace = "1" })
+hl.window_rule({ name = "browser-ws", match = { class = "^(firefox)$" },     workspace = "1" })
 hl.window_rule({ name = "orca-ws",    match = { class = "^(orca)$" },              workspace = "4" })
 hl.window_rule({ name = "spotify-ws", match = { class = "^(Spotify)$" },           workspace = "8" })
 hl.window_rule({ name = "discord-ws", match = { class = "^(discord|vesktop)$" },   workspace = "9" })
