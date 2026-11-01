@@ -1030,7 +1030,7 @@ type = "main"
 # Pin apps to their own workspace (window rules from hyprland.lua)
 [[appRules]]
 id = "D11BD81F-A253-434E-B30C-AFAAA6F45692"
-bundleId = "com.google.Chrome"
+bundleId = "org.mozilla.firefox"
 assignToWorkspace = "1"
 minWidth = 500.0
 minHeight = 375.0

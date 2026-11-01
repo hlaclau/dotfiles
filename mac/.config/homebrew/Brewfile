@@ -96,6 +96,8 @@ cask "ghostty"
 # Niri/Hyprland-style tiling window manager for macOS
 cask "omniwm"
 # Markdown-based note-taking and knowledge management
+# Web browser
+cask "firefox"
 cask "obsidian"
 # Spotlight-like productivity tool with extensions
 cask "raycast"
