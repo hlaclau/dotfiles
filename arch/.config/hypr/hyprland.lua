@@ -37,7 +37,7 @@ hl.monitor({
 terminal    = "ghostty"
 fileManager = "thunar"
 browser     = "firefox"
-chat        = "vesktop"
+chat        = "discord"
 
 
 -------------------
